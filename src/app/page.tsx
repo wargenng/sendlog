@@ -1,11 +1,10 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { db } from "~/server/db";
+import { getMyImages } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const posts = await db.query.posts.findMany({
-    orderBy: (model, { desc }) => desc(model.id),
-  });
+  const posts = await getMyImages();
 
   return (
     <main className="">
