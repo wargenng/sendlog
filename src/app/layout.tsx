@@ -6,7 +6,6 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import "~/styles/globals.css";
-import "@uploadthing/react/styles.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
