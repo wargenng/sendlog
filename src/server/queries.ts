@@ -1,30 +1,30 @@
 import "server-only";
 import { db } from "./db";
 import { auth } from "@clerk/nextjs/server";
-import { posts } from "./db/schema";
+import { climbs } from "./db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, and } from "drizzle-orm";
 
-export async function getMyImages() {
+export async function getCurrentUsersClimbs() {
   const user = auth();
 
   if (!user.userId) return [];
 
-  const posts = await db.query.posts.findMany({
+  const climbs = await db.query.climbs.findMany({
     where: (model, { eq }) => eq(model.userId, user.userId),
     orderBy: (model, { desc }) => desc(model.id),
   });
 
-  return posts;
+  return climbs;
 }
 
-export async function deletePost(id: number) {
+export async function deleteClimb(id: number) {
   const user = auth();
   if (!user.userId) return [];
 
   await db
-    .delete(posts)
-    .where(and(eq(posts.id, id), eq(posts.userId, user.userId)));
+    .delete(climbs)
+    .where(and(eq(climbs.id, id), eq(climbs.userId, user.userId)));
 
   revalidatePath("/");
 }

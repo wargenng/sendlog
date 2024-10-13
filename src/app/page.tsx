@@ -1,11 +1,11 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "~/components/ui/button";
 import { db } from "~/server/db";
-import { deletePost, getMyImages } from "~/server/queries";
+import { deleteClimb, getCurrentUsersClimbs } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const posts = await getMyImages();
+  const climbs = await getCurrentUsersClimbs();
 
   return (
     <main className="">
@@ -14,15 +14,14 @@ export default async function HomePage() {
       </SignedOut>
       <SignedIn>
         <div className="flex flex-wrap gap-4">
-          {posts.map((post) => (
-            <div key={post.id}>
-              {post.name}
-              <img src={post.url} className="w-48" />
+          {climbs.map((climb) => (
+            <div key={climb.id}>
+              {climb.name}
               <form
                 action={async () => {
                   "use server";
 
-                  await deletePost(post.id);
+                  await deleteClimb(climb.id);
                 }}
               >
                 <Button type="submit" variant="destructive">
