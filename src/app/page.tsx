@@ -1,32 +1,28 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "~/components/ui/button";
-import { deleteClimb, getCurrentUsersClimbs } from "~/server/queries";
+import { deleteClimb, getCurrentUsersSessions } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const climbs = await getCurrentUsersClimbs();
+  const sessions = await getCurrentUsersSessions();
 
   return (
-    <main className="">
+    <main className="mt-16 p-6">
       <SignedOut>
         <div className="h-full w-full text-2xl">please sign in</div>
       </SignedOut>
       <SignedIn>
         <div className="flex flex-wrap gap-4">
-          {climbs.map((climb) => (
-            <div key={climb.id}>
-              {climb.name}
-              <form
-                action={async () => {
-                  "use server";
-
-                  await deleteClimb(climb.id);
-                }}
-              >
-                <Button type="submit" variant="destructive">
-                  delete
-                </Button>
-              </form>
+          {sessions.map((session) => (
+            <div key={session.id}>
+              <h1>{session.name}</h1>
+              <ul>
+                {session.climbs.map((climb) => (
+                  <li key={climb.id}>
+                    {climb.name} {climb.grade}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
