@@ -1,6 +1,5 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "~/components/ui/button";
-import { db } from "~/server/db";
 import { deleteClimb, getCurrentUsersClimbs } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
