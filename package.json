@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.2",
+    "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@vercel/postgres": "^0.10.0",
@@ -29,7 +30,8 @@
     "react-dom": "^18.3.1",
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.5.3",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.56.10",

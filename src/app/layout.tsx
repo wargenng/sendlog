@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { TopNav } from "./_components/topnav";
+import { BottomNav } from "./_components/bottomnav";
 
 export const metadata: Metadata = {
   title: "sendlog",
@@ -17,9 +18,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${GeistSans.variable} dark`}>
-        <body>
+        <body className="flex flex-col justify-between">
           <TopNav />
           {children}
+          <BottomNav />
         </body>
       </html>
     </ClerkProvider>
