@@ -9,7 +9,7 @@ import { BottomNav } from "./_components/bottomnav";
 export const metadata: Metadata = {
   title: "sendlog",
   description: "a way to document your sends",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.svg" }],
 };
 
 export default function RootLayout({
