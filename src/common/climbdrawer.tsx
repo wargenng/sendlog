@@ -28,6 +28,7 @@ import {
 } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { Textarea } from "~/components/ui/textarea";
 
 export function ClimbDrawer() {
   const router = useRouter();
@@ -42,12 +43,12 @@ export function ClimbDrawer() {
           <Plus className="h-4 w-4" />
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="h-dvh">
         <DrawerHeader className="flex flex-col items-start justify-start">
           <DrawerTitle>Enter a climb</DrawerTitle>
           <DrawerDescription>details for climb go below</DrawerDescription>
         </DrawerHeader>
-        <div className="flex flex-col gap-2 p-4 text-sm">
+        <div className="flex flex-col gap-2 overflow-y-auto p-4 text-sm">
           <div className="space-y-1">
             <p>Name</p>
             <Input
@@ -74,7 +75,7 @@ export function ClimbDrawer() {
           </div>
           <div className="space-y-1">
             <p>Session</p>
-            <Tabs defaultValue="existing" className="w-[400px]">
+            <Tabs defaultValue="existing" className="w-full">
               <TabsList>
                 <TabsTrigger value="existing">Existing Session</TabsTrigger>
                 <TabsTrigger value="create">Create Session</TabsTrigger>
@@ -134,6 +135,10 @@ export function ClimbDrawer() {
               </TabsContent>
             </Tabs>
           </div>
+          <div className="space-y-1">
+            <p>Notes</p>
+            <Textarea />
+          </div>
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
@@ -144,11 +149,15 @@ export function ClimbDrawer() {
                 router.refresh();
               }}
             >
-              <Button type="submit">Submit</Button>
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
             </form>
           </DrawerClose>
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline" className="w-full">
+              Cancel
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
