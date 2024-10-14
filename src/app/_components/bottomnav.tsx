@@ -1,7 +1,5 @@
-"use client";
-
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { ClimbDrawer } from "./climbdrawer";
+import { ClimbDrawer } from "../../common/climbdrawer";
 
 export function BottomNav() {
   return (

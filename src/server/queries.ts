@@ -26,6 +26,18 @@ export async function getCurrentUsersSessions() {
   return sessionsWithClimbs;
 }
 
+export const addClimb = async (name: string, grade: string) => {
+  const user = auth();
+  if (!user.userId) return [];
+
+  await db.insert(climbs).values({
+    userId: user.userId,
+    sessionId: "3", // Replace with the actual session ID
+    name: name,
+    grade: grade,
+  });
+};
+
 export async function deleteClimb(id: number) {
   const user = auth();
   if (!user.userId) return [];
