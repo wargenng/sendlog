@@ -7,23 +7,23 @@ import { TopNav } from "./_components/topnav";
 import { BottomNav } from "./_components/bottomnav";
 
 export const metadata: Metadata = {
-  title: "sendlog",
-  description: "a way to document your sends",
-  icons: [{ rel: "icon", url: "/favicon.svg" }],
+    title: "sendlog",
+    description: "a way to document your sends",
+    icons: [{ rel: "icon", url: "/favicon.svg" }],
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <ClerkProvider>
-      <html lang="en" className={`${GeistSans.variable} dark`}>
-        <body className="flex flex-col justify-between">
-          <TopNav />
-          {children}
-          <BottomNav />
-        </body>
-      </html>
-    </ClerkProvider>
-  );
+    return (
+        <ClerkProvider>
+            <html lang="en" className={`${GeistSans.variable} dark`}>
+                <body className="flex flex-col justify-between">
+                    <TopNav />
+                    {children}
+                    <BottomNav />
+                </body>
+            </html>
+        </ClerkProvider>
+    );
 }
