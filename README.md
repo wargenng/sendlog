@@ -12,7 +12,7 @@
 [ ] - Create a graph of the users sends similar to 8a.nu or Kaya
 [ ] - Rate limit w/ Upstash
 [ ] - Add analytics w/ PostHog
-[ ] - Session page w/ Parallel Routes
+[ ] - Climb page w/ Parallel Routes
 [ ] - After Climb Submission a session will Automatically be Created
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Add in a user profile section for preferences

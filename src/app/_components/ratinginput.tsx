@@ -48,7 +48,7 @@ export function RatingInput({
                                         : index < rating
                                 )
                                     ? "text-primary"
-                                    : "text-gray-500"
+                                    : "text-foreground/50"
                             } text-xl`}
                         >
                             ★
@@ -56,7 +56,7 @@ export function RatingInput({
                     ))}
                 </div>
                 <div className="flex w-4 justify-center">
-                    <span className="text-gray-500">
+                    <span className="text-foreground/50">
                         ({hoverRating !== null ? hoverRating : rating})
                     </span>
                 </div>
