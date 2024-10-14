@@ -147,27 +147,27 @@ export function ClimbDrawer() {
             <p>Notes</p>
             <Textarea className="text-base" />
           </div>
-        </div>
-        <DrawerFooter>
-          <DrawerClose asChild>
-            <form
-              action={async () => {
-                await addClimb(name, grade);
+          <div className="mt-4 space-y-2">
+            <DrawerClose asChild>
+              <form
+                action={async () => {
+                  await addClimb(name, grade);
 
-                router.refresh();
-              }}
-            >
-              <Button type="submit" className="w-full">
-                Submit
+                  router.refresh();
+                }}
+              >
+                <Button type="submit" className="w-full">
+                  Submit
+                </Button>
+              </form>
+            </DrawerClose>
+            <DrawerClose asChild>
+              <Button variant="outline" className="w-full">
+                Cancel
               </Button>
-            </form>
-          </DrawerClose>
-          <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
-              Cancel
-            </Button>
-          </DrawerClose>
-        </DrawerFooter>
+            </DrawerClose>
+          </div>
+        </div>
       </DrawerContent>
     </Drawer>
   );
