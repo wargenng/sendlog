@@ -75,7 +75,7 @@ export function ClimbDrawer() {
               />
             </div>
           </div>
-          <div className="space-y-1">
+          {/* <div className="space-y-1">
             <p>Session</p>
             <Tabs defaultValue="existing" className="w-full">
               <TabsList>
@@ -142,7 +142,7 @@ export function ClimbDrawer() {
                 </Card>
               </TabsContent>
             </Tabs>
-          </div>
+          </div> */}
           <div className="space-y-1">
             <p>Notes</p>
             <Textarea className="text-base" />

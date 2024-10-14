@@ -16,7 +16,7 @@ export const climbs = createTable("climb", {
   personalGrade: varchar("personal_grade", { length: 10 }),
   attempts: integer("attempts"),
   userId: varchar("userId", { length: 256 }).notNull(),
-  sessionId: varchar("sessionId", { length: 256 }).notNull(),
+  sessionId: varchar("sessionId", { length: 256 }),
   createdAt: timestamp("created_at", { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

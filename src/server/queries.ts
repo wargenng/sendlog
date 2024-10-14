@@ -5,6 +5,18 @@ import { climbs } from "./db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, and } from "drizzle-orm";
 
+export async function getCurrentUsersClimbs() {
+  const user = auth();
+  if (!user.userId) return [];
+
+  const climbs = await db.query.climbs.findMany({
+    where: (model, { eq }) => eq(model.userId, user.userId),
+    orderBy: (model, { desc }) => desc(model.id),
+  });
+
+  return climbs;
+}
+
 export async function getCurrentUsersSessions() {
   const user = auth();
   if (!user.userId) return [];
@@ -32,7 +44,6 @@ export const addClimb = async (name: string, grade: string) => {
 
   await db.insert(climbs).values({
     userId: user.userId,
-    sessionId: "3", // Replace with the actual session ID
     name: name,
     grade: grade,
   });
