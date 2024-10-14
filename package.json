@@ -9,7 +9,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo --hostname 192.168.0.30",
     "lint": "next lint",
     "start": "next start"
   },

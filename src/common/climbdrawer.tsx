@@ -56,6 +56,7 @@ export function ClimbDrawer() {
               placeholder="Enter name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="text-base"
             />
           </div>
           <div className="flex gap-2">
@@ -70,6 +71,7 @@ export function ClimbDrawer() {
                 placeholder="Enter attempts"
                 value={attempts}
                 onChange={(e) => setAttempts(Number(e.target.value))}
+                className="text-base"
               />
             </div>
           </div>
@@ -91,7 +93,11 @@ export function ClimbDrawer() {
                   <CardContent className="space-y-2">
                     <div className="space-y-1">
                       <Label htmlFor="name">Enter Session Name</Label>
-                      <Input id="name" defaultValue="Session 1" />
+                      <Input
+                        id="name"
+                        defaultValue="Session 1"
+                        className="text-base"
+                      />
                     </div>
                   </CardContent>
                 </Card>
@@ -107,7 +113,7 @@ export function ClimbDrawer() {
                   <CardContent className="space-y-2">
                     <div className="space-y-1">
                       <Label htmlFor="current">Enter Session Name</Label>
-                      <Input id="current" type="text" />
+                      <Input id="current" type="text" className="text-base" />
                     </div>
                     <div className="space-y-1">
                       <Label htmlFor="location">Enter Location</Label>
@@ -115,6 +121,7 @@ export function ClimbDrawer() {
                         id="location"
                         type="text"
                         placeholder="Optional..."
+                        className="text-base"
                       />
                     </div>
                     <div className="space-y-1">
@@ -123,6 +130,7 @@ export function ClimbDrawer() {
                         id="location"
                         type="text"
                         placeholder="Optional..."
+                        className="text-base"
                       />
                     </div>
                   </CardContent>
@@ -137,7 +145,7 @@ export function ClimbDrawer() {
           </div>
           <div className="space-y-1">
             <p>Notes</p>
-            <Textarea />
+            <Textarea className="text-base" />
           </div>
         </div>
         <DrawerFooter>

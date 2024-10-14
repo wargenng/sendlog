@@ -43,7 +43,7 @@ export function GradeCombobox({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="overflow-y-auto">
         <Command>
-          <CommandInput placeholder="Search grade..." />
+          <CommandInput placeholder="Search grade..." className="text-base" />
           <CommandList>
             <CommandEmpty>No grade found.</CommandEmpty>
             <CommandGroup>
