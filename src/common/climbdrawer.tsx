@@ -18,11 +18,22 @@ import { GradeCombobox } from "../app/_components/gradecombobox";
 import { Input } from "~/components/ui/input";
 import { addClimb } from "~/app/api/addClimb";
 import { useRouter } from "next/navigation";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
+import { Label } from "~/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
 export function ClimbDrawer() {
   const router = useRouter();
   const [grade, setGrade] = useState("V4");
   const [name, setName] = useState("Jones'n");
+  const [attempts, setAttempts] = useState(1);
 
   return (
     <Drawer>
@@ -32,15 +43,13 @@ export function ClimbDrawer() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="flex flex-col items-start justify-start">
           <DrawerTitle>Enter a climb</DrawerTitle>
+          <DrawerDescription>details for climb go below</DrawerDescription>
         </DrawerHeader>
-        <DrawerDescription className="flex w-full justify-center">
-          details for climb go below
-        </DrawerDescription>
-        <div className="p-4">
-          <div>
-            <p>name</p>
+        <div className="flex flex-col gap-2 p-4 text-sm">
+          <div className="space-y-1">
+            <p>Name</p>
             <Input
               type="text"
               placeholder="Enter name"
@@ -48,9 +57,82 @@ export function ClimbDrawer() {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div>
-            <p>grade</p>
-            <GradeCombobox />
+          <div className="flex gap-2">
+            <div className="w-1/2 space-y-1">
+              <p>Grade</p>
+              <GradeCombobox grade={grade} setGrade={setGrade} />
+            </div>
+            <div className="w-1/2 space-y-1">
+              <p>Attempts</p>
+              <Input
+                type="number"
+                placeholder="Enter attempts"
+                value={attempts}
+                onChange={(e) => setAttempts(Number(e.target.value))}
+              />
+            </div>
+          </div>
+          <div className="space-y-1">
+            <p>Session</p>
+            <Tabs defaultValue="existing" className="w-[400px]">
+              <TabsList>
+                <TabsTrigger value="existing">Existing Session</TabsTrigger>
+                <TabsTrigger value="create">Create Session</TabsTrigger>
+              </TabsList>
+              <TabsContent value="existing">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Existing Session</CardTitle>
+                    <CardDescription>
+                      Add climb to an existing session.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="name">Enter Session Name</Label>
+                      <Input id="name" defaultValue="Session 1" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="create">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Create Session</CardTitle>
+                    <CardDescription>
+                      Create a new session to add the climb to.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                      <Label htmlFor="current">Enter Session Name</Label>
+                      <Input id="current" type="text" />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="location">Enter Location</Label>
+                      <Input
+                        id="location"
+                        type="text"
+                        placeholder="Optional..."
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor="location">Enter Type</Label>
+                      <Input
+                        id="location"
+                        type="text"
+                        placeholder="Optional..."
+                      />
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button type="submit" variant="secondary">
+                      Create Session
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
         <DrawerFooter>

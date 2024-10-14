@@ -1,6 +1,5 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { Button } from "~/components/ui/button";
-import { deleteClimb, getCurrentUsersSessions } from "~/server/queries";
+import { getCurrentUsersSessions } from "~/server/queries";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
@@ -16,7 +15,7 @@ export default async function HomePage() {
           {sessions.map((session) => (
             <div key={session.id}>
               <h1>{session.name}</h1>
-              <ul>
+              <ul className="flex flex-wrap gap-x-1">
                 {session.climbs.map((climb) => (
                   <li key={climb.id}>
                     {climb.name} {climb.grade}

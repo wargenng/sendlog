@@ -4,7 +4,7 @@
 
 [x] - Add in Mock UI
 [x] - Add temp logo
-[ ] - Allow users to enter their climbs
+[x] - Allow users to enter their climbs
 [ ] - After Climb Submission a session will Automatically be Created
 [ ] - Allow users to edits climb information
 [ ] - Make users profile public and viewable to other people

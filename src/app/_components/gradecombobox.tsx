@@ -8,62 +8,67 @@ import {
   CommandItem,
   CommandList,
 } from "~/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
 import { grades } from "../utils/grades";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from "~/components/ui/dropdown-menu";
 
-export function GradeCombobox() {
+export function GradeCombobox({
+  grade,
+  setGrade,
+}: {
+  grade: string;
+  setGrade: (grade: string) => void;
+}) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-full justify-between"
         >
-          {value
-            ? grades.find((grade) => grade.value === value)?.label
+          {grade
+            ? grades.find((g) => g.value === grade)?.label
             : "Select grade..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="overflow-y-auto">
         <Command>
           <CommandInput placeholder="Search grade..." />
           <CommandList>
             <CommandEmpty>No grade found.</CommandEmpty>
             <CommandGroup>
-              {grades.map((grade) => (
+              {grades.map((g) => (
                 <CommandItem
-                  key={grade.value}
-                  value={grade.value.toString()}
+                  key={g.value}
+                  value={g.value.toString()}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    setGrade(currentValue === grade ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === grade.value ? "opacity-100" : "opacity-0",
+                      grade === g.value ? "opacity-100" : "opacity-0",
                     )}
                   />
-                  {grade.label}
+                  {g.label}
                 </CommandItem>
               ))}
             </CommandGroup>
           </CommandList>
         </Command>
-      </PopoverContent>
-    </Popover>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
