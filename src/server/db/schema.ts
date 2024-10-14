@@ -13,8 +13,9 @@ export const climbs = createTable("climb", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }),
   grade: varchar("grade", { length: 10 }),
-  personalGrade: varchar("personal_grade", { length: 10 }),
   attempts: integer("attempts"),
+  rating: integer("rating"),
+  notes: varchar("notes", { length: 256 }),
   userId: varchar("userId", { length: 256 }).notNull(),
   sessionId: varchar("sessionId", { length: 256 }),
   createdAt: timestamp("created_at", { withTimezone: true })

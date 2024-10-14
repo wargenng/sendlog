@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { ClimbDrawer } from "../../common/climbdrawer";
+import { ClimbDrawer } from "./climbdrawer";
 
 export function BottomNav() {
   return (
