@@ -5,6 +5,7 @@ import {
     serial,
     timestamp,
     varchar,
+    boolean,
 } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name) => `sendlog_${name}`);
@@ -15,7 +16,13 @@ export const climbs = createTable("climb", {
     grade: varchar("grade", { length: 10 }),
     attempts: integer("attempts"),
     rating: integer("rating"),
+    location: integer("location"),
     notes: varchar("notes", { length: 256 }),
+    sendDate: timestamp("sent_on", { withTimezone: true }).default(
+        sql`CURRENT_TIMESTAMP`,
+    ),
+    isRepeat: boolean("is_repeat"),
+    isSend: boolean("is_send"),
     userId: varchar("userId", { length: 256 }).notNull(),
     sessionId: varchar("sessionId", { length: 256 }),
     createdAt: timestamp("created_at", { withTimezone: true })

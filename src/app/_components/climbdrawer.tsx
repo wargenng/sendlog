@@ -19,6 +19,7 @@ import { addClimb } from "~/app/api/addClimb";
 import { useRouter } from "next/navigation";
 import { Textarea } from "~/components/ui/textarea";
 import { RatingInput } from "./ratinginput";
+import { LocationsCombobox } from "./locationscombobox";
 
 export function ClimbDrawer() {
     const router = useRouter();
@@ -26,6 +27,7 @@ export function ClimbDrawer() {
     const [name, setName] = useState("");
     const [attempts, setAttempts] = useState(0);
     const [rating, setRating] = useState(0);
+    const [location, setLocation] = useState(0);
     const [notes, setNotes] = useState("");
 
     return (
@@ -75,7 +77,16 @@ export function ClimbDrawer() {
                             />
                         </div>
                     </div>
-                    <RatingInput rating={rating} setRating={setRating} />
+                    <div className="flex gap-2">
+                        <RatingInput rating={rating} setRating={setRating} />
+                        <div className="w-3/5 space-y-1">
+                            <p>Location</p>
+                            <LocationsCombobox
+                                location={location}
+                                setLocation={setLocation}
+                            />
+                        </div>
+                    </div>
                     <div className="space-y-1">
                         <p>Notes</p>
                         <Textarea
@@ -94,6 +105,7 @@ export function ClimbDrawer() {
                                         attempts,
                                         rating,
                                         notes,
+                                        location,
                                     );
 
                                     router.refresh();

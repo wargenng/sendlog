@@ -10,6 +10,7 @@ export const addClimb = async (
     attempts: number,
     rating: number,
     notes: string,
+    location: number,
 ) => {
     console.log(`adding climb ${name} ${grade}`);
     const user = auth();
@@ -22,5 +23,6 @@ export const addClimb = async (
         attempts: attempts,
         rating: rating,
         notes: notes,
+        location: location,
     });
 };

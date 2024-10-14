@@ -1,0 +1,42 @@
+export const locations = [
+    {
+        id: 1,
+        label: "The Pad Henderson",
+        location: "Henderson",
+        country: "USA",
+        state: "NV",
+        type: "Indoors",
+    },
+    {
+        id: 2,
+        label: "Refuge Climbing & Fitness",
+        location: "Las Vegas",
+        country: "USA",
+        state: "NV",
+        type: "Indoors",
+    },
+    {
+        id: 3,
+        label: "Red Rock Climbing Center",
+        location: "Las Vegas",
+        country: "USA",
+        state: "NV",
+        type: "Indoors",
+    },
+    {
+        id: 4,
+        label: "Kraft Boulders",
+        location: "Red Rock Canyon",
+        country: "USA",
+        state: "NV",
+        type: "Outdoors",
+    },
+    {
+        id: 5,
+        label: "Red Springs",
+        location: "Red Rock Canyon",
+        country: "USA",
+        state: "NV",
+        type: "Outdoors",
+    },
+];

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export function RatingInput({
     rating,
     setRating,
@@ -6,28 +8,57 @@ export function RatingInput({
     setRating: (rating: number) => void;
 }) {
     const stars = 5;
+    const [hoverRating, setHoverRating] = useState<number | null>(null);
+
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+        const { left, width } = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - left;
+        let newRating = Math.ceil((x / width) * stars);
+        newRating = Math.max(0, Math.min(newRating, stars)); // Ensure rating is between 0 and 5
+        setHoverRating(newRating);
+    };
+
+    const handlePointerLeave = () => {
+        setHoverRating(null);
+    };
+
+    const handlePointerUp = () => {
+        if (hoverRating !== null) {
+            setRating(hoverRating);
+        }
+    };
 
     return (
         <div className="space-y-1">
             <p>Rating</p>
-            <div className="inline-flex items-center gap-2 rounded-lg border p-2">
+            <div
+                className="inline-flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border px-3 py-[.3rem]"
+                onPointerMove={handlePointerMove}
+                onPointerLeave={handlePointerLeave}
+                onPointerUp={handlePointerUp}
+            >
                 <div className="flex gap-1">
                     {[...Array(stars)].map((_, index) => (
-                        <button
+                        <span
                             key={index}
-                            onClick={() => setRating(index + 1)}
                             className={`${
-                                index < rating
+                                (
+                                    hoverRating !== null
+                                        ? index < hoverRating
+                                        : index < rating
+                                )
                                     ? "text-primary"
                                     : "text-gray-500"
-                            } text-2xl`}
+                            } text-xl`}
                         >
                             ★
-                        </button>
+                        </span>
                     ))}
                 </div>
                 <div className="flex w-4 justify-center">
-                    <span className="text-gray-500">({rating})</span>
+                    <span className="text-gray-500">
+                        ({hoverRating !== null ? hoverRating : rating})
+                    </span>
                 </div>
             </div>
         </div>
