@@ -18,18 +18,25 @@ import { Input } from "~/components/ui/input";
 import { addClimb } from "~/app/api/addClimb";
 import { useRouter } from "next/navigation";
 import { Textarea } from "~/components/ui/textarea";
+import { RatingInput } from "./ratinginput";
 
 export function ClimbDrawer() {
     const router = useRouter();
     const [grade, setGrade] = useState("");
     const [name, setName] = useState("");
-    const [attempts, setAttempts] = useState(1);
+    const [attempts, setAttempts] = useState(0);
+    const [rating, setRating] = useState(0);
+    const [notes, setNotes] = useState("");
 
     return (
         <Drawer>
             <DrawerTrigger asChild>
-                <Button variant="outline" size="icon" className="rounded-full">
-                    <Plus className="h-4 w-4" />
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="rounded-full p-2"
+                >
+                    <Plus className="h-6 w-6" />
                 </Button>
             </DrawerTrigger>
             <DrawerContent className="h-dvh">
@@ -60,7 +67,7 @@ export function ClimbDrawer() {
                             <Input
                                 type="number"
                                 placeholder="Enter attempts"
-                                value={attempts}
+                                value={attempts ? attempts : "-"}
                                 onChange={(e) =>
                                     setAttempts(Number(e.target.value))
                                 }
@@ -68,15 +75,26 @@ export function ClimbDrawer() {
                             />
                         </div>
                     </div>
+                    <RatingInput rating={rating} setRating={setRating} />
                     <div className="space-y-1">
                         <p>Notes</p>
-                        <Textarea className="text-base" />
+                        <Textarea
+                            className="text-base"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                        />
                     </div>
                     <div className="mt-4 space-y-2">
                         <DrawerClose asChild>
                             <form
                                 action={async () => {
-                                    await addClimb(name, grade);
+                                    await addClimb(
+                                        name,
+                                        grade,
+                                        attempts,
+                                        rating,
+                                        notes,
+                                    );
 
                                     router.refresh();
                                 }}
