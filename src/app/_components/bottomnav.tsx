@@ -18,7 +18,7 @@ export function BottomNav() {
                     <div className="flex w-full justify-around gap-2">
                         <Link
                             href="/"
-                            className={`flex flex-col items-center space-y-1 ${currentPath === "/" ? "brightness-100" : "brightness-50"}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/" ? "brightness-100" : "brightness-50"}`}
                         >
                             <DashboardIcon />
                             <span className="text-xs font-normal">
@@ -27,7 +27,7 @@ export function BottomNav() {
                         </Link>
                         <Link
                             href="/friends"
-                            className={`flex flex-col items-center space-y-1 ${currentPath === "/friends" ? "brightness-100" : "brightness-50"}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/friends" ? "brightness-100" : "brightness-50"}`}
                         >
                             <FriendsIcon />
                             <span className="text-xs font-normal">Friends</span>
@@ -35,14 +35,14 @@ export function BottomNav() {
                         <ClimbDrawer />
                         <Link
                             href="/goals"
-                            className={`flex flex-col items-center space-y-1 ${currentPath === "/goals" ? "brightness-100" : "brightness-50"}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/goals" ? "brightness-100" : "brightness-50"}`}
                         >
                             <GoalIcon />
                             <span className="text-xs font-normal">Goals</span>
                         </Link>
                         <Link
                             href="/more"
-                            className={`flex flex-col items-center space-y-1 ${currentPath === "/more" ? "brightness-100" : "brightness-50"}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/more" ? "brightness-100" : "brightness-50"}`}
                         >
                             <MoreIcon />
                             <span className="text-xs font-normal">More</span>

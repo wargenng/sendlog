@@ -32,11 +32,11 @@ export function ClimbDrawer() {
 
     return (
         <Drawer>
-            <DrawerTrigger asChild>
+            <DrawerTrigger asChild className="w-1/5">
                 <Button
                     variant="secondary"
                     size="icon"
-                    className="rounded-full bg-primary p-2"
+                    className="h-10 w-10 rounded-full bg-primary"
                 >
                     <Plus className="h-6 w-6" />
                 </Button>
