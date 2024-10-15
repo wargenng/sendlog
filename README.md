@@ -16,8 +16,8 @@
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Add in a user profile section for preferences
 [ ] - Redesign home screen
-[ ] - Convert to PWA
-[ ] - Make the create climb for come up when editing climb
+[x] - Convert to PWA
+[ ] - Make the create climb form come up when editing climb
 [ ] - Add users to database
 [ ] - Add in light mode and dark mode colors
 [ ] - Choose better colors

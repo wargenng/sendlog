@@ -15,7 +15,7 @@ export function BottomNav() {
                     <SignInButton />
                 </SignedOut>
                 <SignedIn>
-                    <div className="flex w-full justify-around gap-2">
+                    <div className="flex w-full justify-around gap-2 pb-4">
                         <Link
                             href="/"
                             className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/" ? "brightness-100" : "brightness-50"}`}

@@ -34,7 +34,7 @@ export function ClimbDrawer() {
         <Drawer>
             <DrawerTrigger asChild className="w-1/5">
                 <Button
-                    variant="secondary"
+                    variant="default"
                     size="icon"
                     className="h-10 w-10 rounded-full bg-primary"
                 >
@@ -111,7 +111,10 @@ export function ClimbDrawer() {
                                     router.refresh();
                                 }}
                             >
-                                <Button type="submit" className="w-full">
+                                <Button
+                                    type="submit"
+                                    className="w-full text-foreground"
+                                >
                                     Submit
                                 </Button>
                             </form>
