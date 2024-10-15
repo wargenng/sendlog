@@ -19,8 +19,9 @@ export async function RecentClimbs() {
                         location={climb.location ?? -1}
                         attempts={climb.attempts ?? 0}
                         notes={climb.notes ?? ""}
+                        key={climb.id}
                     >
-                        <div key={climb.id} className="border-b">
+                        <div className="border-b">
                             <h1>
                                 {climb.name} {climb.grade}
                             </h1>
