@@ -1,7 +1,8 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
 import { climbs } from "~/server/db/schema";
 
@@ -26,6 +27,8 @@ export const addClimb = async (
         notes: notes,
         location: location,
     });
+
+    revalidatePath("/");
 };
 
 export const editClimb = async (
@@ -51,4 +54,17 @@ export const editClimb = async (
             location: location,
         })
         .where(eq(climbs.id, id));
+
+    revalidatePath("/");
 };
+
+export async function deleteClimb(id: number) {
+    const user = auth();
+    if (!user.userId) return [];
+
+    await db
+        .delete(climbs)
+        .where(and(eq(climbs.id, id), eq(climbs.userId, user.userId)));
+
+    revalidatePath("/");
+}

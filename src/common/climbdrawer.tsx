@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { Textarea } from "~/components/ui/textarea";
 import { RatingInput } from "../app/_components/ratinginput";
 import { LocationsCombobox } from "../app/_components/locationscombobox";
+import { deleteClimb } from "~/app/api/climbActions";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
@@ -51,9 +52,13 @@ export function ClimbDrawer({
     const [rating, setRating] = useState(initialRating || 0);
     const [location, setLocation] = useState(initialLocation || 0);
     const [notes, setNotes] = useState(initialNotes || "");
+    const [open, setOpen] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
+    const [isModifying, setIsModifying] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     return (
-        <Drawer>
+        <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-dvh">
                 <DrawerHeader className="flex flex-col items-start justify-start">
@@ -66,7 +71,11 @@ export function ClimbDrawer({
                             : "Details for climb go below"}
                     </DrawerDescription>
                 </DrawerHeader>
-                <div className="flex flex-col gap-2 overflow-y-auto p-4 text-sm">
+                <div
+                    className={`flex flex-col gap-2 overflow-y-auto p-4 text-sm ${
+                        isUploading ? "pointer-events-none brightness-50" : ""
+                    }`}
+                >
                     <div className="space-y-1">
                         <p>Name</p>
                         <Input
@@ -114,41 +123,75 @@ export function ClimbDrawer({
                         />
                     </div>
                     <div className="mt-4 space-y-2">
-                        <DrawerClose asChild>
+                        <form
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                setIsModifying(true);
+                                setIsUploading(true);
+                                console.log("submitting form");
+                                if (isEdit) {
+                                    await editClimb(
+                                        climbId,
+                                        name,
+                                        grade,
+                                        attempts,
+                                        rating,
+                                        notes,
+                                        location,
+                                    );
+                                } else {
+                                    await addClimb(
+                                        name,
+                                        grade,
+                                        attempts,
+                                        rating,
+                                        notes,
+                                        location,
+                                    );
+                                }
+                                console.log("submitted form");
+                                router.refresh();
+                                setIsModifying(false);
+                                setIsUploading(false);
+                                setOpen(false);
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                className="w-full items-center text-foreground"
+                            >
+                                {isModifying ? (
+                                    <Loading />
+                                ) : isEdit ? (
+                                    "Save Changes"
+                                ) : (
+                                    "Submit"
+                                )}
+                            </Button>
+                        </form>
+                        {isEdit && (
                             <form
-                                action={async () => {
-                                    if (isEdit) {
-                                        await editClimb(
-                                            climbId,
-                                            name,
-                                            grade,
-                                            attempts,
-                                            rating,
-                                            notes,
-                                            location,
-                                        );
-                                    } else {
-                                        await addClimb(
-                                            name,
-                                            grade,
-                                            attempts,
-                                            rating,
-                                            notes,
-                                            location,
-                                        );
-                                    }
-
+                                onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    setIsDeleting(true);
+                                    setIsUploading(true);
+                                    console.log("deleting form");
+                                    await deleteClimb(climbId);
+                                    console.log("deleting form");
                                     router.refresh();
+                                    setIsDeleting(false);
+                                    setIsUploading(false);
+                                    setOpen(false);
                                 }}
                             >
                                 <Button
-                                    type="submit"
-                                    className="w-full text-foreground"
+                                    variant="destructive"
+                                    className="w-full"
                                 >
-                                    {isEdit ? "Save Changes" : "Submit"}
+                                    {isDeleting ? <Loading /> : "Delete Climb"}
                                 </Button>
                             </form>
-                        </DrawerClose>
+                        )}
                         <DrawerClose asChild>
                             <Button variant="outline" className="w-full">
                                 Cancel
@@ -160,3 +203,46 @@ export function ClimbDrawer({
         </Drawer>
     );
 }
+
+const Loading = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="2em"
+        height="2em"
+        viewBox="0 0 24 24"
+    >
+        <circle cx="18" cy="12" r="0" fill="currentColor">
+            <animate
+                attributeName="r"
+                begin=".67"
+                calcMode="spline"
+                dur="1.5s"
+                keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                repeatCount="indefinite"
+                values="0;2;0;0"
+            />
+        </circle>
+        <circle cx="12" cy="12" r="0" fill="currentColor">
+            <animate
+                attributeName="r"
+                begin=".33"
+                calcMode="spline"
+                dur="1.5s"
+                keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                repeatCount="indefinite"
+                values="0;2;0;0"
+            />
+        </circle>
+        <circle cx="6" cy="12" r="0" fill="currentColor">
+            <animate
+                attributeName="r"
+                begin="0"
+                calcMode="spline"
+                dur="1.5s"
+                keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                repeatCount="indefinite"
+                values="0;2;0;0"
+            />
+        </circle>
+    </svg>
+);

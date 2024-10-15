@@ -10,7 +10,7 @@
 [x] - Create a graph of the users sends similar to 8a.nu or Kaya
 [x] - Convert to PWA
 [x] - Redesign login page
-[ ] - Make the create climb form come up when editing climb
+[x] - Make the create climb form come up when editing climb
 [ ] - Redesign home screen
 [ ] - Add in light mode and dark mode colors
 [ ] - Choose better colors
@@ -31,7 +31,8 @@
 ## DATABASE
 
 [x] - Allow users to enter their climbs
-[ ] - Allow users to edits climb information
+[x] - Allow users to edits climb information
+[x] - Allow users to delete their climbs
 [ ] - Make users profile public and viewable to other people
 [ ] - Create verified users (enter new locations, enter new grade levels, etc.)
 [ ] - After Climb Submission a session will Automatically be Created
