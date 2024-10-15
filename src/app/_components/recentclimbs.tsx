@@ -7,7 +7,7 @@ export async function RecentClimbs() {
 
     return (
         <div className="space-y-2 p-6">
-            <h1 className="border-b text-2xl font-semibold">recent</h1>
+            <h1 className="border-b text-2xl font-semibold">recent activity</h1>
             <div className="flex flex-col gap-2">
                 {climbs.map((climb) => (
                     <ClimbDrawer

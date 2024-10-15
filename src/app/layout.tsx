@@ -1,19 +1,11 @@
-import {
-    ClerkProvider,
-    SignedIn,
-    SignedOut,
-    SignInButton,
-    SignUpButton,
-} from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { TopNav } from "./_components/topnav";
 import { BottomNav } from "./_components/bottomnav";
-import { Sign } from "crypto";
-import { Button } from "~/components/ui/button";
 import { SignInCard } from "./_components/signincard";
+import { TopNav } from "./_components/topnav";
 
 export const metadata: Metadata = {
     title: "sendlog",
@@ -45,7 +37,6 @@ export default function RootLayout({
                 </head>
                 <body className="flex flex-col justify-between">
                     <SignedIn>
-                        <TopNav />
                         {children}
                         <BottomNav />
                     </SignedIn>

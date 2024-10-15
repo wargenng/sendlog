@@ -1,7 +1,10 @@
+import { TopNav } from "../_components/topnav";
+
 export default function SessionsPage() {
     return (
-        <div className="flex h-screen items-center justify-center">
-            <h1 className="text-2xl">Under Construction</h1>
-        </div>
+        <main className="">
+            <TopNav title="sessions" />
+            <div className="mt-20 px-6 pb-32"></div>
+        </main>
     );
 }

@@ -27,6 +27,7 @@
 [ ] - Bulk add button
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete
+[ ] - When creating a session, user will be asked if they want to add any friends to that session
 
 ## DATABASE
 
@@ -41,6 +42,8 @@
 [ ] - Add users to database
 [ ] - Add in a user profile section for preferences
 [ ] - Goals tab
+[ ] - Multiple types of Goals (general, climbs, etc.)
+[ ] - Share sessions with friends
 [ ] - Allow user to make their own locations (delete locations, edit locations, etc)
 
 ## BACKEND
