@@ -26,6 +26,7 @@
 [ ] - Add congrats confetti
 [ ] - Bulk add button
 [ ] - Organize homescreen data by (All, Week, Month, Year)
+[ ] - Toast when upload is complete
 
 ## DATABASE
 
