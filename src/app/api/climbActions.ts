@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
 import { climbs } from "~/server/db/schema";
 
@@ -25,4 +26,29 @@ export const addClimb = async (
         notes: notes,
         location: location,
     });
+};
+
+export const editClimb = async (
+    id: number,
+    name: string,
+    grade: string,
+    attempts: number,
+    rating: number,
+    notes: string,
+    location: number,
+) => {
+    const user = auth();
+    if (!user.userId) return [];
+
+    await db
+        .update(climbs)
+        .set({
+            name: name,
+            grade: grade,
+            attempts: attempts,
+            rating: rating,
+            notes: notes,
+            location: location,
+        })
+        .where(eq(climbs.id, id));
 };

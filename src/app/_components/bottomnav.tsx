@@ -1,9 +1,11 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { ClimbDrawer } from "./climbdrawer";
+import { ClimbDrawer } from "../../common/climbdrawer";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { Button } from "~/components/ui/button";
+import { Plus } from "lucide-react";
 
 export function BottomNav() {
     const currentPath = usePathname();
@@ -34,7 +36,15 @@ export function BottomNav() {
                                 Sessions
                             </span>
                         </Link>
-                        <ClimbDrawer />
+                        <ClimbDrawer isEdit={false}>
+                            <Button
+                                variant="default"
+                                size="icon"
+                                className="h-10 w-10 rounded-full bg-primary"
+                            >
+                                <Plus className="h-6 w-6" />
+                            </Button>
+                        </ClimbDrawer>
                         <Link
                             href="/goals"
                             className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/goals" ? "brightness-100" : "brightness-50"}`}

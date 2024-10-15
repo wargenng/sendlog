@@ -1,6 +1,5 @@
 "use client";
 
-import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
@@ -13,39 +12,58 @@ import {
     DrawerTrigger,
 } from "~/components/ui/drawer";
 import * as React from "react";
-import { GradeCombobox } from "./gradecombobox";
+import { GradeCombobox } from "../app/_components/gradecombobox";
 import { Input } from "~/components/ui/input";
-import { addClimb } from "~/app/api/addClimb";
+import { addClimb, editClimb } from "~/app/api/climbActions";
 import { useRouter } from "next/navigation";
 import { Textarea } from "~/components/ui/textarea";
-import { RatingInput } from "./ratinginput";
-import { LocationsCombobox } from "./locationscombobox";
+import { RatingInput } from "../app/_components/ratinginput";
+import { LocationsCombobox } from "../app/_components/locationscombobox";
 
-export function ClimbDrawer() {
+interface ClimbDrawerProps {
+    children: React.ReactNode;
+}
+
+export function ClimbDrawer({
+    children,
+    isEdit,
+    id: climbId = -1,
+    grade: initialGrade = "",
+    name: initialName = "",
+    attempts: initialAttempts = 0,
+    rating: initialRating = 0,
+    location: initialLocation = 0,
+    notes: initialNotes = "",
+}: ClimbDrawerProps & {
+    isEdit: boolean;
+    id?: number;
+    grade?: string;
+    name?: string;
+    attempts?: number;
+    rating?: number;
+    location?: number;
+    notes?: string;
+}) {
     const router = useRouter();
-    const [grade, setGrade] = useState("");
-    const [name, setName] = useState("");
-    const [attempts, setAttempts] = useState(0);
-    const [rating, setRating] = useState(0);
-    const [location, setLocation] = useState(0);
-    const [notes, setNotes] = useState("");
+    const [grade, setGrade] = useState(initialGrade || "");
+    const [name, setName] = useState(initialName || "");
+    const [attempts, setAttempts] = useState(initialAttempts || 0);
+    const [rating, setRating] = useState(initialRating || 0);
+    const [location, setLocation] = useState(initialLocation || 0);
+    const [notes, setNotes] = useState(initialNotes || "");
 
     return (
         <Drawer>
-            <DrawerTrigger asChild className="w-1/5">
-                <Button
-                    variant="default"
-                    size="icon"
-                    className="h-10 w-10 rounded-full bg-primary"
-                >
-                    <Plus className="h-6 w-6" />
-                </Button>
-            </DrawerTrigger>
+            <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-dvh">
                 <DrawerHeader className="flex flex-col items-start justify-start">
-                    <DrawerTitle>Enter a climb</DrawerTitle>
+                    <DrawerTitle>
+                        {isEdit ? "Edit climb" : "Enter a climb"}
+                    </DrawerTitle>
                     <DrawerDescription>
-                        details for climb go below
+                        {isEdit
+                            ? "Edit details for climb"
+                            : "Details for climb go below"}
                     </DrawerDescription>
                 </DrawerHeader>
                 <div className="flex flex-col gap-2 overflow-y-auto p-4 text-sm">
@@ -99,14 +117,26 @@ export function ClimbDrawer() {
                         <DrawerClose asChild>
                             <form
                                 action={async () => {
-                                    await addClimb(
-                                        name,
-                                        grade,
-                                        attempts,
-                                        rating,
-                                        notes,
-                                        location,
-                                    );
+                                    if (isEdit) {
+                                        await editClimb(
+                                            climbId,
+                                            name,
+                                            grade,
+                                            attempts,
+                                            rating,
+                                            notes,
+                                            location,
+                                        );
+                                    } else {
+                                        await addClimb(
+                                            name,
+                                            grade,
+                                            attempts,
+                                            rating,
+                                            notes,
+                                            location,
+                                        );
+                                    }
 
                                     router.refresh();
                                 }}
@@ -115,7 +145,7 @@ export function ClimbDrawer() {
                                     type="submit"
                                     className="w-full text-foreground"
                                 >
-                                    Submit
+                                    {isEdit ? "Save Changes" : "Submit"}
                                 </Button>
                             </form>
                         </DrawerClose>
