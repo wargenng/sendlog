@@ -25,3 +25,11 @@
 [ ] - Choose a new font
 [ ] - Modify desktop version
 [ ] - Friends list
+[ ] - Arrow pointing to add button when there is no sends added
+[ ] - Add quick add button
+[ ] - Redesign climb cards
+[ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
+[ ] - Add error checking on climb entry
+[ ] - Goals tab
+[ ] - Add a way to connect a Climb to a Goal
+[ ] - Add congrats confetti
