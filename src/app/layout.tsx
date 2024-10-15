@@ -1,10 +1,19 @@
-import { ClerkProvider } from "@clerk/nextjs";
+import {
+    ClerkProvider,
+    SignedIn,
+    SignedOut,
+    SignInButton,
+    SignUpButton,
+} from "@clerk/nextjs";
 import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { TopNav } from "./_components/topnav";
 import { BottomNav } from "./_components/bottomnav";
+import { Sign } from "crypto";
+import { Button } from "~/components/ui/button";
+import { SignInCard } from "./_components/signincard";
 
 export const metadata: Metadata = {
     title: "sendlog",
@@ -35,9 +44,14 @@ export default function RootLayout({
                     <link rel="manifest" href="/site.webmanifest" />
                 </head>
                 <body className="flex flex-col justify-between">
-                    <TopNav />
-                    {children}
-                    <BottomNav />
+                    <SignedIn>
+                        <TopNav />
+                        {children}
+                        <BottomNav />
+                    </SignedIn>
+                    <SignedOut>
+                        <SignInCard />
+                    </SignedOut>
                 </body>
             </html>
         </ClerkProvider>

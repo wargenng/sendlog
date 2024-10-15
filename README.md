@@ -34,3 +34,4 @@
 [ ] - Add a way to connect a Climb to a Goal
 [ ] - Add congrats confetti
 [ ] - Redesign login page
+[ ] - Bulk add button
