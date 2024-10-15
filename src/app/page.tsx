@@ -8,16 +8,19 @@ export default async function HomePage() {
     const climbs = await getCurrentUsersClimbs();
 
     return (
-        <main className="mt-16 p-6 pb-32">
+        <main className="mt-20 pb-32">
             <SignedOut>
                 <div className="h-full w-full text-2xl">please sign in</div>
             </SignedOut>
             <SignedIn>
                 <div className="space-y-4">
                     <div className="space-y-2">
+                        <p className="px-6 text-2xl font-semibold">
+                            welcome back!
+                        </p>
                         <DataCarousel />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 p-6">
                         <h1 className="border-b text-2xl font-semibold">
                             recent
                         </h1>

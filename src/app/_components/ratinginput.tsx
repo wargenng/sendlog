@@ -38,7 +38,7 @@ export function RatingInput({
                 onPointerUp={handlePointerUp}
             >
                 <div className="flex gap-1">
-                    {[...Array(stars)].map((_, index) => (
+                    {Array.from({ length: stars }, (_, index) => (
                         <span
                             key={index}
                             className={`${
@@ -57,7 +57,7 @@ export function RatingInput({
                 </div>
                 <div className="flex w-4 justify-center">
                     <span className="text-foreground/50">
-                        ({hoverRating !== null ? hoverRating : rating})
+                        ({hoverRating ?? rating})
                     </span>
                 </div>
             </div>

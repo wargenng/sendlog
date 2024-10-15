@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
@@ -6,12 +11,11 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import type { ChartConfig } from "~/components/ui/chart";
 import {
-    ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
@@ -70,10 +74,12 @@ export function GradeAreaChart(climbs: any) {
     }));
 
     return (
-        <Card>
+        <Card className="h-full">
             <CardHeader>
-                <CardTitle>Climbing Grades Distribution</CardTitle>
-                <CardDescription>Indoor vs Outdoor</CardDescription>
+                <CardTitle>Total Climbs</CardTitle>
+                <CardDescription>
+                    Total climbs ordered by grade.
+                </CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
@@ -103,11 +109,6 @@ export function GradeAreaChart(climbs: any) {
                     </BarChart>
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="flex-col items-start gap-2 text-sm">
-                <div className="leading-none text-muted-foreground">
-                    Showing total climbs sent by grade and location.
-                </div>
-            </CardFooter>
         </Card>
     );
 }

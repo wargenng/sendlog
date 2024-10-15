@@ -36,7 +36,7 @@ export function ClimbDrawer() {
                 <Button
                     variant="secondary"
                     size="icon"
-                    className="rounded-full p-2"
+                    className="rounded-full bg-primary p-2"
                 >
                     <Plus className="h-6 w-6" />
                 </Button>

@@ -7,19 +7,21 @@ import {
 } from "~/components/ui/carousel";
 import { GradeAreaChart } from "./gradeareachart";
 import { getCurrentUsersClimbs } from "~/server/queries";
+import { PointsRadialChart } from "./pointsradialchart";
 
 export async function DataCarousel() {
     const climbs = await getCurrentUsersClimbs();
 
     return (
-        <div className="flex w-full justify-center">
+        <div className="flex w-screen justify-center p-0">
             <Carousel className="w-full">
-                <CarouselContent>
-                    <CarouselItem className="w-3/4">
+                <CarouselContent className="mx-8">
+                    <CarouselItem>
+                        <PointsRadialChart climbs={climbs} />
+                    </CarouselItem>
+                    <CarouselItem>
                         <GradeAreaChart climbs={climbs} />
                     </CarouselItem>
-                    <CarouselItem>...</CarouselItem>
-                    <CarouselItem>...</CarouselItem>
                 </CarouselContent>
 
                 <CarouselPrevious className="hidden" />
