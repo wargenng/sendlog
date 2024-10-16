@@ -20,6 +20,8 @@ import { Textarea } from "~/components/ui/textarea";
 import { RatingInput } from "../app/_components/ratinginput";
 import { LocationsCombobox } from "../app/_components/locationscombobox";
 import { deleteClimb } from "~/app/api/climbActions";
+import { ClimbDatePicker } from "~/app/_components/climbdatepicker";
+import { Label } from "recharts";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
@@ -53,6 +55,7 @@ export function ClimbDrawer({
     const [location, setLocation] = useState(initialLocation || 0);
     const [notes, setNotes] = useState(initialNotes || "");
     const [open, setOpen] = useState(false);
+    const [date, setDate] = useState<Date>(new Date());
     const [isUploading, setIsUploading] = useState(false);
     const [isModifying, setIsModifying] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -106,13 +109,17 @@ export function ClimbDrawer({
                     </div>
                     <div className="flex gap-2">
                         <RatingInput rating={rating} setRating={setRating} />
-                        <div className="w-3/5 space-y-1">
-                            <p>Location</p>
-                            <LocationsCombobox
-                                location={location}
-                                setLocation={setLocation}
-                            />
+                        <div className="w-full space-y-1">
+                            <p>Date Sent</p>
+                            <ClimbDatePicker date={date} setDate={setDate} />
                         </div>
+                    </div>
+                    <div className="space-y-1">
+                        <p>Location</p>
+                        <LocationsCombobox
+                            location={location}
+                            setLocation={setLocation}
+                        />
                     </div>
                     <div className="space-y-1">
                         <p>Notes</p>
@@ -138,6 +145,7 @@ export function ClimbDrawer({
                                         rating,
                                         notes,
                                         location,
+                                        date,
                                     );
                                 } else {
                                     await addClimb(
@@ -147,6 +155,7 @@ export function ClimbDrawer({
                                         rating,
                                         notes,
                                         location,
+                                        date,
                                     );
                                 }
                                 console.log("submitted form");

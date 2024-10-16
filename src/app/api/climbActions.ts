@@ -13,6 +13,7 @@ export const addClimb = async (
     rating: number,
     notes: string,
     location: number,
+    date: Date,
 ) => {
     console.log(`adding climb ${name} ${grade}`);
     const user = auth();
@@ -26,6 +27,7 @@ export const addClimb = async (
         rating: rating,
         notes: notes,
         location: location,
+        sendDate: date,
     });
 
     revalidatePath("/");
@@ -39,6 +41,7 @@ export const editClimb = async (
     rating: number,
     notes: string,
     location: number,
+    date: Date,
 ) => {
     const user = auth();
     if (!user.userId) return [];
@@ -52,6 +55,7 @@ export const editClimb = async (
             rating: rating,
             notes: notes,
             location: location,
+            sendDate: date,
         })
         .where(eq(climbs.id, id));
 

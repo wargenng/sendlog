@@ -11,8 +11,8 @@ export default async function SessionsPage() {
                 <h1 className="border-b text-2xl font-bold">recent sessions</h1>
                 <div className="space-y-2">
                     {sessions.map((session) => (
-                        <div key={session.id}>
-                            <p>{session.name}</p>
+                        <div key={session.id} className="space-y-2 border-b">
+                            <h1 className="text-2xl">{session.name}</h1>
                             <p>
                                 {new Date(session.date).toLocaleDateString(
                                     "en-US",
