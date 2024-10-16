@@ -22,7 +22,7 @@ export async function getCurrentUsersSessions() {
     if (!user.userId) return [];
 
     const sessions = await db.query.sessions.findMany({
-        // where: (model, { eq }) => eq(model.userId, user.userId),
+        where: (model, { eq }) => eq(model.userId, user.userId),
         orderBy: (model, { desc }) => desc(model.id),
     });
 

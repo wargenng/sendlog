@@ -33,6 +33,20 @@ export const climbs = createTable("climb", {
     ),
 });
 
+export const sessions = createTable("session", {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }),
+    date: timestamp("date", { withTimezone: true }).notNull(),
+    groupId: varchar("groupId", { length: 256 }),
+    userId: varchar("userId", { length: 256 }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+        .default(sql`CURRENT_TIMESTAMP`)
+        .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+        () => new Date(),
+    ),
+});
+
 export const goals = createTable("goal", {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
@@ -44,21 +58,6 @@ export const goals = createTable("goal", {
     sessionId: varchar("sessionId", { length: 256 }),
     completedOn: timestamp("created_at", { withTimezone: true }),
     climbId: varchar("climbId", { length: 256 }),
-    createdAt: timestamp("created_at", { withTimezone: true })
-        .default(sql`CURRENT_TIMESTAMP`)
-        .notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-        () => new Date(),
-    ),
-});
-
-export const sessions = createTable("session", {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
-    date: timestamp("date", { withTimezone: true }).notNull(),
-    location: varchar("location", { length: 256 }),
-    type: varchar("type", { length: 256 }),
-    userId: varchar("userId", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),

@@ -50,3 +50,9 @@
 
 [ ] - Rate limit w/ Upstash
 [ ] - Add analytics w/ PostHog
+
+## WANTS
+
+[ ] - Find better solution for location
+[ ] - Add in Sport Climbing
+[ ] - Add in non climbing exercises
