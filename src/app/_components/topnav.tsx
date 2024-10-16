@@ -16,13 +16,10 @@ export function TopNav({ title }: TopNavProps) {
                 </SignedOut>
                 <SignedIn>
                     <div className="flex w-full items-center justify-between">
-                        <div className="flex w-1/3 flex-1 justify-start">
-                            <UserButton />
-                        </div>
-                        <div className="flex w-1/3 flex-1 justify-center text-2xl font-semibold">
+                        <div className="flex flex-1 justify-start text-2xl font-semibold">
                             {title}
                         </div>
-                        <div className="flex w-1/3 flex-1 justify-end">
+                        <div className="flex flex-1 justify-end">
                             <Link
                                 href="/notifications"
                                 className={`flex flex-col items-center`}

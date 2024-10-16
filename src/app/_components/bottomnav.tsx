@@ -1,6 +1,6 @@
 "use client";
 
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import { ClimbDrawer } from "../../common/climbdrawer";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { Plus } from "lucide-react";
 
 export function BottomNav() {
     const currentPath = usePathname();
+    const { user } = useUser();
 
     return (
         <nav className="fixed bottom-0 flex w-full items-center justify-center border-t bg-background p-4 text-xl font-semibold">
@@ -53,11 +54,15 @@ export function BottomNav() {
                             <span className="text-xs font-normal">Goals</span>
                         </Link>
                         <Link
-                            href="/more"
-                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/more" ? "brightness-100" : "brightness-50"}`}
+                            href={`/${user?.username}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "brightness-100" : "brightness-50"}`}
                         >
-                            <MoreIcon />
-                            <span className="text-xs font-normal">More</span>
+                            <img
+                                src={user?.imageUrl}
+                                className="h-5 w-5 rounded-full object-cover"
+                                alt="Profile"
+                            />
+                            <span className="text-xs font-normal">Profile</span>
                         </Link>
                     </div>
                 </SignedIn>

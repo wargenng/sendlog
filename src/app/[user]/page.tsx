@@ -1,7 +1,7 @@
 import { clerkClient } from "@clerk/express";
+import { TopNav } from "../_components/topnav";
 
 export async function generateStaticParams() {
-    // Fetch all users
     const response = await clerkClient.users.getUserList();
     const users = response.data;
 
@@ -27,11 +27,20 @@ export default async function UserPage({ params }: Params) {
     }
 
     return (
-        <div>
-            <h1>
-                Welcome, {user.firstName} {user.lastName}!
-            </h1>
-            <p>Username: {user.username}</p>
-        </div>
+        <main>
+            <TopNav title={user.username ?? "404"} />
+            <div className="mt-20 px-6 pb-32">
+                <div className="flex gap-4">
+                    <img
+                        src={user?.imageUrl}
+                        className="h-24 w-24 rounded-full object-cover"
+                        alt="Profile"
+                    />
+                    <div>
+                        <h1 className="text-sm">{user.fullName}</h1>
+                    </div>
+                </div>
+            </div>
+        </main>
     );
 }
