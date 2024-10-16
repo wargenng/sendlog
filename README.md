@@ -11,6 +11,7 @@
 [x] - Convert to PWA
 [x] - Redesign login page
 [x] - Make the create climb form come up when editing climb
+[x] - Add Loading screen
 [ ] - Redesign home screen
 [ ] - Add in light mode and dark mode colors
 [ ] - Choose better colors
