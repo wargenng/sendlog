@@ -36,11 +36,9 @@
 [x] - Allow users to edits climb information
 [x] - Allow users to delete their climbs
 [x] - After Climb Submission a session will Automatically be Created
-[ ] - Make users profile public and viewable to other people
-[ ] - Create verified users (enter new locations, enter new grade levels, etc.)
+[x] - Make users profile public and viewable to other people
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Friends list
-[ ] - Add users to database
 [ ] - Add in a user profile section for preferences
 [ ] - Goals tab
 [ ] - Multiple types of Goals (general, climbs, etc.)
@@ -57,3 +55,7 @@
 [ ] - Find better solution for location
 [ ] - Add in Sport Climbing
 [ ] - Add in non climbing exercises
+
+## IDEAS
+
+[ ] - Create verified users (enter new locations, enter new grade levels, etc.)

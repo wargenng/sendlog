@@ -47,6 +47,19 @@ export const sessions = createTable("session", {
     ),
 });
 
+export const friendships = createTable("friendship", {
+    id: serial("id").primaryKey(),
+    userId: varchar("userId", { length: 256 }).notNull(),
+    friendId: varchar("friendId", { length: 256 }).notNull(),
+    status: varchar("status", { length: 256 }).default(sql`'pending'`),
+    createdAt: timestamp("created_at", { withTimezone: true })
+        .default(sql`CURRENT_TIMESTAMP`)
+        .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+        () => new Date(),
+    ),
+});
+
 export const goals = createTable("goal", {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
@@ -55,9 +68,8 @@ export const goals = createTable("goal", {
     location: integer("location"),
     notes: varchar("notes", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
-    sessionId: varchar("sessionId", { length: 256 }),
-    completedOn: timestamp("created_at", { withTimezone: true }),
     climbId: varchar("climbId", { length: 256 }),
+    completedOn: timestamp("created_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
