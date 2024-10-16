@@ -6,6 +6,7 @@ import { type Metadata } from "next";
 import { BottomNav } from "./_components/bottomnav";
 import { SignInCard } from "./_components/signincard";
 import { TopNav } from "./_components/topnav";
+import { dark } from "@clerk/themes";
 
 export const metadata: Metadata = {
     title: "sendlog",
@@ -16,7 +17,7 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <ClerkProvider>
+        <ClerkProvider appearance={{ baseTheme: dark }}>
             <html lang="en" className={`${GeistSans.variable} dark`}>
                 <head>
                     <link
