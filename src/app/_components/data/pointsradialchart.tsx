@@ -21,8 +21,8 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "~/components/ui/chart";
-import { grades } from "../utils/grades";
-import { locations } from "../utils/locations";
+import { grades } from "../../utils/grades";
+import { locations } from "../../utils/locations";
 
 export const description = "An area chart with gradient fill";
 

@@ -11,18 +11,14 @@
 [x] - Convert to PWA
 [x] - Redesign login page
 [x] - Make the create climb form come up when editing climb
+[ ] - Add error checking on climb entry
 [ ] - Add Loading screen
 [ ] - Redesign home screen
-[ ] - Add in light mode and dark mode colors
-[ ] - Choose better colors
-[ ] - Design charts and cards, etc.
-[ ] - Choose a new font
 [ ] - Modify desktop version
 [ ] - Arrow pointing to add button when there is no sends added
 [ ] - Add quick add button
 [ ] - Redesign climb cards
 [ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
-[ ] - Add error checking on climb entry
 [ ] - Add a way to connect a Climb to a Goal
 [ ] - Add congrats confetti
 [ ] - Bulk add button
@@ -55,6 +51,10 @@
 [ ] - Find better solution for location
 [ ] - Add in Sport Climbing
 [ ] - Add in non climbing exercises
+[ ] - Design charts and cards, etc.
+[ ] - Add in light mode and dark mode colors
+[ ] - Choose better colors
+[ ] - Choose a new font
 
 ## IDEAS
 

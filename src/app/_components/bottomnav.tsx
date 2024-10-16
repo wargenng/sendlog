@@ -1,7 +1,7 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { ClimbDrawer } from "../../common/climbdrawer";
+import { ClimbDrawer } from "../../common/climbdrawer/climbdrawer";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
@@ -57,11 +57,27 @@ export function BottomNav() {
                             href={`/${user?.username}`}
                             className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "brightness-100" : "brightness-50"}`}
                         >
-                            <img
-                                src={user?.imageUrl}
-                                className="h-5 w-5 rounded-full object-cover"
-                                alt="Profile"
-                            />
+                            {user?.imageUrl ? (
+                                <img
+                                    src={user.imageUrl}
+                                    className="h-5 w-5 rounded-full object-cover"
+                                    alt="Profile"
+                                />
+                            ) : (
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1.25rem"
+                                    height="1.25rem"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        fillRule="evenodd"
+                                        d="M8 14.5a6.47 6.47 0 0 0 3.25-.87V11.5A2.25 2.25 0 0 0 9 9.25H7a2.25 2.25 0 0 0-2.25 2.25v2.13A6.47 6.47 0 0 0 8 14.5m4.75-3v.937a6.5 6.5 0 1 0-9.5 0V11.5a3.75 3.75 0 0 1 2.486-3.532a3 3 0 1 1 4.528 0A3.75 3.75 0 0 1 12.75 11.5M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M9.5 6a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0"
+                                        clipRule="evenodd"
+                                    />
+                                </svg>
+                            )}
                             <span className="text-xs font-normal">Profile</span>
                         </Link>
                     </div>
@@ -103,21 +119,6 @@ const GoalIcon = () => (
             <path d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5m-5.975-3.524L12.95 11.05" />
             <path d="M20.94 5.844L17.7 6.3l.456-3.24a.19.19 0 0 0-.313-.161l-2.148 2.137a1.9 1.9 0 0 0-.513 1.72l.342 1.72l1.72.341a1.9 1.9 0 0 0 1.72-.513L21.1 6.157a.19.19 0 0 0-.162-.313" />
         </g>
-    </svg>
-);
-const MoreIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="1em"
-        height="1em"
-        viewBox="0 0 24 24"
-    >
-        <path
-            fill="currentColor"
-            fillRule="evenodd"
-            d="M5 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6m0-2a1 1 0 1 0 0-2a1 1 0 0 0 0 2m7 2a3 3 0 1 0 0-6a3 3 0 0 0 0 6m0-2a1 1 0 1 0 0-2a1 1 0 0 0 0 2m10-1a3 3 0 1 1-6 0a3 3 0 0 1 6 0m-2 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0"
-            clipRule="evenodd"
-        />
     </svg>
 );
 const SessionsIcon = () => (

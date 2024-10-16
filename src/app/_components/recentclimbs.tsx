@@ -1,6 +1,6 @@
 import { getCurrentUsersClimbs } from "~/server/queries";
 import { locations } from "../utils/locations";
-import { ClimbDrawer } from "~/common/climbdrawer";
+import { ClimbDrawer } from "~/common/climbdrawer/climbdrawer";
 
 export async function RecentClimbs() {
     const climbs = await getCurrentUsersClimbs();

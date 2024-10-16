@@ -8,7 +8,7 @@ import {
     CommandItem,
     CommandList,
 } from "~/components/ui/command";
-import { grades } from "../utils/grades";
+import { grades } from "../../../app/utils/grades";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
