@@ -21,12 +21,10 @@ import { RatingInput } from "../app/_components/ratinginput";
 import { LocationsCombobox } from "../app/_components/locationscombobox";
 import { deleteClimb } from "~/app/api/climbActions";
 import { ClimbDatePicker } from "~/app/_components/climbdatepicker";
-import { Label } from "recharts";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
 }
-
 export function ClimbDrawer({
     children,
     isEdit,
@@ -37,6 +35,7 @@ export function ClimbDrawer({
     rating: initialRating = 0,
     location: initialLocation = 0,
     notes: initialNotes = "",
+    date: initialDate = new Date(),
 }: ClimbDrawerProps & {
     isEdit: boolean;
     id?: number;
@@ -46,6 +45,7 @@ export function ClimbDrawer({
     rating?: number;
     location?: number;
     notes?: string;
+    date?: Date;
 }) {
     const router = useRouter();
     const [grade, setGrade] = useState(initialGrade || "");
@@ -55,7 +55,7 @@ export function ClimbDrawer({
     const [location, setLocation] = useState(initialLocation || 0);
     const [notes, setNotes] = useState(initialNotes || "");
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState<Date>(new Date());
+    const [date, setDate] = useState<Date>(initialDate || new Date());
     const [isUploading, setIsUploading] = useState(false);
     const [isModifying, setIsModifying] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);

@@ -19,6 +19,7 @@ export async function RecentClimbs() {
                         location={climb.location ?? -1}
                         attempts={climb.attempts ?? 0}
                         notes={climb.notes ?? ""}
+                        date={climb.sendDate ?? new Date()}
                         key={climb.id}
                     >
                         <div className="border-b">
