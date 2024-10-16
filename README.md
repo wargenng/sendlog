@@ -36,7 +36,7 @@
 [x] - Allow users to delete their climbs
 [ ] - Make users profile public and viewable to other people
 [ ] - Create verified users (enter new locations, enter new grade levels, etc.)
-[ ] - After Climb Submission a session will Automatically be Created
+[x] - After Climb Submission a session will Automatically be Created
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Friends list
 [ ] - Add users to database

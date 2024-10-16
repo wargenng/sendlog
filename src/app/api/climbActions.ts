@@ -4,7 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import { climbs } from "~/server/db/schema";
+import { climbs, sessions } from "~/server/db/schema";
+import { getCurrentUsersSessions } from "~/server/queries";
 
 export const addClimb = async (
     name: string,
@@ -19,6 +20,29 @@ export const addClimb = async (
     const user = auth();
     if (!user.userId) return [];
 
+    const currentsessions = await getCurrentUsersSessions();
+    let session = currentsessions.find(
+        (session) =>
+            session.date.getDate() === date.getDate() &&
+            session.date.getMonth() === date.getMonth() &&
+            session.date.getFullYear() === date.getFullYear(),
+    );
+    if (!session) {
+        console.log("no session found, creating one");
+        await db.insert(sessions).values({
+            userId: user.userId,
+            name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
+            date: date,
+        });
+        const currentsessions = await getCurrentUsersSessions();
+        session = currentsessions.find(
+            (session) =>
+                session.date.getDate() === date.getDate() &&
+                session.date.getMonth() === date.getMonth() &&
+                session.date.getFullYear() === date.getFullYear(),
+        );
+    }
+
     await db.insert(climbs).values({
         userId: user.userId,
         name: name,
@@ -28,6 +52,7 @@ export const addClimb = async (
         notes: notes,
         location: location,
         sendDate: date,
+        sessionId: session ? session.id.toString() : "",
     });
 
     revalidatePath("/");
