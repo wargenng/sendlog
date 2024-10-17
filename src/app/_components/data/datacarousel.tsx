@@ -15,7 +15,7 @@ export async function DataCarousel() {
     return (
         <div className="flex w-screen justify-center p-0">
             <Carousel className="w-full">
-                <CarouselContent className="mx-8">
+                <CarouselContent className="mx-6">
                     <CarouselItem>
                         <PointsRadialChart climbs={climbs} />
                     </CarouselItem>

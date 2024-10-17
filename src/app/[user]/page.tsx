@@ -14,7 +14,7 @@ export default async function UserPage({ params }: Params) {
     const { user: username } = params;
 
     try {
-        const response = await clerkClient.users.getUserList();
+        const response = await clerkClient().users.getUserList();
         const users = response.data;
         const user = users.find((user: User) => user.username === username);
 
@@ -48,8 +48,24 @@ export default async function UserPage({ params }: Params) {
                                 />
                             </svg>
                         )}
-                        <div>
-                            <h1 className="text-sm">{user.fullName}</h1>
+                        <div className="flex h-24 flex-col justify-center space-y-1">
+                            <h1 className="text-lg font-semibold">
+                                {user.fullName}
+                            </h1>
+                            <div className="flex gap-4">
+                                <div className="-space-y-1">
+                                    <p className="text-base">V8</p>
+                                    <p className="text-xs">grade</p>
+                                </div>
+                                <div className="-space-y-1">
+                                    <p className="text-base">404</p>
+                                    <p className="text-xs">climbs</p>
+                                </div>
+                                <div className="-space-y-1">
+                                    <p className="text-base">28</p>
+                                    <p className="text-xs">sessions</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

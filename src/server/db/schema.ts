@@ -37,8 +37,13 @@ export const sessions = createTable("session", {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
     date: timestamp("date", { withTimezone: true }).notNull(),
+    location: integer("location"),
+    notes: varchar("notes", { length: 256 }),
     groupId: varchar("groupId", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
+    sessionDate: timestamp("sent_on", { withTimezone: true }).default(
+        sql`CURRENT_TIMESTAMP`,
+    ),
     createdAt: timestamp("created_at", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),

@@ -38,21 +38,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function PointsRadialChart(climbs: any) {
-    const highestGradeSent = Array.from({ length: 18 }, (_, i) => i).map(
-        (grade: any) =>
-            climbs.climbs.filter(
-                (climb: any) =>
-                    grades.find((grade) => grade.label === climb.grade)
-                        ?.gradeValue === grade,
-            ).length,
-    );
-
-    const lastIndexGreaterThanZero =
-        highestGradeSent
-            .map((count, index) => (count > 0 ? index : -1))
-            .filter((index) => index !== -1)
-            .pop() ?? 0;
-
     const climbsData = [
         {
             outdoors: climbs.climbs
@@ -174,20 +159,22 @@ export function PointsRadialChart(climbs: any) {
             <CardFooter className="-mt-20 flex justify-center space-x-8">
                 <div className="flex items-center space-x-4">
                     <div className="h-6 w-6 rounded bg-[hsl(var(--chart-2))]"></div>
-                    <div>
+                    <div className="-space-y-1">
                         <p className="text-sm text-foreground/50">Indoors</p>
                         <p className="text-2xl font-bold text-foreground">
                             {climbsData[0]?.indoors ?? 0}
                         </p>
+                        <p className="text-xs text-foreground/50">V-points</p>
                     </div>
                 </div>
                 <div className="flex items-center space-x-4">
                     <div className="h-6 w-6 rounded bg-[hsl(var(--chart-1))]"></div>
-                    <div>
+                    <div className="-space-y-1">
                         <p className="text-sm text-foreground/50">Outdoors</p>
                         <p className="text-2xl font-bold text-foreground">
                             {climbsData[0]?.outdoors ?? 0}
                         </p>
+                        <p className="text-xs text-foreground/50">V-points</p>
                     </div>
                 </div>
             </CardFooter>

@@ -11,9 +11,6 @@ export default async function HomePage() {
                 <TopNav title="sendlog" />
                 <div className="mt-20 space-y-4 pb-32">
                     <div className="space-y-2">
-                        <p className="px-6 text-2xl font-semibold">
-                            welcome back!
-                        </p>
                         <DataCarousel />
                     </div>
                     <RecentClimbs />
