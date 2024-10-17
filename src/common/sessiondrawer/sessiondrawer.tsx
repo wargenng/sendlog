@@ -14,6 +14,7 @@ import {
 
 import { useState, type ReactNode } from "react";
 import { Input } from "~/components/ui/input";
+import DrawerMainContent from "../drawermaincontent";
 
 interface SessionDrawerProps {
     children: ReactNode;
@@ -40,11 +41,7 @@ export default function SessionDrawer({ children }: SessionDrawerProps) {
                         Add a new session to your logbook.
                     </DrawerDescription>
                 </DrawerHeader>
-                <div
-                    className={`flex flex-col gap-2 overflow-y-auto p-4 text-sm ${
-                        isUploading ? "pointer-events-none brightness-50" : ""
-                    }`}
-                >
+                <DrawerMainContent isUploading={isUploading}>
                     <div className="space-y-1">
                         <p>Session Name</p>
                         <Input
@@ -59,7 +56,7 @@ export default function SessionDrawer({ children }: SessionDrawerProps) {
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>
                     </DrawerClose>
-                </div>
+                </DrawerMainContent>
             </DrawerContent>
         </Drawer>
     );

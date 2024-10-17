@@ -25,6 +25,7 @@
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
+[ ] - Refactor server/async calls out of main page loads
 
 ## DATABASE
 
@@ -55,6 +56,9 @@
 [ ] - Add in light mode and dark mode colors
 [ ] - Choose better colors
 [ ] - Choose a new font
+[ ] - Add a redirect to dashboard if the user is logged in
+[ ] - Insert loading skeleton. onload opacity 100% with transition
+[ ] - Active icon when session hasn't finished
 
 ## IDEAS
 

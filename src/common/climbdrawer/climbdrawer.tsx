@@ -20,6 +20,7 @@ import { GradeCombobox } from "./components/gradecombobox";
 import { LocationsCombobox } from "../locationscombobox";
 import { RatingInput } from "./components/ratinginput";
 import { SubmitButton } from "./components/submitbutton";
+import DrawerMainContent from "../drawermaincontent";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
@@ -70,11 +71,7 @@ export function ClimbDrawer({
                             : "Details for climb go below"}
                     </DrawerDescription>
                 </DrawerHeader>
-                <div
-                    className={`flex flex-col gap-2 overflow-y-auto p-4 text-sm ${
-                        isUploading ? "pointer-events-none brightness-50" : ""
-                    }`}
-                >
+                <DrawerMainContent isUploading={isUploading}>
                     <div className="space-y-1">
                         <p>Name</p>
                         <Input
@@ -147,7 +144,7 @@ export function ClimbDrawer({
                             </Button>
                         </DrawerClose>
                     </div>
-                </div>
+                </DrawerMainContent>
             </DrawerContent>
         </Drawer>
     );
