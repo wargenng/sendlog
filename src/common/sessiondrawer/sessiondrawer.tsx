@@ -109,14 +109,6 @@ export default function SessionDrawer({
                             onChange={(e) => setNotes(e.target.value)}
                         />
                     </div>
-                    {isEdit ? (
-                        <div className="space-y-1">
-                            <p>Climbs</p>
-                            <p className="italic text-foreground/50">
-                                no climbs added
-                            </p>
-                        </div>
-                    ) : null}
                     <div className="mt-4 flex w-full flex-col space-y-2">
                         {isEdit ? (
                             <ClimbDrawer

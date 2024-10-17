@@ -135,6 +135,7 @@ export function ClimbDrawer({
                             notes={notes}
                             location={location}
                             date={date}
+                            sessionId={sessionId}
                             setOpen={setOpen}
                         />
                         {isEdit && (
