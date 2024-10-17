@@ -3,19 +3,33 @@ import { useState } from "react";
 import { addClimb, editClimb } from "~/app/api/climbActions";
 import { Button } from "~/components/ui/button";
 
-export function SubmitButton(
-    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>,
-    isEdit: boolean,
-    climbId: number,
-    name: string,
-    grade: string,
-    attempts: number,
-    rating: number,
-    notes: string,
-    location: number,
-    date: Date,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-) {
+interface SubmitButtonProps {
+    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
+    isEdit: boolean;
+    climbId: number;
+    name: string;
+    grade: string;
+    attempts: number;
+    rating: number;
+    notes: string;
+    location: number;
+    date: Date;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function SubmitButton({
+    setIsUploading,
+    isEdit,
+    climbId,
+    name,
+    grade,
+    attempts,
+    rating,
+    notes,
+    location,
+    date,
+    setOpen,
+}: SubmitButtonProps) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
 

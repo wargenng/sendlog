@@ -8,9 +8,10 @@ import {
 import { GradeAreaChart } from "./gradeareachart";
 import { getCurrentUsersClimbs } from "~/server/queries";
 import { PointsRadialChart } from "./pointsradialchart";
+import { Climb } from "~/server/db/schema";
 
 export async function DataCarousel() {
-    const climbs = await getCurrentUsersClimbs();
+    const climbs = (await getCurrentUsersClimbs()) as Climb[];
 
     return (
         <div className="flex w-screen justify-center p-0">

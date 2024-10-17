@@ -33,6 +33,23 @@ export const climbs = createTable("climb", {
     ),
 });
 
+export type Climb = {
+    id: number;
+    name: string;
+    grade: string;
+    attempts: number;
+    rating: number;
+    location: number;
+    notes: string;
+    sendDate: Date;
+    isRepeat: boolean;
+    isSend: boolean;
+    userId: string;
+    sessionId: string;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
 export const sessions = createTable("session", {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
@@ -52,6 +69,19 @@ export const sessions = createTable("session", {
     ),
 });
 
+export type Session = {
+    id: number;
+    name: string;
+    date: Date;
+    location: number;
+    notes: string;
+    groupId: string;
+    userId: string;
+    sessionDate: Date;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
 export const friendships = createTable("friendship", {
     id: serial("id").primaryKey(),
     userId: varchar("userId", { length: 256 }).notNull(),
@@ -64,6 +94,15 @@ export const friendships = createTable("friendship", {
         () => new Date(),
     ),
 });
+
+export type Friendship = {
+    id: number;
+    userId: string;
+    friendId: string;
+    status: string;
+    createdAt: Date;
+    updatedAt: Date;
+};
 
 export const goals = createTable("goal", {
     id: serial("id").primaryKey(),
@@ -82,3 +121,17 @@ export const goals = createTable("goal", {
         () => new Date(),
     ),
 });
+
+export type Goal = {
+    id: number;
+    name: string;
+    grade: string;
+    priority: number;
+    location: number;
+    notes: string;
+    userId: string;
+    climbId: string;
+    completedOn: Date;
+    createdAt: Date;
+    updatedAt: Date;
+};

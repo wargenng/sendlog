@@ -17,13 +17,12 @@ import {
     DropdownMenuContent,
 } from "~/components/ui/dropdown-menu";
 
-export function GradeCombobox({
-    grade,
-    setGrade,
-}: {
+interface GradeComboboxProps {
     grade: string;
     setGrade: (grade: string) => void;
-}) {
+}
+
+export function GradeCombobox({ grade, setGrade }: GradeComboboxProps) {
     const [open, setOpen] = useState(false);
 
     return (

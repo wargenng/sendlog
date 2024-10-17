@@ -1,12 +1,11 @@
 import { useState } from "react";
 
-export function RatingInput({
-    rating,
-    setRating,
-}: {
+interface RatingInputProps {
     rating: number;
     setRating: (rating: number) => void;
-}) {
+}
+
+export function RatingInput({ rating, setRating }: RatingInputProps) {
     const stars = 5;
     const [hoverRating, setHoverRating] = useState<number | null>(null);
 
@@ -14,7 +13,7 @@ export function RatingInput({
         const { left, width } = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - left;
         let newRating = Math.ceil((x / width) * stars);
-        newRating = Math.max(0, Math.min(newRating, stars)); // Ensure rating is between 0 and 5
+        newRating = Math.max(0, Math.min(newRating, stars));
         setHoverRating(newRating);
     };
 

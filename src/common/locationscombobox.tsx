@@ -17,13 +17,15 @@ import {
     DropdownMenuContent,
 } from "~/components/ui/dropdown-menu";
 
+interface LocationsComboboxProps {
+    location: number;
+    setLocation: (location: number) => void;
+}
+
 export function LocationsCombobox({
     location,
     setLocation,
-}: {
-    location: number;
-    setLocation: (location: number) => void;
-}) {
+}: LocationsComboboxProps) {
     const [open, setOpen] = useState(false);
 
     return (

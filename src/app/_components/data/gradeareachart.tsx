@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
@@ -22,6 +17,7 @@ import {
 } from "~/components/ui/chart";
 import { grades } from "../../utils/grades";
 import { locations } from "../../utils/locations";
+import { Climb } from "~/server/db/schema";
 
 export const description = "An area chart with gradient fill";
 
@@ -36,11 +32,15 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
-export function GradeAreaChart(climbs: any) {
+interface GradeAreaChartProps {
+    climbs: Climb[];
+}
+
+export function GradeAreaChart({ climbs }: GradeAreaChartProps) {
     const highestGradeSent = Array.from({ length: 18 }, (_, i) => i).map(
-        (grade: any) =>
-            climbs.climbs.filter(
-                (climb: any) =>
+        (grade: number) =>
+            climbs.filter(
+                (climb: Climb) =>
                     grades.find((grade) => grade.label === climb.grade)
                         ?.gradeValue === grade,
             ).length,
@@ -55,17 +55,17 @@ export function GradeAreaChart(climbs: any) {
     const climbsData = Array.from(
         { length: lastIndexGreaterThanZero + 1 },
         (_, i) => i,
-    ).map((grade: any) => ({
+    ).map((grade: number) => ({
         grade: "V" + grade.toString(),
-        outdoors: climbs.climbs.filter(
-            (climb: any) =>
+        outdoors: climbs.filter(
+            (climb: Climb) =>
                 grades.find((grade) => grade.label === climb.grade)
                     ?.gradeValue === grade &&
                 locations.find((location) => location.id === climb.location)
                     ?.type === "Outdoors",
         ).length,
-        indoors: climbs.climbs.filter(
-            (climb: any) =>
+        indoors: climbs.filter(
+            (climb: Climb) =>
                 grades.find((grade) => grade.label === climb.grade)
                     ?.gradeValue === grade &&
                 locations.find((location) => location.id === climb.location)

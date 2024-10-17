@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
@@ -23,6 +18,7 @@ import {
 } from "~/components/ui/chart";
 import { grades } from "../../utils/grades";
 import { locations } from "../../utils/locations";
+import { Climb } from "~/server/db/schema";
 
 export const description = "An area chart with gradient fill";
 
@@ -37,32 +33,36 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
-export function PointsRadialChart(climbs: any) {
+interface GradeAreaChartProps {
+    climbs: Climb[];
+}
+
+export function PointsRadialChart({ climbs }: GradeAreaChartProps) {
     const climbsData = [
         {
-            outdoors: climbs.climbs
+            outdoors: climbs
                 .filter(
-                    (climb: any) =>
+                    (climb: Climb) =>
                         locations.find(
                             (location) => location.id === climb.location,
                         )?.type === "Outdoors",
                 )
                 .reduce(
-                    (sum: number, climb: any) =>
+                    (sum: number, climb: Climb) =>
                         sum +
                         (grades.find((grade) => grade.label === climb.grade)
                             ?.gradeValue ?? 0),
                     0,
                 ),
-            indoors: climbs.climbs
+            indoors: climbs
                 .filter(
-                    (climb: any) =>
+                    (climb: Climb) =>
                         locations.find(
                             (location) => location.id === climb.location,
                         )?.type === "Indoors",
                 )
                 .reduce(
-                    (sum: number, climb: any) =>
+                    (sum: number, climb: Climb) =>
                         sum +
                         (grades.find((grade) => grade.label === climb.grade)
                             ?.gradeValue ?? 0),
@@ -71,8 +71,8 @@ export function PointsRadialChart(climbs: any) {
         },
     ];
 
-    const totalVisitors = climbs.climbs.reduce(
-        (sum: number, climb: any) =>
+    const totalVisitors = climbs.reduce(
+        (sum: number, climb: Climb) =>
             sum +
             (grades.find((grade) => grade.label === climb.grade)?.gradeValue ??
                 0),

@@ -24,6 +24,15 @@ import DrawerMainContent from "../drawermaincontent";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
+    isEdit: boolean;
+    id?: number;
+    grade?: string;
+    name?: string;
+    attempts?: number;
+    rating?: number;
+    location?: number;
+    notes?: string;
+    date?: Date;
 }
 export function ClimbDrawer({
     children,
@@ -36,17 +45,7 @@ export function ClimbDrawer({
     location: initialLocation = 0,
     notes: initialNotes = "",
     date: initialDate = new Date(),
-}: ClimbDrawerProps & {
-    isEdit: boolean;
-    id?: number;
-    grade?: string;
-    name?: string;
-    attempts?: number;
-    rating?: number;
-    location?: number;
-    notes?: string;
-    date?: Date;
-}) {
+}: ClimbDrawerProps) {
     const [grade, setGrade] = useState(initialGrade || "");
     const [name, setName] = useState(initialName || "");
     const [attempts, setAttempts] = useState(initialAttempts || 0);
@@ -123,21 +122,26 @@ export function ClimbDrawer({
                         />
                     </div>
                     <div className="mt-4 space-y-2">
-                        {SubmitButton(
-                            setIsUploading,
-                            isEdit,
-                            climbId,
-                            name,
-                            grade,
-                            attempts,
-                            rating,
-                            notes,
-                            location,
-                            date,
-                            setOpen,
+                        <SubmitButton
+                            setIsUploading={setIsUploading}
+                            isEdit={isEdit}
+                            climbId={climbId}
+                            name={name}
+                            grade={grade}
+                            attempts={attempts}
+                            rating={rating}
+                            notes={notes}
+                            location={location}
+                            date={date}
+                            setOpen={setOpen}
+                        />
+                        {isEdit && (
+                            <DeleteClimbForm
+                                setIsUploading={setIsUploading}
+                                climbId={climbId}
+                                setOpen={setOpen}
+                            />
                         )}
-                        {isEdit &&
-                            DeleteClimbForm(setIsUploading, climbId, setOpen)}
                         <DrawerClose asChild>
                             <Button variant="outline" className="w-full">
                                 Cancel
