@@ -41,7 +41,7 @@ export function LocationsCombobox({
                         className="truncate"
                         style={{
                             display: "inline-block",
-                            maxWidth: "calc(100% - 24px)",
+                            maxWidth: "calc(100% - 20px)",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",

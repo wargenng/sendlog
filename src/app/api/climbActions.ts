@@ -97,3 +97,23 @@ export async function deleteClimb(id: number) {
 
     revalidatePath("/");
 }
+
+export async function addSession(
+    name: string,
+    notes: string,
+    location: number,
+    date: Date,
+) {
+    const user = auth();
+    if (!user.userId) return [];
+
+    await db.insert(sessions).values({
+        userId: user.userId,
+        name: name,
+        date: date,
+        notes: notes,
+        location: location,
+    });
+
+    revalidatePath("/");
+}

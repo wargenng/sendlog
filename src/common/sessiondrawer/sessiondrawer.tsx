@@ -15,12 +15,20 @@ import {
 import { useState, type ReactNode } from "react";
 import { Input } from "~/components/ui/input";
 import DrawerMainContent from "../drawermaincontent";
+import { LocationsCombobox } from "../locationscombobox";
+import { Textarea } from "~/components/ui/textarea";
+import { DatePicker } from "../datepicker";
+import { ClimbDrawer } from "../climbdrawer/climbdrawer";
+import { useRouter } from "next/navigation";
+import { LoadingAnimation } from "~/components/loadinganimation";
+import { addSession } from "~/app/api/climbActions";
 
 interface SessionDrawerProps {
     children: ReactNode;
 }
 
 export default function SessionDrawer({ children }: SessionDrawerProps) {
+    const router = useRouter();
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [name, setName] = useState(() => {
@@ -30,11 +38,18 @@ export default function SessionDrawer({ children }: SessionDrawerProps) {
         const year = date.getFullYear();
         return `${month}/${day}/${year}`;
     });
+    const [location, setLocation] = useState(0);
+    const [notes, setNotes] = useState("");
+    const [date, setDate] = useState<Date>(new Date());
+    const [isEdit, setIsEdit] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
-            <DrawerContent className="h-[calc(100dvh-1rem)]">
+            <DrawerContent
+                className={`h-[calc(100dvh-1rem)] ${isSubmitting ? "pointer-events-none" : ""}`}
+            >
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle>Create a new session</DrawerTitle>
                     <DrawerDescription>
@@ -52,10 +67,77 @@ export default function SessionDrawer({ children }: SessionDrawerProps) {
                             className="text-base"
                         />
                     </div>
-                    <Button>Submit</Button>
-                    <DrawerClose asChild>
-                        <Button variant="outline">Cancel</Button>
-                    </DrawerClose>
+                    <div className="flex gap-2">
+                        <div className="w-1/2 space-y-1">
+                            <p>Location</p>
+                            <LocationsCombobox
+                                location={location}
+                                setLocation={setLocation}
+                            />
+                        </div>
+                        <div className="w-1/2 space-y-1">
+                            <p>Date Sent</p>
+                            <DatePicker date={date} setDate={setDate} />
+                        </div>
+                    </div>
+                    <div className="space-y-1">
+                        <p>Notes</p>
+                        <Textarea
+                            className="text-base"
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                        />
+                    </div>
+                    {isEdit ? (
+                        <div className="space-y-1">
+                            <p>Climbs</p>
+                            <p className="italic text-foreground/50">
+                                no climbs added
+                            </p>
+                        </div>
+                    ) : null}
+                    <div className="mt-4 flex w-full flex-col space-y-2">
+                        {isEdit ? (
+                            <ClimbDrawer isEdit={false}>
+                                <Button
+                                    variant="secondary"
+                                    className="text-foreground"
+                                >
+                                    + Add Climb
+                                </Button>
+                            </ClimbDrawer>
+                        ) : null}
+                        <form
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                setIsSubmitting(true);
+                                setIsUploading(true);
+                                console.log("submitting form");
+                                await addSession(name, notes, location, date);
+                                console.log("submitted form");
+                                router.refresh();
+                                setIsSubmitting(false);
+                                setIsUploading(false);
+                                setOpen(false);
+                            }}
+                        >
+                            <Button
+                                type="submit"
+                                className="w-full items-center text-foreground"
+                            >
+                                {isSubmitting ? (
+                                    <LoadingAnimation />
+                                ) : isEdit ? (
+                                    "Save Changes"
+                                ) : (
+                                    "Submit"
+                                )}
+                            </Button>
+                        </form>
+                        <DrawerClose asChild>
+                            <Button variant="outline">Cancel</Button>
+                        </DrawerClose>
+                    </div>
                 </DrawerMainContent>
             </DrawerContent>
         </Drawer>
