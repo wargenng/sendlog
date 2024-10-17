@@ -28,7 +28,7 @@ export default async function UserPage({ params }: Params) {
             <main>
                 <TopNav title={user.username ?? "404"} />
                 <div className="mt-20 px-6 pb-32">
-                    <div className="flex gap-4">
+                    <div className="flex gap-6">
                         {user?.imageUrl ? (
                             <img
                                 src={user?.imageUrl}
@@ -54,7 +54,7 @@ export default async function UserPage({ params }: Params) {
                             <h1 className="text-lg font-semibold">
                                 {user.fullName}
                             </h1>
-                            <div className="flex gap-4">
+                            <div className="flex gap-8">
                                 <div className="-space-y-1">
                                     <p className="text-base">V8</p>
                                     <p className="text-xs">grade</p>
