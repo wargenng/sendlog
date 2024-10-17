@@ -33,6 +33,7 @@ interface ClimbDrawerProps {
     location?: number;
     notes?: string;
     date?: Date;
+    sessionId?: number;
 }
 export function ClimbDrawer({
     children,
@@ -45,6 +46,7 @@ export function ClimbDrawer({
     location: initialLocation = 0,
     notes: initialNotes = "",
     date: initialDate = new Date(),
+    sessionId,
 }: ClimbDrawerProps) {
     const [grade, setGrade] = useState(initialGrade || "");
     const [name, setName] = useState(initialName || "");

@@ -15,6 +15,7 @@ interface SubmitButtonProps {
     notes: string;
     location: number;
     date: Date;
+    sessionId?: number;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -29,6 +30,7 @@ export function SubmitButton({
     notes,
     location,
     date,
+    sessionId,
     setOpen,
 }: SubmitButtonProps) {
     const router = useRouter();
@@ -61,6 +63,7 @@ export function SubmitButton({
                         notes,
                         location,
                         date,
+                        sessionId,
                     );
                 }
                 console.log("submitted form");

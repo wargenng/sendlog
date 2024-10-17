@@ -118,7 +118,12 @@ export default function SessionDrawer({
                     ) : null}
                     <div className="mt-4 flex w-full flex-col space-y-2">
                         {isEdit ? (
-                            <ClimbDrawer isEdit={false}>
+                            <ClimbDrawer
+                                isEdit={false}
+                                location={location}
+                                sessionId={sessionId}
+                                date={date}
+                            >
                                 <Button
                                     variant="secondary"
                                     className="text-foreground"
