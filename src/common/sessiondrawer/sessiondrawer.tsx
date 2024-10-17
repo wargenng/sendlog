@@ -21,27 +21,43 @@ import { DatePicker } from "../datepicker";
 import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { useRouter } from "next/navigation";
 import { LoadingAnimation } from "~/components/loadinganimation";
-import { addSession } from "~/app/api/climbActions";
+import { addSession, editSession } from "~/app/api/climbActions";
 
 interface SessionDrawerProps {
     children: ReactNode;
+    isEdit?: boolean;
+    name?: string;
+    location?: number;
+    notes?: string;
+    date?: Date;
+    id?: number;
 }
 
-export default function SessionDrawer({ children }: SessionDrawerProps) {
+export default function SessionDrawer({
+    children,
+    isEdit = false,
+    name: initialName = "",
+    location: initialLocation = 0,
+    notes: initialNotes = "",
+    date: initialDate = new Date(),
+    id: sessionId,
+}: SessionDrawerProps) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [name, setName] = useState(() => {
+        if (initialName) {
+            return initialName;
+        }
         const date = new Date();
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
         const year = date.getFullYear();
         return `${month}/${day}/${year}`;
     });
-    const [location, setLocation] = useState(0);
-    const [notes, setNotes] = useState("");
-    const [date, setDate] = useState<Date>(new Date());
-    const [isEdit, setIsEdit] = useState(false);
+    const [location, setLocation] = useState(initialLocation || 0);
+    const [notes, setNotes] = useState(initialNotes || "");
+    const [date, setDate] = useState<Date>(initialDate || new Date());
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     return (
@@ -51,9 +67,13 @@ export default function SessionDrawer({ children }: SessionDrawerProps) {
                 className={`h-[calc(100dvh-1rem)] ${isSubmitting ? "pointer-events-none" : ""}`}
             >
                 <DrawerHeader className="flex flex-col items-start justify-start">
-                    <DrawerTitle>Create a new session</DrawerTitle>
+                    <DrawerTitle>
+                        {isEdit ? "Edit session" : "Create a new session"}
+                    </DrawerTitle>
                     <DrawerDescription>
-                        Add a new session to your logbook.
+                        {isEdit
+                            ? "Edit your session details."
+                            : "Add a new session to your logbook."}
                     </DrawerDescription>
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
@@ -113,7 +133,22 @@ export default function SessionDrawer({ children }: SessionDrawerProps) {
                                 setIsSubmitting(true);
                                 setIsUploading(true);
                                 console.log("submitting form");
-                                await addSession(name, notes, location, date);
+                                if (isEdit && sessionId) {
+                                    await editSession(
+                                        sessionId,
+                                        name,
+                                        notes,
+                                        location,
+                                        date,
+                                    );
+                                } else {
+                                    await addSession(
+                                        name,
+                                        notes,
+                                        location,
+                                        date,
+                                    );
+                                }
                                 console.log("submitted form");
                                 router.refresh();
                                 setIsSubmitting(false);

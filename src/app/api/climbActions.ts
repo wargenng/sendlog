@@ -117,3 +117,26 @@ export async function addSession(
 
     revalidatePath("/");
 }
+
+export async function editSession(
+    id: number,
+    name: string,
+    notes: string,
+    location: number,
+    date: Date,
+) {
+    const user = auth();
+    if (!user.userId) return [];
+
+    await db
+        .update(sessions)
+        .set({
+            name: name,
+            date: date,
+            notes: notes,
+            location: location,
+        })
+        .where(eq(sessions.id, id));
+
+    revalidatePath("/");
+}

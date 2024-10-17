@@ -23,25 +23,32 @@ export default async function SessionsPage() {
                     </h1>
                     <div className="space-y-2">
                         {sessions.map((session) => (
-                            <div
+                            <SessionDrawer
+                                isEdit={true}
                                 key={session.id}
-                                className="space-y-2 border-b"
+                                name={session?.name ?? ""}
+                                location={session?.location ?? 0}
+                                date={session?.date ?? null}
+                                notes={session?.notes ?? ""}
+                                id={session.id}
                             >
-                                <h1 className="text-2xl">{session.name}</h1>
-                                <p>
-                                    {new Date(session.date).toLocaleDateString(
-                                        "en-US",
-                                    )}
-                                </p>
-                                <div>
-                                    {session.climbs.map((climb) => (
-                                        <div key={climb.id}>
-                                            <p>{climb.name}</p>
-                                            <p>{climb.grade}</p>
-                                        </div>
-                                    ))}
+                                <div className="space-y-2 border-b">
+                                    <h1 className="text-2xl">{session.name}</h1>
+                                    <p>
+                                        {new Date(
+                                            session.date,
+                                        ).toLocaleDateString("en-US")}
+                                    </p>
+                                    <div>
+                                        {session.climbs.map((climb) => (
+                                            <div key={climb.id}>
+                                                <p>{climb.name}</p>
+                                                <p>{climb.grade}</p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            </SessionDrawer>
                         ))}
                     </div>
                 </div>
