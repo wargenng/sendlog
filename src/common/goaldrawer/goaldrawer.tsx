@@ -20,23 +20,28 @@ interface GoalDrawerProps {
 
 export default function GoalDrawer({ children }: GoalDrawerProps) {
     const [open, setOpen] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-[calc(100dvh-1rem)]">
                 <DrawerHeader className="flex flex-col items-start justify-start">
-                    <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                    <DrawerTitle>Create a new session</DrawerTitle>
                     <DrawerDescription>
-                        This action cannot be undone.
+                        Add a new session to your logbook.
                     </DrawerDescription>
                 </DrawerHeader>
-                <DrawerFooter>
+                <div
+                    className={`flex flex-col gap-2 overflow-y-auto p-4 text-sm ${
+                        isUploading ? "pointer-events-none brightness-50" : ""
+                    }`}
+                >
                     <Button>Submit</Button>
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>
                     </DrawerClose>
-                </DrawerFooter>
+                </div>
             </DrawerContent>
         </Drawer>
     );

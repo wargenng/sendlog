@@ -1,6 +1,8 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import type { User } from "@clerk/nextjs/server";
 import { TopNav } from "../_components/topnav";
+import { Button } from "~/components/ui/button";
+import { RecentClimbs } from "../_components/recentclimbs";
 
 export const dynamic = "force-dynamic";
 
@@ -68,6 +70,8 @@ export default async function UserPage({ params }: Params) {
                             </div>
                         </div>
                     </div>
+                    <Button className="mt-4 w-full">Follow</Button>
+                    <RecentClimbs />
                 </div>
             </main>
         );

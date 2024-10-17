@@ -3,7 +3,7 @@ import { useState } from "react";
 import { deleteClimb } from "~/app/api/climbActions";
 import { Button } from "~/components/ui/button";
 
-export function deleteClimbForm(
+export function DeleteClimbForm(
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>,
     climbId: number,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>,

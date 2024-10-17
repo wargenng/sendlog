@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { ClimbDatePicker } from "~/common/climbdrawer/components/climbdatepicker";
+import { DatePicker } from "~/common/datepicker";
 import { Button } from "~/components/ui/button";
 import {
     Drawer,
@@ -15,11 +15,11 @@ import {
 } from "~/components/ui/drawer";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
-import { deleteClimbForm } from "./components/deletebutton";
+import { DeleteClimbForm } from "./components/deletebutton";
 import { GradeCombobox } from "./components/gradecombobox";
-import { LocationsCombobox } from "./components/locationscombobox";
+import { LocationsCombobox } from "../locationscombobox";
 import { RatingInput } from "./components/ratinginput";
-import { submitButton } from "./components/submitbutton";
+import { SubmitButton } from "./components/submitbutton";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
@@ -107,7 +107,7 @@ export function ClimbDrawer({
                         <RatingInput rating={rating} setRating={setRating} />
                         <div className="w-full space-y-1">
                             <p>Date Sent</p>
-                            <ClimbDatePicker date={date} setDate={setDate} />
+                            <DatePicker date={date} setDate={setDate} />
                         </div>
                     </div>
                     <div className="space-y-1">
@@ -126,7 +126,7 @@ export function ClimbDrawer({
                         />
                     </div>
                     <div className="mt-4 space-y-2">
-                        {submitButton(
+                        {SubmitButton(
                             setIsUploading,
                             isEdit,
                             climbId,
@@ -140,7 +140,7 @@ export function ClimbDrawer({
                             setOpen,
                         )}
                         {isEdit &&
-                            deleteClimbForm(setIsUploading, climbId, setOpen)}
+                            DeleteClimbForm(setIsUploading, climbId, setOpen)}
                         <DrawerClose asChild>
                             <Button variant="outline" className="w-full">
                                 Cancel

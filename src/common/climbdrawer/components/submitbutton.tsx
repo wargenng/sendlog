@@ -3,7 +3,7 @@ import { useState } from "react";
 import { addClimb, editClimb } from "~/app/api/climbActions";
 import { Button } from "~/components/ui/button";
 
-export function submitButton(
+export function SubmitButton(
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>,
     isEdit: boolean,
     climbId: number,

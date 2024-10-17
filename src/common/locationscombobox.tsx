@@ -8,7 +8,7 @@ import {
     CommandItem,
     CommandList,
 } from "~/components/ui/command";
-import { locations } from "../../../app/utils/locations";
+import { locations } from "../app/utils/locations";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
@@ -52,41 +52,41 @@ export function LocationsCombobox({
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="overflow-y-auto">
+            <DropdownMenuContent className="w-[calc(100dvw-2rem)] overflow-y-auto">
                 <Command>
                     <CommandInput
                         placeholder="Search location..."
                         className="text-base"
                     />
-                    <CommandList>
+                    <CommandList className="w-full">
                         <CommandEmpty>No location found.</CommandEmpty>
-                        <CommandGroup>
+                        <CommandGroup className="w-full">
                             {locations.map((g) => (
                                 <CommandItem
                                     key={g.id}
-                                    value={g.id.toString()}
-                                    onSelect={(currentValue) => {
-                                        const selectedValue = parseInt(
-                                            currentValue,
-                                            10,
-                                        );
+                                    value={g.label}
+                                    onSelect={() => {
                                         setLocation(
-                                            selectedValue === location
-                                                ? -1
-                                                : selectedValue,
+                                            g.id === location ? -1 : g.id,
                                         );
                                         setOpen(false);
                                     }}
+                                    className="flex justify-between"
                                 >
-                                    <Check
-                                        className={cn(
-                                            "mr-2 h-4 w-4",
-                                            location === g.id
-                                                ? "opacity-100"
-                                                : "opacity-0",
-                                        )}
-                                    />
-                                    {g.label}
+                                    <div className="flex">
+                                        <Check
+                                            className={cn(
+                                                "mr-2 h-4 w-4",
+                                                location === g.id
+                                                    ? "opacity-100"
+                                                    : "opacity-0",
+                                            )}
+                                        />
+                                        {g.label}
+                                    </div>
+                                    <div className="text-xs text-foreground/50">
+                                        {g.location}, {g.state}
+                                    </div>
                                 </CommandItem>
                             ))}
                         </CommandGroup>

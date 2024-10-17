@@ -10,22 +10,17 @@ import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "~/components/ui/popover";
-import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 
-interface ClimbDatePickerProps {
+interface DatePickerProps {
     date: Date | null;
     setDate: any;
 }
 
-export function ClimbDatePicker({ date, setDate }: ClimbDatePickerProps) {
+export function DatePicker({ date, setDate }: DatePickerProps) {
     return (
         <div>
             <DropdownMenu>
