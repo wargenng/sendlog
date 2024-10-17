@@ -147,3 +147,14 @@ export async function editSession(
 
     revalidatePath("/");
 }
+
+export async function deleteSession(id: number) {
+    const user = auth();
+    if (!user.userId) return [];
+
+    await db
+        .delete(sessions)
+        .where(and(eq(sessions.id, id), eq(sessions.userId, user.userId)));
+
+    revalidatePath("/");
+}

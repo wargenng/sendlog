@@ -21,7 +21,7 @@ import { DatePicker } from "../datepicker";
 import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { useRouter } from "next/navigation";
 import { LoadingAnimation } from "~/components/loadinganimation";
-import { addSession, editSession } from "~/app/api/climbActions";
+import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
 
 interface SessionDrawerProps {
     children: ReactNode;
@@ -59,6 +59,7 @@ export default function SessionDrawer({
     const [notes, setNotes] = useState(initialNotes || "");
     const [date, setDate] = useState<Date>(initialDate || new Date());
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -174,6 +175,36 @@ export default function SessionDrawer({
                                 )}
                             </Button>
                         </form>
+                        {isEdit && (
+                            <form
+                                onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    setIsDeleting(true);
+                                    setIsUploading(true);
+                                    console.log("deleting form");
+                                    if (sessionId !== undefined) {
+                                        await deleteSession(sessionId);
+                                    }
+                                    console.log("deleted form");
+                                    router.refresh();
+                                    setIsDeleting(false);
+                                    setIsUploading(false);
+                                    setOpen(false);
+                                }}
+                            >
+                                <Button
+                                    type="submit"
+                                    variant={"destructive"}
+                                    className="w-full items-center text-foreground"
+                                >
+                                    {isDeleting ? (
+                                        <LoadingAnimation />
+                                    ) : (
+                                        "Delete Session"
+                                    )}
+                                </Button>
+                            </form>
+                        )}
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
                         </DrawerClose>
