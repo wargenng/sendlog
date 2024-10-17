@@ -54,8 +54,8 @@ export function BottomNav() {
                             <span className="text-xs font-normal">Goals</span>
                         </Link>
                         <Link
-                            href={`/${user?.username}`}
-                            className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "brightness-100" : "brightness-50"}`}
+                            href={`/`}
+                            className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/test` ? "brightness-100" : "brightness-50"}`}
                         >
                             {user?.imageUrl ? (
                                 <img
