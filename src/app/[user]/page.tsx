@@ -1,20 +1,8 @@
-import { clerkClient } from "@clerk/express";
-import type { User } from "@clerk/express";
+import { clerkClient } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import { TopNav } from "../_components/topnav";
 
-export async function generateStaticParams() {
-    try {
-        const { data: users }: { data: User[] } =
-            await clerkClient.users.getUserList();
-
-        return users.map((user) => ({
-            username: user.username,
-        }));
-    } catch (error) {
-        console.error("Error generating static params:", error);
-        return [];
-    }
-}
+export const dynamic = "force-dynamic";
 
 interface Params {
     params: {
@@ -26,8 +14,8 @@ export default async function UserPage({ params }: Params) {
     const { user: username } = params;
 
     try {
-        const { data: users }: { data: User[] } =
-            await clerkClient.users.getUserList();
+        const response = await clerkClient.users.getUserList();
+        const users = response.data;
         const user = users.find((user: User) => user.username === username);
 
         if (!user) {
