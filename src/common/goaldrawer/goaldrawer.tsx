@@ -14,11 +14,11 @@ import {
 
 import { useState, type ReactNode } from "react";
 
-interface SessionDrawerProps {
+interface GoalDrawerProps {
     children: ReactNode;
 }
 
-export default function SessionDrawer({ children }: SessionDrawerProps) {
+export default function GoalDrawer({ children }: GoalDrawerProps) {
     const [open, setOpen] = useState(false);
 
     return (

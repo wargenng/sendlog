@@ -59,7 +59,7 @@ export function ClimbDrawer({
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
-            <DrawerContent className="h-dvh">
+            <DrawerContent className="h-[calc(100dvh-1rem)]">
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle>
                         {isEdit ? "Edit climb" : "Enter a climb"}

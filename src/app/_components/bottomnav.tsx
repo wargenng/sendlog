@@ -41,9 +41,9 @@ export function BottomNav() {
                             <Button
                                 variant="default"
                                 size="icon"
-                                className="h-10 w-10 rounded-full bg-primary"
+                                className="h-12 w-12 rounded-full bg-primary"
                             >
-                                <Plus className="h-6 w-6" />
+                                <Plus className="h-6 w-6 text-foreground" />
                             </Button>
                         </ClimbDrawer>
                         <Link
