@@ -27,7 +27,7 @@ export default async function UserPage({ params }: Params) {
         return (
             <main>
                 <TopNav title={user.username ?? "404"} />
-                <div className="mt-20 px-6 pb-32">
+                <div className="mt-20 space-y-6 px-6 pb-32">
                     <div className="flex gap-6">
                         {user?.imageUrl ? (
                             <img
@@ -70,7 +70,20 @@ export default async function UserPage({ params }: Params) {
                             </div>
                         </div>
                     </div>
-                    <Button className="mt-4 w-full">Follow</Button>
+                    <div>
+                        <p className="text-sm">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing
+                            elit. Vitae quas tempora nam quidem qui aperiam aut
+                            excepturi explicabo porro quisquam.
+                        </p>
+                    </div>
+                    <div className="space-y-2">
+                        <Button className="w-full">Follow</Button>
+                        <Button variant={"secondary"} className="w-full">
+                            Share Profile
+                        </Button>
+                    </div>
+
                     <RecentClimbs />
                 </div>
             </main>

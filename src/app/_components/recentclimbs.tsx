@@ -6,7 +6,7 @@ export async function RecentClimbs() {
     const climbs = await getCurrentUsersClimbs();
 
     return (
-        <div className="space-y-2 p-6">
+        <div className="space-y-2">
             <h1 className="border-b text-base font-semibold">
                 recent activity
             </h1>

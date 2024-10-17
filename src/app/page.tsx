@@ -13,7 +13,9 @@ export default async function HomePage() {
                     <div className="space-y-2">
                         <DataCarousel />
                     </div>
-                    <RecentClimbs />
+                    <div className="p-6">
+                        <RecentClimbs />
+                    </div>
                 </div>
             </SignedIn>
         </main>

@@ -33,9 +33,9 @@
 [x] - Allow users to delete their climbs
 [x] - After Climb Submission a session will Automatically be Created
 [x] - Make users profile public and viewable to other people
+[x] - Add in a user profile section for preferences
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Friends list
-[ ] - Add in a user profile section for preferences
 [ ] - Goals tab
 [ ] - Multiple types of Goals (general, climbs, etc.)
 [ ] - Share sessions with friends
