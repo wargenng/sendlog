@@ -15,7 +15,7 @@
 [ ] - Add Loading screen
 [ ] - Modify desktop version
 [ ] - Add quick add button
-[ ] - Redesign climb cards
+[x] - Redesign climb cards
 [ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
 [ ] - Add a way to connect a Climb to a Goal
 [ ] - Bulk add button

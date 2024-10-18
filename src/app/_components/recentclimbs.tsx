@@ -24,54 +24,51 @@ export async function RecentClimbs() {
                         date={climb.sendDate ?? new Date()}
                         key={climb.id}
                     >
-                        <div className="border-b">
-                            <h1>
-                                {climb.name} {climb.grade}
-                            </h1>
-                            {climb.rating ? (
-                                <p className="flex items-center text-xl text-primary">
-                                    {"★".repeat(climb.rating)}
-                                    {"★"
-                                        .repeat(5 - climb.rating)
-                                        .split("")
-                                        .map((star, index) => (
-                                            <span
-                                                key={index}
-                                                className="text-foreground/50"
-                                            >
-                                                {star}
-                                            </span>
-                                        ))}{" "}
-                                    <span className="ml-2 text-sm text-foreground/50">
-                                        ({climb.rating})
-                                    </span>
+                        <div className="space-y-2 border-b">
+                            <div className="flex justify-between">
+                                <p className="text-xs font-thin">
+                                    {locations[climb.location - 1]?.label} ·{" "}
+                                    {locations[climb.location - 1]?.location},{" "}
+                                    {locations[climb.location - 1]?.state}
                                 </p>
-                            ) : null}
-                            {climb.location ? (
-                                <p>
-                                    {
-                                        locations.find(
-                                            (location) =>
-                                                location.id === climb.location,
-                                        )?.label
-                                    }
+                                <p className="text-xs text-foreground/50">
+                                    {climb.sendDate
+                                        ? new Date(
+                                              climb.sendDate,
+                                          ).toLocaleDateString("en-US")
+                                        : ""}
                                 </p>
-                            ) : null}
-                            {climb.sendDate ? (
-                                <p>
-                                    {climb.sendDate.toLocaleDateString(
-                                        undefined,
-                                        {
-                                            year: "numeric",
-                                            month: "long",
-                                            day: "numeric",
-                                        },
-                                    )}
-                                </p>
-                            ) : null}
-                            {climb.attempts ? (
-                                <p>{climb.attempts} attempts</p>
-                            ) : null}
+                            </div>
+
+                            <div className="flex items-center space-x-2">
+                                <h1 className="text-3xl font-semibold">
+                                    {climb.name} {climb.grade}
+                                </h1>
+                                <div>
+                                    {climb.rating ? (
+                                        <p className="flex items-center text-xs text-primary">
+                                            {"★".repeat(climb.rating)}
+                                            {"★"
+                                                .repeat(5 - climb.rating)
+                                                .split("")
+                                                .map((star, index) => (
+                                                    <span
+                                                        key={index}
+                                                        className="text-foreground/50"
+                                                    >
+                                                        {star}
+                                                    </span>
+                                                ))}{" "}
+                                        </p>
+                                    ) : null}
+                                    {climb.attempts ? (
+                                        <p className="text-xs italic text-foreground/50">
+                                            {climb.attempts} attempts
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
+
                             <p className="italic text-foreground/50">
                                 {climb.notes}
                             </p>

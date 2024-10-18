@@ -120,7 +120,10 @@ export default function SessionDrawer({
                             }
                         />
                     </div>
-                    {climbs}
+                    <div className="space-y-1">
+                        <p>Climbs</p>
+                        {climbs}
+                    </div>
                     <div className="mt-4 flex w-full flex-col space-y-2">
                         {isEdit ? (
                             <ClimbDrawer
