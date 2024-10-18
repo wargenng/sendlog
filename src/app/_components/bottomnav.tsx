@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Plus } from "lucide-react";
+import LogDrawer from "~/common/logdrawer/logdrawer";
 
 export function BottomNav() {
     const currentPath = usePathname();
@@ -37,7 +38,7 @@ export function BottomNav() {
                                 Sessions
                             </span>
                         </Link>
-                        <ClimbDrawer isEdit={false}>
+                        <LogDrawer>
                             <Button
                                 variant="default"
                                 size="icon"
@@ -45,7 +46,7 @@ export function BottomNav() {
                             >
                                 <Plus className="h-6 w-6 text-foreground" />
                             </Button>
-                        </ClimbDrawer>
+                        </LogDrawer>
                         <Link
                             href="/goals"
                             className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/goals" ? "brightness-100" : "brightness-50"}`}
