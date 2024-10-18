@@ -87,7 +87,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                         />
                     </div>
                 </DrawerMainContent>
-                <DrawerFooter>
+                <DrawerFooter className="mb-4">
                     <DrawerClose className="flex w-full justify-center">
                         <X className="h-10 w-10 text-foreground" />
                     </DrawerClose>
