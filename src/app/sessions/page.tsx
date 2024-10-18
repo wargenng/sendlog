@@ -7,6 +7,7 @@ import { Button } from "~/components/ui/button";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
 import SessionClimbs from "../_components/sessionclimbs";
 import type { Session } from "~/server/db/schema";
+import { grades } from "../utils/grades";
 
 export default async function SessionsPage() {
     const sessions = (await getCurrentUsersSessions()) as Session[];
@@ -23,8 +24,8 @@ export default async function SessionsPage() {
                         </Button>
                     </SessionDrawer>
                 </div>
-                <div>
-                    <h1 className="border-b text-2xl font-bold">
+                <div className="space-y-2">
+                    <h1 className="border-b text-base font-bold">
                         recent sessions
                     </h1>
                     <div className="space-y-2">
@@ -34,19 +35,15 @@ export default async function SessionsPage() {
                                 isEdit={true}
                                 session={session}
                                 key={session.id}
-                                name={session?.name ?? ""}
-                                location={session?.location ?? 0}
-                                date={session?.date ?? null}
-                                notes={session?.notes ?? ""}
-                                id={session.id}
                             >
-                                <div className="space-y-2 border-b">
-                                    <h1 className="text-2xl">{session.name}</h1>
-                                    <p>
+                                <div className="space-y-1 border-b">
+                                    <p className="text-xs text-foreground/50">
                                         {new Date(
                                             session.date,
                                         ).toLocaleDateString("en-US")}
                                     </p>
+                                    <h1 className="text-2xl">{session.name}</h1>
+
                                     <div>
                                         {climbs
                                             .filter(
@@ -54,12 +51,20 @@ export default async function SessionsPage() {
                                                     climb.sessionId ===
                                                     session.id.toString(),
                                             )
-                                            .map((climb) => (
-                                                <div key={climb.id}>
-                                                    <p>{climb.name}</p>
-                                                    <p>{climb.grade}</p>
-                                                </div>
-                                            ))}
+                                            .map(
+                                                (climb) =>
+                                                    grades.find(
+                                                        (grade) =>
+                                                            grade.value ===
+                                                            climb.grade,
+                                                    )?.gradeValue,
+                                            )
+                                            .reduce(
+                                                (acc: number, grade) =>
+                                                    acc + (grade ?? 0),
+                                                0,
+                                            )}{" "}
+                                        V-points
                                     </div>
                                 </div>
                             </SessionDrawer>

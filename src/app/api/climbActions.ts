@@ -38,6 +38,7 @@ export const addClimb = async (
             await db.insert(sessions).values({
                 userId: user.userId,
                 name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
+                location: location,
                 date: date,
             });
             const currentsessions = await getCurrentUsersSessions();

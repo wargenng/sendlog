@@ -12,11 +12,11 @@ export const createTable = pgTableCreator((name) => `sendlog_${name}`);
 
 export const climbs = createTable("climb", {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
-    grade: varchar("grade", { length: 10 }),
+    name: varchar("name", { length: 256 }).notNull(),
+    grade: varchar("grade", { length: 10 }).notNull(),
     attempts: integer("attempts"),
     rating: integer("rating"),
-    location: integer("location"),
+    location: integer("location").notNull(),
     notes: varchar("notes", { length: 256 }),
     sendDate: timestamp("sent_on", { withTimezone: true }).default(
         sql`CURRENT_TIMESTAMP`,
@@ -52,9 +52,9 @@ export type Climb = {
 
 export const sessions = createTable("session", {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull(),
     date: timestamp("date", { withTimezone: true }).notNull(),
-    location: integer("location"),
+    location: integer("location").notNull(),
     notes: varchar("notes", { length: 256 }),
     groupId: varchar("groupId", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
