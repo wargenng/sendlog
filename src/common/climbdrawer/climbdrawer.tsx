@@ -209,10 +209,17 @@ export function ClimbDrawer({
                                 setIsUploading={setIsUploading}
                                 climbId={climbId}
                                 setOpen={setOpen}
+                                setIsRejected={setIsRejected}
                             />
                         )}
                         <DrawerClose asChild>
-                            <Button variant="outline" className="w-full">
+                            <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={() => {
+                                    setIsRejected(false);
+                                }}
+                            >
                                 Cancel
                             </Button>
                         </DrawerClose>

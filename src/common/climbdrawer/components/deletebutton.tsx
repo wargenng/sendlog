@@ -8,12 +8,14 @@ interface DeleteButtonProps {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
     climbId: number;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsRejected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export function DeleteClimbForm({
     setIsUploading,
     climbId,
     setOpen,
+    setIsRejected,
 }: DeleteButtonProps) {
     const [isDeleting, setIsDeleting] = useState(false);
     const router = useRouter();
@@ -31,6 +33,7 @@ export function DeleteClimbForm({
                 setIsDeleting(false);
                 setIsUploading(false);
                 setOpen(false);
+                setIsRejected(false);
             }}
         >
             <Button variant="destructive" className="w-full">

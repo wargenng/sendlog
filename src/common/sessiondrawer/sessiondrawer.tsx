@@ -233,6 +233,7 @@ export default function SessionDrawer({
                                 }
                                 console.log("submitted form");
                                 router.refresh();
+                                setIsRejected(false);
                                 setIsSubmitting(false);
                                 setIsUploading(false);
                                 setOpen(false);
@@ -263,6 +264,7 @@ export default function SessionDrawer({
                                     }
                                     console.log("deleted form");
                                     router.refresh();
+                                    setIsRejected(false);
                                     setIsDeleting(false);
                                     setIsUploading(false);
                                     setOpen(false);
@@ -282,7 +284,14 @@ export default function SessionDrawer({
                             </form>
                         )}
                         <DrawerClose asChild>
-                            <Button variant="outline">Cancel</Button>
+                            <Button
+                                variant="outline"
+                                onClick={() => {
+                                    setIsRejected(false);
+                                }}
+                            >
+                                Cancel
+                            </Button>
                         </DrawerClose>
                     </div>
                 </DrawerMainContent>
