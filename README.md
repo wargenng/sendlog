@@ -13,14 +13,11 @@
 [x] - Make the create climb form come up when editing climb
 [ ] - Add error checking on climb entry
 [ ] - Add Loading screen
-[ ] - Redesign home screen
 [ ] - Modify desktop version
-[ ] - Arrow pointing to add button when there is no sends added
 [ ] - Add quick add button
 [ ] - Redesign climb cards
 [ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
 [ ] - Add a way to connect a Climb to a Goal
-[ ] - Add congrats confetti
 [ ] - Bulk add button
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete
@@ -59,7 +56,6 @@
 [ ] - Add a redirect to dashboard if the user is logged in
 [ ] - Insert loading skeleton. onload opacity 100% with transition
 [ ] - Active icon when session hasn't finished
-
-## IDEAS
-
+[ ] - Arrow pointing to add button when there is no sends added
 [ ] - Create verified users (enter new locations, enter new grade levels, etc.)
+[ ] - Add congrats confetti
