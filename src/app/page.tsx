@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 import { DataCarousel } from "./_components/data/datacarousel";
 import { RecentClimbs } from "./_components/recentclimbs";
 import { TopNav } from "./_components/topnav";

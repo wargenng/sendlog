@@ -1,11 +1,16 @@
-import { getCurrentUsersSessions } from "~/server/queries";
+import {
+    getCurrentUsersClimbs,
+    getCurrentUsersSessions,
+} from "~/server/queries";
 import { TopNav } from "../_components/topnav";
 import { Button } from "~/components/ui/button";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
 import SessionClimbs from "../_components/sessionclimbs";
+import type { Session } from "~/server/db/schema";
 
 export default async function SessionsPage() {
-    const sessions = await getCurrentUsersSessions();
+    const sessions = (await getCurrentUsersSessions()) as Session[];
+    const climbs = await getCurrentUsersClimbs();
 
     return (
         <main className="">
@@ -27,6 +32,7 @@ export default async function SessionsPage() {
                             <SessionDrawer
                                 climbs={SessionClimbs(session.id)}
                                 isEdit={true}
+                                session={session}
                                 key={session.id}
                                 name={session?.name ?? ""}
                                 location={session?.location ?? 0}
@@ -42,12 +48,18 @@ export default async function SessionsPage() {
                                         ).toLocaleDateString("en-US")}
                                     </p>
                                     <div>
-                                        {session.climbs.map((climb) => (
-                                            <div key={climb.id}>
-                                                <p>{climb.name}</p>
-                                                <p>{climb.grade}</p>
-                                            </div>
-                                        ))}
+                                        {climbs
+                                            .filter(
+                                                (climb) =>
+                                                    climb.sessionId ===
+                                                    session.id.toString(),
+                                            )
+                                            .map((climb) => (
+                                                <div key={climb.id}>
+                                                    <p>{climb.name}</p>
+                                                    <p>{climb.grade}</p>
+                                                </div>
+                                            ))}
                                     </div>
                                 </div>
                             </SessionDrawer>

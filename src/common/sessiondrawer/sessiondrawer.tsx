@@ -22,44 +22,33 @@ import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { useRouter } from "next/navigation";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
+import type { Session } from "~/server/db/schema";
 
 interface SessionDrawerProps {
     children: ReactNode;
     climbs?: ReactNode;
     isEdit?: boolean;
-    name?: string;
-    location?: number;
-    notes?: string;
-    date?: Date;
-    id?: number;
+    session?: Session;
 }
 
 export default function SessionDrawer({
     children,
     climbs,
     isEdit = false,
-    name: initialName = "",
-    location: initialLocation = 0,
-    notes: initialNotes = "",
-    date: initialDate = new Date(),
-    id: sessionId,
+    session: initialSession,
 }: SessionDrawerProps) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
-    const [name, setName] = useState(() => {
-        if (initialName) {
-            return initialName;
-        }
-        const date = new Date();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const year = date.getFullYear();
-        return `${month}/${day}/${year}`;
-    });
-    const [location, setLocation] = useState(initialLocation || 0);
-    const [notes, setNotes] = useState(initialNotes || "");
-    const [date, setDate] = useState<Date>(initialDate || new Date());
+    const [session, setSession] = useState(
+        initialSession ??
+            ({
+                name: `${String(new Date().getMonth() + 1).padStart(2, "0")}/${String(new Date().getDate()).padStart(2, "0")}/${new Date().getFullYear()}`,
+                location: 0,
+                notes: "",
+                date: new Date(),
+            } as Session),
+    );
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -85,8 +74,10 @@ export default function SessionDrawer({
                         <Input
                             type="text"
                             placeholder="Enter name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={session.name}
+                            onChange={(e) =>
+                                setSession({ ...session, name: e.target.value })
+                            }
                             className="text-base"
                         />
                     </div>
@@ -94,21 +85,39 @@ export default function SessionDrawer({
                         <div className="w-1/2 space-y-1">
                             <p>Location</p>
                             <LocationsCombobox
-                                location={location}
-                                setLocation={setLocation}
+                                location={session.location}
+                                setLocation={(location) => {
+                                    setSession({
+                                        ...session,
+                                        location: location,
+                                    });
+                                }}
                             />
                         </div>
                         <div className="w-1/2 space-y-1">
                             <p>Date Sent</p>
-                            <DatePicker date={date} setDate={setDate} />
+                            <DatePicker
+                                date={session.date}
+                                setDate={(date: Date) => {
+                                    setSession({
+                                        ...session,
+                                        date: date,
+                                    });
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="space-y-1">
                         <p>Notes</p>
                         <Textarea
                             className="text-base"
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
+                            value={session.notes}
+                            onChange={(e) =>
+                                setSession({
+                                    ...session,
+                                    notes: e.target.value,
+                                })
+                            }
                         />
                     </div>
                     {climbs}
@@ -116,9 +125,9 @@ export default function SessionDrawer({
                         {isEdit ? (
                             <ClimbDrawer
                                 isEdit={false}
-                                location={location}
-                                sessionId={sessionId}
-                                date={date}
+                                location={session.location}
+                                sessionId={session.id}
+                                date={session.date}
                             >
                                 <Button
                                     variant="secondary"
@@ -134,21 +143,10 @@ export default function SessionDrawer({
                                 setIsSubmitting(true);
                                 setIsUploading(true);
                                 console.log("submitting form");
-                                if (isEdit && sessionId) {
-                                    await editSession(
-                                        sessionId,
-                                        name,
-                                        notes,
-                                        location,
-                                        date,
-                                    );
+                                if (isEdit && session.id) {
+                                    await editSession(session);
                                 } else {
-                                    await addSession(
-                                        name,
-                                        notes,
-                                        location,
-                                        date,
-                                    );
+                                    await addSession(session);
                                 }
                                 console.log("submitted form");
                                 router.refresh();
@@ -177,8 +175,8 @@ export default function SessionDrawer({
                                     setIsDeleting(true);
                                     setIsUploading(true);
                                     console.log("deleting form");
-                                    if (sessionId !== undefined) {
-                                        await deleteSession(sessionId);
+                                    if (session.id !== undefined) {
+                                        await deleteSession(session.id);
                                     }
                                     console.log("deleted form");
                                     router.refresh();

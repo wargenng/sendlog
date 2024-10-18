@@ -26,17 +26,7 @@ export async function getCurrentUsersSessions() {
         orderBy: (model, { desc }) => desc(model.id),
     });
 
-    const sessionsWithClimbs = await Promise.all(
-        sessions.map(async (session) => {
-            const sessionClimbs = await db.query.climbs.findMany({
-                where: (model, { eq }) =>
-                    eq(model.sessionId, session.id.toString()),
-            });
-            return { ...session, climbs: sessionClimbs };
-        }),
-    );
-
-    return sessionsWithClimbs;
+    return sessions;
 }
 
 export async function getUserSessionClimbs(sessionId: number) {

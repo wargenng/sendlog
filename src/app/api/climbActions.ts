@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import { climbs, sessions } from "~/server/db/schema";
+import { climbs, Session, sessions } from "~/server/db/schema";
 import { getCurrentUsersSessions } from "~/server/queries";
 
 export const addClimb = async (
@@ -105,45 +105,34 @@ export async function deleteClimb(id: number) {
     revalidatePath("/");
 }
 
-export async function addSession(
-    name: string,
-    notes: string,
-    location: number,
-    date: Date,
-) {
+export async function addSession(session: Session) {
     const user = auth();
     if (!user.userId) return [];
 
     await db.insert(sessions).values({
         userId: user.userId,
-        name: name,
-        date: date,
-        notes: notes,
-        location: location,
+        name: session.name,
+        date: session.date,
+        notes: session.notes,
+        location: session.location,
     });
 
     revalidatePath("/");
 }
 
-export async function editSession(
-    id: number,
-    name: string,
-    notes: string,
-    location: number,
-    date: Date,
-) {
+export async function editSession(session: Session) {
     const user = auth();
     if (!user.userId) return [];
 
     await db
         .update(sessions)
         .set({
-            name: name,
-            date: date,
-            notes: notes,
-            location: location,
+            name: session.name,
+            date: session.date,
+            notes: session.notes,
+            location: session.location,
         })
-        .where(eq(sessions.id, id));
+        .where(eq(sessions.id, session.id));
 
     revalidatePath("/");
 }
