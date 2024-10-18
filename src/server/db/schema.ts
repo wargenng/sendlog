@@ -18,9 +18,9 @@ export const climbs = createTable("climb", {
     rating: integer("rating"),
     location: integer("location").notNull(),
     notes: varchar("notes", { length: 256 }),
-    sendDate: timestamp("sent_on", { withTimezone: true }).default(
-        sql`CURRENT_TIMESTAMP`,
-    ),
+    sendDate: timestamp("sent_on", { withTimezone: true })
+        .default(sql`CURRENT_TIMESTAMP`)
+        .notNull(),
     isRepeat: boolean("is_repeat"),
     isSend: boolean("is_send"),
     userId: varchar("userId", { length: 256 }).notNull(),

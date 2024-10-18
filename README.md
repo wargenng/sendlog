@@ -11,7 +11,7 @@
 [x] - Convert to PWA
 [x] - Redesign login page
 [x] - Make the create climb form come up when editing climb
-[ ] - Add error checking on climb entry
+[x] - Add error checking on climb entry
 [ ] - Add Loading screen
 [ ] - Modify desktop version
 [ ] - Add quick add button

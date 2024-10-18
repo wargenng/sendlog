@@ -103,4 +103,12 @@ export const locations = [
         state: "NV",
         type: "Outdoors",
     },
+    {
+        id: 14,
+        label: "Gateway Canyon",
+        location: "Red Rock",
+        country: "USA",
+        state: "NV",
+        type: "Outdoors",
+    },
 ];

@@ -16,6 +16,7 @@ interface SubmitButtonProps {
     location: number;
     date: Date;
     sessionId?: number;
+    setIsRejected: React.Dispatch<React.SetStateAction<boolean>>;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -31,6 +32,7 @@ export function SubmitButton({
     location,
     date,
     sessionId,
+    setIsRejected,
     setOpen,
 }: SubmitButtonProps) {
     const router = useRouter();
@@ -43,6 +45,17 @@ export function SubmitButton({
                 setIsSubmitting(true);
                 setIsUploading(true);
                 console.log("submitting form");
+
+                if (!name || !grade || !location || !date) {
+                    console.log(
+                        "Name, grade, location, and date must not be empty",
+                    );
+                    setIsSubmitting(false);
+                    setIsUploading(false);
+                    setIsRejected(true);
+                    return;
+                }
+
                 if (isEdit) {
                     await editClimb(
                         climbId,
@@ -70,6 +83,7 @@ export function SubmitButton({
                 router.refresh();
                 setIsSubmitting(false);
                 setIsUploading(false);
+                setIsRejected(false);
                 setOpen(false);
             }}
         >

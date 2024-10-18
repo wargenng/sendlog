@@ -30,146 +30,167 @@ export default async function SessionsPage() {
                         recent sessions
                     </h1>
                     <div className="space-y-2">
-                        {sessions.map((session) => (
-                            <SessionDrawer
-                                climbs={SessionClimbs(session.id)}
-                                isEdit={true}
-                                session={session}
-                                key={session.id}
-                            >
-                                <div className="space-y-1 border-b">
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-xs font-thin">
-                                            {
-                                                locations[session.location - 1]
-                                                    ?.label
-                                            }{" "}
-                                            ·{" "}
-                                            {
-                                                locations[session.location - 1]
-                                                    ?.location
-                                            }
-                                            ,{" "}
-                                            {
-                                                locations[session.location - 1]
-                                                    ?.state
-                                            }
-                                        </p>
-                                        <p className="text-xs text-foreground/50">
-                                            {new Date(
-                                                session.date,
-                                            ).toLocaleDateString("en-US")}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <h1 className="text-xl">
-                                            {session.name}
-                                        </h1>
-                                    </div>
-                                    <div>
-                                        <p className="text-xs font-light italic text-foreground/50">
-                                            {session.notes}
-                                        </p>
-                                    </div>
-                                    <div className="flex justify-between py-2 font-semibold">
-                                        <div className="w-1/4">
-                                            <div className="text-2xl">
-                                                {grades.find(
-                                                    (grade) =>
-                                                        climbs
-                                                            .filter(
-                                                                (climb) =>
-                                                                    climb.sessionId ===
-                                                                    session.id.toString(),
-                                                            )
-                                                            .map(
-                                                                (climb) =>
-                                                                    grades.find(
-                                                                        (
-                                                                            grade,
-                                                                        ) =>
-                                                                            grade.value ===
-                                                                            climb.grade,
-                                                                    )?.ranking,
-                                                            )
-                                                            .sort(
-                                                                (a, b) =>
-                                                                    (b ?? 0) -
-                                                                    (a ?? 0),
-                                                            )[0] ===
-                                                        grade.ranking,
-                                                )?.value ?? "N/A"}
-                                            </div>{" "}
-                                            <p className="text-xs font-light text-foreground/50">
-                                                Highest grade
-                                            </p>
-                                        </div>
-                                        <div className="w-1/4">
-                                            <div className="text-2xl">
+                        {sessions
+                            .sort(
+                                (a, b) =>
+                                    new Date(b.date).getTime() -
+                                    new Date(a.date).getTime(),
+                            )
+                            .map((session) => (
+                                <SessionDrawer
+                                    climbs={SessionClimbs(session.id)}
+                                    isEdit={true}
+                                    session={session}
+                                    key={session.id}
+                                >
+                                    <div className="space-y-1 border-b">
+                                        <div className="flex items-center justify-between">
+                                            <p className="text-xs font-thin">
                                                 {
-                                                    climbs.filter(
-                                                        (climb) =>
-                                                            climb.sessionId ===
-                                                            session.id.toString(),
-                                                    ).length
+                                                    locations[
+                                                        session.location - 1
+                                                    ]?.label
+                                                }{" "}
+                                                ·{" "}
+                                                {
+                                                    locations[
+                                                        session.location - 1
+                                                    ]?.location
                                                 }
-                                            </div>{" "}
-                                            <p className="text-xs font-light text-foreground/50">
-                                                Climbs sent
+                                                ,{" "}
+                                                {
+                                                    locations[
+                                                        session.location - 1
+                                                    ]?.state
+                                                }
+                                            </p>
+                                            <p className="text-xs text-foreground/50">
+                                                {new Date(
+                                                    session.date,
+                                                ).toLocaleDateString("en-US")}
                                             </p>
                                         </div>
-                                        <div className="w-1/4">
-                                            <div className="text-2xl">
-                                                {climbs
-                                                    .filter(
-                                                        (climb) =>
-                                                            climb.sessionId ===
-                                                            session.id.toString(),
-                                                    )
-                                                    .map(
-                                                        (climb) =>
-                                                            climb.attempts ?? 0,
-                                                    )
-                                                    .reduce(
-                                                        (acc: number, grade) =>
-                                                            acc + (grade ?? 0),
-                                                        0,
-                                                    )}
-                                            </div>{" "}
-                                            <p className="text-xs font-light text-foreground/50">
-                                                Attempts
+                                        <div className="flex items-center justify-between">
+                                            <h1 className="text-xl">
+                                                {session.name}
+                                            </h1>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-light italic text-foreground/50">
+                                                {session.notes}
                                             </p>
                                         </div>
-                                        <div className="w-1/4">
-                                            <div className="text-2xl">
-                                                {climbs
-                                                    .filter(
-                                                        (climb) =>
-                                                            climb.sessionId ===
-                                                            session.id.toString(),
-                                                    )
-                                                    .map(
-                                                        (climb) =>
-                                                            grades.find(
-                                                                (grade) =>
-                                                                    grade.value ===
-                                                                    climb.grade,
-                                                            )?.gradeValue,
-                                                    )
-                                                    .reduce(
-                                                        (acc: number, grade) =>
-                                                            acc + (grade ?? 0),
-                                                        0,
-                                                    )}
-                                            </div>{" "}
-                                            <p className="text-xs font-light text-foreground/50">
-                                                V-points
-                                            </p>
+                                        <div className="flex justify-between py-2 font-semibold">
+                                            <div className="w-1/4">
+                                                <div className="text-2xl">
+                                                    {grades.find(
+                                                        (grade) =>
+                                                            climbs
+                                                                .filter(
+                                                                    (climb) =>
+                                                                        climb.sessionId ===
+                                                                        session.id.toString(),
+                                                                )
+                                                                .map(
+                                                                    (climb) =>
+                                                                        grades.find(
+                                                                            (
+                                                                                grade,
+                                                                            ) =>
+                                                                                grade.value ===
+                                                                                climb.grade,
+                                                                        )
+                                                                            ?.ranking,
+                                                                )
+                                                                .sort(
+                                                                    (a, b) =>
+                                                                        (b ??
+                                                                            0) -
+                                                                        (a ??
+                                                                            0),
+                                                                )[0] ===
+                                                            grade.ranking,
+                                                    )?.value ?? "N/A"}
+                                                </div>{" "}
+                                                <p className="text-xs font-light text-foreground/50">
+                                                    Highest grade
+                                                </p>
+                                            </div>
+                                            <div className="w-1/4">
+                                                <div className="text-2xl">
+                                                    {
+                                                        climbs.filter(
+                                                            (climb) =>
+                                                                climb.sessionId ===
+                                                                session.id.toString(),
+                                                        ).length
+                                                    }
+                                                </div>{" "}
+                                                <p className="text-xs font-light text-foreground/50">
+                                                    Climbs sent
+                                                </p>
+                                            </div>
+                                            <div className="w-1/4">
+                                                <div className="text-2xl">
+                                                    {climbs
+                                                        .filter(
+                                                            (climb) =>
+                                                                climb.sessionId ===
+                                                                session.id.toString(),
+                                                        )
+                                                        .map(
+                                                            (climb) =>
+                                                                climb.attempts ??
+                                                                0,
+                                                        )
+                                                        .reduce(
+                                                            (
+                                                                acc: number,
+                                                                grade,
+                                                            ) =>
+                                                                acc +
+                                                                (grade ?? 0),
+                                                            0,
+                                                        )}
+                                                </div>{" "}
+                                                <p className="text-xs font-light text-foreground/50">
+                                                    Attempts
+                                                </p>
+                                            </div>
+                                            <div className="w-1/4">
+                                                <div className="text-2xl">
+                                                    {climbs
+                                                        .filter(
+                                                            (climb) =>
+                                                                climb.sessionId ===
+                                                                session.id.toString(),
+                                                        )
+                                                        .map(
+                                                            (climb) =>
+                                                                grades.find(
+                                                                    (grade) =>
+                                                                        grade.value ===
+                                                                        climb.grade,
+                                                                )?.gradeValue,
+                                                        )
+                                                        .reduce(
+                                                            (
+                                                                acc: number,
+                                                                grade,
+                                                            ) =>
+                                                                acc +
+                                                                (grade ?? 0),
+                                                            0,
+                                                        )}
+                                                </div>{" "}
+                                                <p className="text-xs font-light text-foreground/50">
+                                                    V-points
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </SessionDrawer>
-                        ))}
+                                </SessionDrawer>
+                            ))}
                     </div>
                 </div>
             </div>

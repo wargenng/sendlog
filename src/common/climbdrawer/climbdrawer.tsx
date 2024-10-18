@@ -57,13 +57,14 @@ export function ClimbDrawer({
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState<Date>(initialDate || new Date());
     const [isUploading, setIsUploading] = useState(false);
+    const [isRejected, setIsRejected] = useState(false);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-[calc(100dvh-1rem)]">
-                <DrawerHeader className="flex flex-col items-start justify-start">
-                    <DrawerTitle>
+                <DrawerHeader className="flex flex-col items-start justify-start -space-y-2">
+                    <DrawerTitle className="text-2xl">
                         {isEdit ? "Edit climb" : "Enter a climb"}
                     </DrawerTitle>
                     <DrawerDescription>
@@ -74,7 +75,18 @@ export function ClimbDrawer({
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
                     <div className="space-y-1">
-                        <p>Name</p>
+                        <div className="flex justify-between">
+                            <p
+                                className={
+                                    isRejected && !name ? "text-red-500" : ""
+                                }
+                            >
+                                Name *
+                            </p>
+                            <div className="italic text-red-500/50">
+                                {isRejected && !name && "Name is required"}
+                            </div>
+                        </div>
                         <Input
                             type="text"
                             placeholder="Enter name"
@@ -85,7 +97,22 @@ export function ClimbDrawer({
                     </div>
                     <div className="flex gap-2">
                         <div className="w-1/2 space-y-1">
-                            <p>Grade</p>
+                            <div className="flex justify-between">
+                                <p
+                                    className={
+                                        isRejected && !grade
+                                            ? "text-red-500"
+                                            : ""
+                                    }
+                                >
+                                    Grade *
+                                </p>
+                                <div className="italic text-red-500/50">
+                                    {isRejected &&
+                                        !grade &&
+                                        "Grade is required"}
+                                </div>
+                            </div>
                             <GradeCombobox grade={grade} setGrade={setGrade} />
                         </div>
                         <div className="w-1/2 space-y-1">
@@ -104,25 +131,63 @@ export function ClimbDrawer({
                     <div className="flex gap-2">
                         <RatingInput rating={rating} setRating={setRating} />
                         <div className="w-full space-y-1">
-                            <p>Date Sent</p>
+                            <div className="flex justify-between">
+                                <p
+                                    className={
+                                        isRejected && !date
+                                            ? "text-red-500"
+                                            : ""
+                                    }
+                                >
+                                    Date Sent *
+                                </p>
+                                <div className="italic text-red-500/50">
+                                    {isRejected && !date && "Date is required"}
+                                </div>
+                            </div>
                             <DatePicker date={date} setDate={setDate} />
                         </div>
                     </div>
                     <div className="space-y-1">
-                        <p>Location</p>
+                        <div className="flex justify-between">
+                            <p
+                                className={
+                                    isRejected && !location
+                                        ? "text-red-500"
+                                        : ""
+                                }
+                            >
+                                Location *
+                            </p>
+                            <div className="italic text-red-500/50">
+                                {isRejected &&
+                                    !location &&
+                                    "Location is required"}
+                            </div>
+                        </div>
                         <LocationsCombobox
                             location={location}
                             setLocation={setLocation}
                         />
                     </div>
                     <div className="space-y-1">
-                        <p>Notes</p>
+                        <div className="flex justify-between">
+                            <p>Notes</p>
+                            <div className={`text-sm text-foreground/50`}>
+                                {notes.length} / 256
+                            </div>
+                        </div>
                         <Textarea
                             className="text-base"
                             value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
+                            onChange={(e) => {
+                                if (e.target.value.length <= 256) {
+                                    setNotes(e.target.value);
+                                }
+                            }}
                         />
                     </div>
+                    <p className="italic">* Required field</p>
                     <div className="mt-4 space-y-2">
                         <SubmitButton
                             setIsUploading={setIsUploading}
@@ -135,6 +200,7 @@ export function ClimbDrawer({
                             notes={notes}
                             location={location}
                             date={date}
+                            setIsRejected={setIsRejected}
                             sessionId={sessionId}
                             setOpen={setOpen}
                         />

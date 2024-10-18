@@ -69,7 +69,7 @@ export function LocationsCombobox({
                                     value={g.label}
                                     onSelect={() => {
                                         setLocation(
-                                            g.id === location ? -1 : g.id,
+                                            g.id === location ? 0 : g.id,
                                         );
                                         setOpen(false);
                                     }}

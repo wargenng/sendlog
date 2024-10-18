@@ -6,7 +6,6 @@ import {
     DrawerClose,
     DrawerContent,
     DrawerDescription,
-    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
@@ -51,6 +50,7 @@ export default function SessionDrawer({
     );
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isRejected, setIsRejected] = useState(false);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -70,20 +70,60 @@ export default function SessionDrawer({
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
                     <div className="space-y-1">
-                        <p>Session Name</p>
+                        <div className="flex justify-between">
+                            <p
+                                className={
+                                    isRejected && !session.name
+                                        ? "text-red-500"
+                                        : ""
+                                }
+                            >
+                                Session Name *
+                            </p>
+                            <div className="flex gap-2">
+                                <p className="italic text-red-500/50">
+                                    {isRejected &&
+                                        !session.name &&
+                                        "Session name is required"}
+                                </p>
+                                <div className={`text-sm text-foreground/50`}>
+                                    {session.name.length} / 64
+                                </div>
+                            </div>
+                        </div>
                         <Input
                             type="text"
                             placeholder="Enter name"
                             value={session.name}
-                            onChange={(e) =>
-                                setSession({ ...session, name: e.target.value })
-                            }
+                            onChange={(e) => {
+                                if (e.target.value.length <= 64) {
+                                    setSession({
+                                        ...session,
+                                        name: e.target.value,
+                                    });
+                                }
+                            }}
                             className="text-base"
                         />
                     </div>
                     <div className="flex gap-2">
                         <div className="w-1/2 space-y-1">
-                            <p>Location</p>
+                            <div className="flex justify-between">
+                                <p
+                                    className={
+                                        isRejected && !session.location
+                                            ? "text-red-500"
+                                            : ""
+                                    }
+                                >
+                                    Location *
+                                </p>
+                                <div className="italic text-red-500/50">
+                                    {isRejected &&
+                                        !session.location &&
+                                        "Location is required"}
+                                </div>
+                            </div>
                             <LocationsCombobox
                                 location={session.location}
                                 setLocation={(location) => {
@@ -95,7 +135,22 @@ export default function SessionDrawer({
                             />
                         </div>
                         <div className="w-1/2 space-y-1">
-                            <p>Date Sent</p>
+                            <div className="flex justify-between">
+                                <p
+                                    className={
+                                        isRejected && !session.date
+                                            ? "text-red-500"
+                                            : ""
+                                    }
+                                >
+                                    Date *
+                                </p>
+                                <div className="italic text-red-500/50">
+                                    {isRejected &&
+                                        !session.date &&
+                                        "Date is required"}
+                                </div>
+                            </div>
                             <DatePicker
                                 date={session.date}
                                 setDate={(date: Date) => {
@@ -108,22 +163,34 @@ export default function SessionDrawer({
                         </div>
                     </div>
                     <div className="space-y-1">
-                        <p>Notes</p>
+                        <div className="flex justify-between gap-2">
+                            <p>Notes</p>
+                            <div className={`text-sm text-foreground/50`}>
+                                {session.notes.length} / 256
+                            </div>
+                        </div>
                         <Textarea
                             className="text-base"
                             value={session.notes}
-                            onChange={(e) =>
-                                setSession({
-                                    ...session,
-                                    notes: e.target.value,
-                                })
-                            }
+                            onChange={(e) => {
+                                if (e.target.value.length <= 256) {
+                                    setSession({
+                                        ...session,
+                                        notes: e.target.value,
+                                    });
+                                }
+                            }}
                         />
                     </div>
-                    <div className="space-y-1">
-                        <p>Climbs</p>
-                        {climbs}
-                    </div>
+                    {isEdit && (
+                        <div className="space-y-1">
+                            <p>Climbs</p>
+                            {climbs}
+                        </div>
+                    )}
+                    <p className="italic text-foreground/50">
+                        * Required field
+                    </p>
                     <div className="mt-4 flex w-full flex-col space-y-2">
                         {isEdit ? (
                             <ClimbDrawer
@@ -143,6 +210,19 @@ export default function SessionDrawer({
                         <form
                             onSubmit={async (e) => {
                                 e.preventDefault();
+                                if (
+                                    !session.name ||
+                                    !session.date ||
+                                    !session.location
+                                ) {
+                                    setIsRejected(true);
+                                    setIsSubmitting(false);
+                                    setIsUploading(false);
+                                    console.log(
+                                        "Name, date, and location must not be empty",
+                                    );
+                                    return;
+                                }
                                 setIsSubmitting(true);
                                 setIsUploading(true);
                                 console.log("submitting form");
