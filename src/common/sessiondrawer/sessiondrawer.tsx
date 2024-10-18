@@ -25,6 +25,7 @@ import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
 
 interface SessionDrawerProps {
     children: ReactNode;
+    climbs?: ReactNode;
     isEdit?: boolean;
     name?: string;
     location?: number;
@@ -35,6 +36,7 @@ interface SessionDrawerProps {
 
 export default function SessionDrawer({
     children,
+    climbs,
     isEdit = false,
     name: initialName = "",
     location: initialLocation = 0,
@@ -109,6 +111,7 @@ export default function SessionDrawer({
                             onChange={(e) => setNotes(e.target.value)}
                         />
                     </div>
+                    {climbs}
                     <div className="mt-4 flex w-full flex-col space-y-2">
                         {isEdit ? (
                             <ClimbDrawer

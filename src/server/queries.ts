@@ -38,3 +38,18 @@ export async function getCurrentUsersSessions() {
 
     return sessionsWithClimbs;
 }
+
+export async function getUserSessionClimbs(sessionId: number) {
+    const user = auth();
+    if (!user.userId) return [];
+
+    const sessionClimbs = await db.query.climbs.findMany({
+        where: (model, { and, eq }) =>
+            and(
+                eq(model.userId, user.userId),
+                eq(model.sessionId, sessionId.toString()),
+            ),
+    });
+
+    return sessionClimbs;
+}

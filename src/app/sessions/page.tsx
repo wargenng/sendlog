@@ -2,6 +2,7 @@ import { getCurrentUsersSessions } from "~/server/queries";
 import { TopNav } from "../_components/topnav";
 import { Button } from "~/components/ui/button";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
+import SessionClimbs from "../_components/sessionclimbs";
 
 export default async function SessionsPage() {
     const sessions = await getCurrentUsersSessions();
@@ -24,6 +25,7 @@ export default async function SessionsPage() {
                     <div className="space-y-2">
                         {sessions.map((session) => (
                             <SessionDrawer
+                                climbs={SessionClimbs(session.id)}
                                 isEdit={true}
                                 key={session.id}
                                 name={session?.name ?? ""}
