@@ -44,27 +44,63 @@ export default async function SessionsPage() {
                                     </p>
                                     <h1 className="text-2xl">{session.name}</h1>
 
-                                    <div>
-                                        {climbs
-                                            .filter(
-                                                (climb) =>
-                                                    climb.sessionId ===
-                                                    session.id.toString(),
-                                            )
-                                            .map(
-                                                (climb) =>
-                                                    grades.find(
-                                                        (grade) =>
-                                                            grade.value ===
-                                                            climb.grade,
-                                                    )?.gradeValue,
-                                            )
-                                            .reduce(
-                                                (acc: number, grade) =>
-                                                    acc + (grade ?? 0),
-                                                0,
-                                            )}{" "}
-                                        V-points
+                                    <div className="flex justify-between px-6 py-3 font-semibold">
+                                        <div className="text-center">
+                                            <div className="text-4xl">
+                                                {climbs
+                                                    .filter(
+                                                        (climb) =>
+                                                            climb.sessionId ===
+                                                            session.id.toString(),
+                                                    )
+                                                    .map(
+                                                        (climb) =>
+                                                            grades.find(
+                                                                (grade) =>
+                                                                    grade.value ===
+                                                                    climb.grade,
+                                                            )?.gradeValue,
+                                                    )
+                                                    .reduce(
+                                                        (acc: number, grade) =>
+                                                            acc + (grade ?? 0),
+                                                        0,
+                                                    )}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                V-points
+                                            </p>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-4xl">
+                                                {climbs.length}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                Climbs sent
+                                            </p>
+                                        </div>
+                                        <div className="text-center">
+                                            <div className="text-4xl">
+                                                {climbs
+                                                    .filter(
+                                                        (climb) =>
+                                                            climb.sessionId ===
+                                                            session.id.toString(),
+                                                    )
+                                                    .map(
+                                                        (climb) =>
+                                                            climb.attempts ?? 0,
+                                                    )
+                                                    .reduce(
+                                                        (acc: number, grade) =>
+                                                            acc + (grade ?? 0),
+                                                        0,
+                                                    )}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                Attempts
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </SessionDrawer>

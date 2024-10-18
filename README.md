@@ -23,6 +23,8 @@
 [ ] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
 [ ] - Refactor server/async calls out of main page loads
+[ ] - Utilize IsSend
+[ ] - Make Icons below Bigger
 
 ## DATABASE
 
@@ -35,9 +37,7 @@
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Friends list
 [ ] - Goals tab
-[ ] - Multiple types of Goals (general, climbs, etc.)
 [ ] - Share sessions with friends
-[ ] - Allow user to make their own locations (delete locations, edit locations, etc)
 
 ## BACKEND
 
@@ -59,3 +59,5 @@
 [ ] - Arrow pointing to add button when there is no sends added
 [ ] - Create verified users (enter new locations, enter new grade levels, etc.)
 [ ] - Add congrats confetti
+[ ] - Multiple types of Goals (general, climbs, etc.)
+[ ] - Allow user to make their own locations (delete locations, edit locations, etc)

@@ -135,3 +135,7 @@ export type Goal = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export type Users = {
+    bio: string;
+};
