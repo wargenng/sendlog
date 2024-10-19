@@ -18,7 +18,7 @@ import {
 } from "~/components/ui/chart";
 import { grades } from "../../utils/grades";
 import { locations } from "../../utils/locations";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 export const description = "An area chart with gradient fill";
 

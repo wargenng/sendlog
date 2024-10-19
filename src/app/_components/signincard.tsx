@@ -1,6 +1,5 @@
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Button } from "~/components/ui/button";
-import { dark } from "@clerk/themes";
 
 export function SignInCard() {
     return (

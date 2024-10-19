@@ -4,7 +4,8 @@ import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import { climbs, Session, sessions } from "~/server/db/schema";
+import { climbs, sessions } from "~/server/db/schema";
+import type { Session } from "~/server/db/schema";
 import { getCurrentUsersSessions } from "~/server/queries";
 
 export const addClimb = async (

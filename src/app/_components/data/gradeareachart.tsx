@@ -17,7 +17,7 @@ import {
 } from "~/components/ui/chart";
 import { grades } from "../../utils/grades";
 import { locations } from "../../utils/locations";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 export const description = "An area chart with gradient fill";
 
@@ -90,7 +90,7 @@ export function GradeAreaChart({ climbs }: GradeAreaChartProps) {
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                            tickFormatter={(value: string) => value.slice(0, 3)}
                         />
                         <ChartTooltip
                             cursor={false}

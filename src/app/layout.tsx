@@ -5,7 +5,6 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { BottomNav } from "./_components/bottomnav";
 import { SignInCard } from "./_components/signincard";
-import { TopNav } from "./_components/topnav";
 import { dark } from "@clerk/themes";
 
 export const metadata: Metadata = {

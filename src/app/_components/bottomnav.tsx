@@ -1,7 +1,6 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
-import { ClimbDrawer } from "../../common/climbdrawer/climbdrawer";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
