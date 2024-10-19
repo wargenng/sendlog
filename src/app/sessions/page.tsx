@@ -9,6 +9,7 @@ import SessionClimbs from "../_components/sessionclimbs";
 import type { Session } from "~/server/db/schema";
 import { grades } from "../utils/grades";
 import { locations } from "../utils/locations";
+import { ChevronRight } from "lucide-react";
 
 export default async function SessionsPage() {
     const sessions = (await getCurrentUsersSessions()) as Session[];
@@ -29,7 +30,7 @@ export default async function SessionsPage() {
                     <h1 className="border-b text-base font-bold">
                         recent sessions
                     </h1>
-                    <div className="space-y-2">
+                    <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
                         {sessions
                             .sort(
                                 (a, b) =>
@@ -43,40 +44,38 @@ export default async function SessionsPage() {
                                     session={session}
                                     key={session.id}
                                 >
-                                    <div className="space-y-1 border-b">
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-xs font-thin">
-                                                {
-                                                    locations[
-                                                        session.location - 1
-                                                    ]?.label
-                                                }{" "}
-                                                ·{" "}
-                                                {
-                                                    locations[
-                                                        session.location - 1
-                                                    ]?.location
-                                                }
-                                                ,{" "}
-                                                {
-                                                    locations[
-                                                        session.location - 1
-                                                    ]?.state
-                                                }
-                                            </p>
-                                            <p className="text-xs text-foreground/50">
-                                                {new Date(
-                                                    session.date,
-                                                ).toLocaleDateString("en-US")}
-                                            </p>
-                                        </div>
+                                    <div
+                                        className={`space-y-1 ${sessions.indexOf(session) === sessions.length - 1 ? "" : "border-b"}`}
+                                    >
                                         <div className="flex items-center justify-between">
                                             <h1 className="text-xl">
                                                 {session.name}
                                             </h1>
+                                            <ChevronRight className="h-6 w-6 text-foreground/50" />
                                         </div>
+                                        <p className="text-xs text-foreground/50">
+                                            {
+                                                locations[session.location - 1]
+                                                    ?.label
+                                            }{" "}
+                                            ·{" "}
+                                            {
+                                                locations[session.location - 1]
+                                                    ?.location
+                                            }
+                                            ,{" "}
+                                            {
+                                                locations[session.location - 1]
+                                                    ?.state
+                                            }
+                                        </p>
+                                        <p className="text-xs text-foreground/50">
+                                            {new Date(
+                                                session.date,
+                                            ).toLocaleDateString("en-US")}
+                                        </p>
                                         <div>
-                                            <p className="text-xs font-light italic text-foreground/50">
+                                            <p className="flex flex-wrap text-xs font-light italic text-foreground/50">
                                                 {session.notes}
                                             </p>
                                         </div>

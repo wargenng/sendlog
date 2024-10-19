@@ -29,7 +29,9 @@ export async function RecentClimbs() {
                             date={climb.sendDate ?? new Date()}
                             key={climb.id}
                         >
-                            <div className="space-y-1 border-b border-foreground/15">
+                            <div
+                                className={`space-y-1 ${climbs.indexOf(climb) !== climbs.length - 1 ? "border-b border-foreground/15" : ""}`}
+                            >
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center space-x-2">
                                         <h1 className="text-lg font-semibold">
