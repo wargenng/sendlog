@@ -74,7 +74,7 @@ export function GradeAreaChart({ climbs }: GradeAreaChartProps) {
     }));
 
     return (
-        <Card className="h-full">
+        <Card className="h-full bg-secondary/50">
             <CardHeader>
                 <CardTitle>Total Climbs</CardTitle>
                 <CardDescription>

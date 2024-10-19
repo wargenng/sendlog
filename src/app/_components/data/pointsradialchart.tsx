@@ -79,7 +79,7 @@ export function PointsRadialChart({ climbs }: GradeAreaChartProps) {
         0,
     );
     return (
-        <Card className="flex flex-col">
+        <Card className="flex flex-col bg-secondary/50">
             <CardHeader className="items-center pb-0">
                 <CardTitle>Total V-points</CardTitle>
                 <CardDescription>

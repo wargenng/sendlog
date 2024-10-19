@@ -11,7 +11,7 @@ interface TopNavProps {
 
 export function TopNav({ title }: TopNavProps) {
     return (
-        <nav className="fixed z-10 flex w-full items-center justify-between border-b bg-background p-4">
+        <nav className="fixed z-10 flex w-full items-center justify-between bg-background p-4">
             <div className="flex w-full flex-row">
                 <SignedOut>
                     <SignInButton />
