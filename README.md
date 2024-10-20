@@ -2,6 +2,10 @@
 
 # TODO
 
+## BUGS
+
+[x] - Error when auto creating session
+
 ## FRONTEND
 
 [x] - Add in Mock UI
@@ -12,6 +16,10 @@
 [x] - Redesign login page
 [x] - Make the create climb form come up when editing climb
 [x] - Add error checking on climb entry
+[ ] - If user swipes down on screen and previous changes were not saved then prompt the user to save changes
+[ ] - Favorites
+[ ] - Plus and minus for attempts
+[ ] - Edit Session edits all climbs
 [ ] - Add Loading screen
 [ ] - Modify desktop version
 [ ] - Add quick add button

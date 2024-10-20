@@ -26,31 +26,31 @@ export const addClimb = async (
     if (sessionId) {
         session = { id: sessionId };
     }
-    if (!session) {
-        const currentsessions = await getCurrentUsersSessions();
-        let session = currentsessions.find(
-            (session) =>
-                session.date.getDate() === date.getDate() &&
-                session.date.getMonth() === date.getMonth() &&
-                session.date.getFullYear() === date.getFullYear(),
-        );
-        if (!session) {
-            console.log("no session found, creating one");
-            await db.insert(sessions).values({
-                userId: user.userId,
-                name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
-                location: location,
-                date: date,
-            });
-            const currentsessions = await getCurrentUsersSessions();
-            session = currentsessions.find(
-                (session) =>
-                    session.date.getDate() === date.getDate() &&
-                    session.date.getMonth() === date.getMonth() &&
-                    session.date.getFullYear() === date.getFullYear(),
-            );
-        }
-    }
+    // if (!session) {
+    //     const currentsessions = await getCurrentUsersSessions();
+    //     let session = currentsessions.find(
+    //         (session) =>
+    //             session.date.getDate() === date.getDate() &&
+    //             session.date.getMonth() === date.getMonth() &&
+    //             session.date.getFullYear() === date.getFullYear(),
+    //     );
+    //     if (!session) {
+    //         console.log("no session found, creating one");
+    //         await db.insert(sessions).values({
+    //             userId: user.userId,
+    //             name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
+    //             location: location,
+    //             date: date,
+    //         });
+    //         const currentsessions = await getCurrentUsersSessions();
+    //         session = currentsessions.find(
+    //             (session) =>
+    //                 session.date.getDate() === date.getDate() &&
+    //                 session.date.getMonth() === date.getMonth() &&
+    //                 session.date.getFullYear() === date.getFullYear(),
+    //         );
+    //     }
+    // }
 
     await db.insert(climbs).values({
         userId: user.userId,

@@ -138,4 +138,6 @@ export type Goal = {
 
 export type Users = {
     bio: string;
+    height: number;
+    apeindex: number;
 };

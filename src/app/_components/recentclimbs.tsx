@@ -37,6 +37,8 @@ export async function RecentClimbs() {
                                         <h1 className="text-lg font-semibold">
                                             {climb.name} {climb.grade}
                                         </h1>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
                                         <div>
                                             {climb.rating ? (
                                                 <p className="flex items-center text-base text-primary">
@@ -57,8 +59,8 @@ export async function RecentClimbs() {
                                                 </p>
                                             ) : null}
                                         </div>
+                                        <ChevronRight className="h-6 w-6 text-foreground/50" />
                                     </div>
-                                    <ChevronRight className="h-6 w-6 text-foreground/50" />
                                 </div>
 
                                 <p className="text-xs text-foreground/50">
