@@ -5,23 +5,39 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "~/components/ui/carousel";
+import {
+    getCurrentUsersGradeDistribution,
+    getCurrentUsersVpoints,
+} from "~/server/queries";
 import { GradeAreaChart } from "./gradeareachart";
-import { getCurrentUsersClimbs } from "~/server/queries";
 import { PointsRadialChart } from "./pointsradialchart";
-import { Climb } from "~/server/db/schema";
 
 export async function DataCarousel() {
-    const climbs = (await getCurrentUsersClimbs()) as Climb[];
+    const { outdoorvpoints, indoorvpoints, totalvpoints } =
+        (await getCurrentUsersVpoints()) as {
+            outdoorvpoints: number;
+            indoorvpoints: number;
+            totalvpoints: number;
+        };
+    const gradedistibution = (await getCurrentUsersGradeDistribution()) as {
+        grade: string;
+        outdoors: number;
+        indoors: number;
+    }[];
 
     return (
         <div className="flex w-screen justify-center p-0">
             <Carousel className="w-full">
                 <CarouselContent className="mx-6">
                     <CarouselItem>
-                        <PointsRadialChart climbs={climbs} />
+                        <PointsRadialChart
+                            outdoor={outdoorvpoints}
+                            indoor={indoorvpoints}
+                            total={totalvpoints}
+                        />
                     </CarouselItem>
                     <CarouselItem>
-                        <GradeAreaChart climbs={climbs} />
+                        <GradeAreaChart gradedistibution={gradedistibution} />
                     </CarouselItem>
                 </CarouselContent>
 

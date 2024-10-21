@@ -15,9 +15,6 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "~/components/ui/chart";
-import { grades } from "../../utils/grades";
-import { locations } from "../../utils/locations";
-import type { Climb } from "~/server/db/schema";
 
 export const description = "An area chart with gradient fill";
 
@@ -33,45 +30,15 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface GradeAreaChartProps {
-    climbs: Climb[];
+    gradedistibution: {
+        grade: string;
+        outdoors: number;
+        indoors: number;
+    }[];
 }
 
-export function GradeAreaChart({ climbs }: GradeAreaChartProps) {
-    const highestGradeSent = Array.from({ length: 18 }, (_, i) => i).map(
-        (grade: number) =>
-            climbs.filter(
-                (climb: Climb) =>
-                    grades.find((grade) => grade.label === climb.grade)
-                        ?.gradeValue === grade,
-            ).length,
-    );
-
-    const lastIndexGreaterThanZero =
-        highestGradeSent
-            .map((count, index) => (count > 0 ? index : -1))
-            .filter((index) => index !== -1)
-            .pop() ?? 0;
-
-    const climbsData = Array.from(
-        { length: lastIndexGreaterThanZero + 1 },
-        (_, i) => i,
-    ).map((grade: number) => ({
-        grade: "V" + grade.toString(),
-        outdoors: climbs.filter(
-            (climb: Climb) =>
-                grades.find((grade) => grade.label === climb.grade)
-                    ?.gradeValue === grade &&
-                locations.find((location) => location.id === climb.location)
-                    ?.type === "Outdoors",
-        ).length,
-        indoors: climbs.filter(
-            (climb: Climb) =>
-                grades.find((grade) => grade.label === climb.grade)
-                    ?.gradeValue === grade &&
-                locations.find((location) => location.id === climb.location)
-                    ?.type === "Indoors",
-        ).length,
-    }));
+export function GradeAreaChart({ gradedistibution }: GradeAreaChartProps) {
+    const climbsData = gradedistibution;
 
     return (
         <Card className="h-full bg-secondary/50">

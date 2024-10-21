@@ -1,18 +1,17 @@
+import { ChevronRight } from "lucide-react";
+import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
+import { Button } from "~/components/ui/button";
 import {
     getCurrentUsersClimbs,
     getCurrentUsersSessions,
+    SessionWithClimbs,
 } from "~/server/queries";
-import { TopNav } from "../_components/topnav";
-import { Button } from "~/components/ui/button";
-import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
 import SessionClimbs from "../_components/sessionclimbs";
-import type { Session } from "~/server/db/schema";
-import { grades } from "../utils/grades";
+import { TopNav } from "../_components/topnav";
 import { locations } from "../utils/locations";
-import { ChevronRight } from "lucide-react";
 
 export default async function SessionsPage() {
-    const sessions = (await getCurrentUsersSessions()) as Session[];
+    const sessions = (await getCurrentUsersSessions()) as SessionWithClimbs[];
     const climbs = await getCurrentUsersClimbs();
 
     return (
@@ -31,165 +30,79 @@ export default async function SessionsPage() {
                         recent sessions
                     </h1>
                     <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
-                        {sessions
-                            .sort(
-                                (a, b) =>
-                                    new Date(b.date).getTime() -
-                                    new Date(a.date).getTime(),
-                            )
-                            .map((session) => (
-                                <SessionDrawer
-                                    climbs={SessionClimbs(session.id)}
-                                    isEdit={true}
-                                    session={session}
-                                    key={session.id}
+                        {sessions.map((session) => (
+                            <SessionDrawer
+                                climbs={SessionClimbs(session.id)}
+                                isEdit={true}
+                                session={session}
+                                key={session.id}
+                            >
+                                <div
+                                    className={`space-y-1 ${sessions.indexOf(session) === sessions.length - 1 ? "" : "border-b"}`}
                                 >
-                                    <div
-                                        className={`space-y-1 ${sessions.indexOf(session) === sessions.length - 1 ? "" : "border-b"}`}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <h1 className="text-xl">
-                                                {session.name}
-                                            </h1>
-                                            <ChevronRight className="h-6 w-6 text-foreground/50" />
-                                        </div>
-                                        <p className="text-xs text-foreground/50">
-                                            {
-                                                locations[session.location - 1]
-                                                    ?.label
-                                            }{" "}
-                                            ·{" "}
-                                            {
-                                                locations[session.location - 1]
-                                                    ?.location
-                                            }
-                                            ,{" "}
-                                            {
-                                                locations[session.location - 1]
-                                                    ?.state
-                                            }
+                                    <div className="flex items-center justify-between">
+                                        <h1 className="text-xl">
+                                            {session.name}
+                                        </h1>
+                                        <ChevronRight className="h-6 w-6 text-foreground/50" />
+                                    </div>
+                                    <p className="text-xs text-foreground/50">
+                                        {locations[session.location - 1]?.label}{" "}
+                                        ·{" "}
+                                        {
+                                            locations[session.location - 1]
+                                                ?.location
+                                        }
+                                        ,{" "}
+                                        {locations[session.location - 1]?.state}
+                                    </p>
+                                    <p className="text-xs text-foreground/50">
+                                        {new Date(
+                                            session.date,
+                                        ).toLocaleDateString("en-US")}
+                                    </p>
+                                    <div>
+                                        <p className="flex flex-wrap text-xs font-light italic text-foreground/50">
+                                            {session.notes}
                                         </p>
-                                        <p className="text-xs text-foreground/50">
-                                            {new Date(
-                                                session.date,
-                                            ).toLocaleDateString("en-US")}
-                                        </p>
-                                        <div>
-                                            <p className="flex flex-wrap text-xs font-light italic text-foreground/50">
-                                                {session.notes}
+                                    </div>
+                                    <div className="flex justify-between py-2 font-semibold">
+                                        <div className="w-1/4">
+                                            <div className="text-2xl">
+                                                {session.highestGrade}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                Highest grade
                                             </p>
                                         </div>
-                                        <div className="flex justify-between py-2 font-semibold">
-                                            <div className="w-1/4">
-                                                <div className="text-2xl">
-                                                    {grades.find(
-                                                        (grade) =>
-                                                            climbs
-                                                                .filter(
-                                                                    (climb) =>
-                                                                        climb.sessionId ===
-                                                                        session.id.toString(),
-                                                                )
-                                                                .map(
-                                                                    (climb) =>
-                                                                        grades.find(
-                                                                            (
-                                                                                grade,
-                                                                            ) =>
-                                                                                grade.value ===
-                                                                                climb.grade,
-                                                                        )
-                                                                            ?.ranking,
-                                                                )
-                                                                .sort(
-                                                                    (a, b) =>
-                                                                        (b ??
-                                                                            0) -
-                                                                        (a ??
-                                                                            0),
-                                                                )[0] ===
-                                                            grade.ranking,
-                                                    )?.value ?? "N/A"}
-                                                </div>{" "}
-                                                <p className="text-xs font-light text-foreground/50">
-                                                    Highest grade
-                                                </p>
-                                            </div>
-                                            <div className="w-1/4">
-                                                <div className="text-2xl">
-                                                    {
-                                                        climbs.filter(
-                                                            (climb) =>
-                                                                climb.sessionId ===
-                                                                session.id.toString(),
-                                                        ).length
-                                                    }
-                                                </div>{" "}
-                                                <p className="text-xs font-light text-foreground/50">
-                                                    Climbs sent
-                                                </p>
-                                            </div>
-                                            <div className="w-1/4">
-                                                <div className="text-2xl">
-                                                    {climbs
-                                                        .filter(
-                                                            (climb) =>
-                                                                climb.sessionId ===
-                                                                session.id.toString(),
-                                                        )
-                                                        .map(
-                                                            (climb) =>
-                                                                climb.attempts ??
-                                                                0,
-                                                        )
-                                                        .reduce(
-                                                            (
-                                                                acc: number,
-                                                                grade,
-                                                            ) =>
-                                                                acc +
-                                                                (grade ?? 0),
-                                                            0,
-                                                        )}
-                                                </div>{" "}
-                                                <p className="text-xs font-light text-foreground/50">
-                                                    Attempts
-                                                </p>
-                                            </div>
-                                            <div className="w-1/4">
-                                                <div className="text-2xl">
-                                                    {climbs
-                                                        .filter(
-                                                            (climb) =>
-                                                                climb.sessionId ===
-                                                                session.id.toString(),
-                                                        )
-                                                        .map(
-                                                            (climb) =>
-                                                                grades.find(
-                                                                    (grade) =>
-                                                                        grade.value ===
-                                                                        climb.grade,
-                                                                )?.gradeValue,
-                                                        )
-                                                        .reduce(
-                                                            (
-                                                                acc: number,
-                                                                grade,
-                                                            ) =>
-                                                                acc +
-                                                                (grade ?? 0),
-                                                            0,
-                                                        )}
-                                                </div>{" "}
-                                                <p className="text-xs font-light text-foreground/50">
-                                                    V-points
-                                                </p>
-                                            </div>
+                                        <div className="w-1/4">
+                                            <div className="text-2xl">
+                                                {session.climbs.length}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                Climbs sent
+                                            </p>
+                                        </div>
+                                        <div className="w-1/4">
+                                            <div className="text-2xl">
+                                                {session.totalAttempts}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                Attempts
+                                            </p>
+                                        </div>
+                                        <div className="w-1/4">
+                                            <div className="text-2xl">
+                                                {session.totalVpoints}
+                                            </div>{" "}
+                                            <p className="text-xs font-light text-foreground/50">
+                                                V-points
+                                            </p>
                                         </div>
                                     </div>
-                                </SessionDrawer>
-                            ))}
+                                </div>
+                            </SessionDrawer>
+                        ))}
                     </div>
                 </div>
             </div>

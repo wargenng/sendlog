@@ -1,7 +1,6 @@
 "use client";
 
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
-
 import {
     Card,
     CardContent,
@@ -16,9 +15,6 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "~/components/ui/chart";
-import { grades } from "../../utils/grades";
-import { locations } from "../../utils/locations";
-import type { Climb } from "~/server/db/schema";
 
 export const description = "An area chart with gradient fill";
 
@@ -34,50 +30,23 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface GradeAreaChartProps {
-    climbs: Climb[];
+    outdoor: number;
+    indoor: number;
+    total: number;
 }
 
-export function PointsRadialChart({ climbs }: GradeAreaChartProps) {
+export function PointsRadialChart({
+    outdoor,
+    indoor,
+    total,
+}: GradeAreaChartProps) {
     const climbsData = [
         {
-            outdoors: climbs
-                .filter(
-                    (climb: Climb) =>
-                        locations.find(
-                            (location) => location.id === climb.location,
-                        )?.type === "Outdoors",
-                )
-                .reduce(
-                    (sum: number, climb: Climb) =>
-                        sum +
-                        (grades.find((grade) => grade.label === climb.grade)
-                            ?.gradeValue ?? 0),
-                    0,
-                ),
-            indoors: climbs
-                .filter(
-                    (climb: Climb) =>
-                        locations.find(
-                            (location) => location.id === climb.location,
-                        )?.type === "Indoors",
-                )
-                .reduce(
-                    (sum: number, climb: Climb) =>
-                        sum +
-                        (grades.find((grade) => grade.label === climb.grade)
-                            ?.gradeValue ?? 0),
-                    0,
-                ),
+            outdoors: outdoor,
+            indoors: indoor,
         },
     ];
-
-    const totalVisitors = climbs.reduce(
-        (sum: number, climb: Climb) =>
-            sum +
-            (grades.find((grade) => grade.label === climb.grade)?.gradeValue ??
-                0),
-        0,
-    );
+    const totalVisitors = total;
     return (
         <Card className="flex flex-col bg-secondary/50">
             <CardHeader className="items-center pb-0">
