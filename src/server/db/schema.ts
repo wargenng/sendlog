@@ -37,17 +37,17 @@ export type Climb = {
     id: number;
     name: string;
     grade: string;
-    attempts: number;
-    rating: number;
+    attempts: number | null;
+    rating: number | null;
     location: number;
-    notes: string;
+    notes: string | null;
     sendDate: Date;
-    isRepeat: boolean;
-    isSend: boolean;
+    isRepeat: boolean | null;
+    isSend: boolean | null;
     userId: string;
-    sessionId: string;
+    sessionId: string | null;
     createdAt: Date;
-    updatedAt: Date;
+    updatedAt: Date | null;
 };
 
 export const sessions = createTable("session", {

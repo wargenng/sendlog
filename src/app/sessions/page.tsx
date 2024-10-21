@@ -1,18 +1,13 @@
 import { ChevronRight } from "lucide-react";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
 import { Button } from "~/components/ui/button";
-import {
-    getCurrentUsersClimbs,
-    getCurrentUsersSessions,
-    SessionWithClimbs,
-} from "~/server/queries";
+import { getCurrentUsersSessions, SessionWithClimbs } from "~/server/queries";
 import SessionClimbs from "../_components/sessionclimbs";
 import { TopNav } from "../_components/topnav";
 import { locations } from "../utils/locations";
 
 export default async function SessionsPage() {
     const sessions = (await getCurrentUsersSessions()) as SessionWithClimbs[];
-    const climbs = await getCurrentUsersClimbs();
 
     return (
         <main className="">
