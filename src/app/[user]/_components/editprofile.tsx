@@ -1,5 +1,6 @@
 "use client";
 
+import { UserProfile } from "@clerk/clerk-react";
 import { useClerk } from "@clerk/nextjs";
 import { Button } from "~/components/ui/button";
 import {
@@ -24,13 +25,8 @@ export function EditProfile() {
                     <SheetTitle>Edit Profile</SheetTitle>
                     <SheetDescription></SheetDescription>
                 </SheetHeader>
-                <div className="space-y-2">
-                    <Button variant="secondary" className="w-full">
-                        Change Profile Picture
-                    </Button>
-                    <Button variant="secondary" className="w-full">
-                        Change Username
-                    </Button>
+                <div className="flex h-dvh w-full flex-col items-center space-y-4 overflow-y-auto overflow-x-hidden pb-24">
+                    <UserProfile />
                     <Button
                         variant="destructive"
                         className="w-full"
