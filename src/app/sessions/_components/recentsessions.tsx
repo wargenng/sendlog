@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
-import { getCurrentUsersSessions, SessionWithClimbs } from "~/server/queries";
+import { getCurrentUsersSessions } from "~/server/queries";
+import type { SessionWithClimbs } from "~/server/queries";
 import SessionClimbs from "../../_components/sessionclimbs";
 import { locations } from "../../utils/locations";
 
@@ -12,7 +13,6 @@ export async function RecentSessions() {
             {sessions.map((session) => (
                 <SessionDrawer
                     climbs={SessionClimbs(session.id)}
-                    isEdit={true}
                     session={session}
                     key={session.id}
                 >

@@ -57,7 +57,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                                 </span>
                             </Button>
                         </ClimbDrawer>
-                        <SessionDrawer isEdit={false}>
+                        <SessionDrawer>
                             <Button
                                 variant="secondary"
                                 className="relative aspect-square h-40 w-full overflow-hidden text-foreground"

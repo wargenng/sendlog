@@ -26,14 +26,12 @@ import type { Climb, Session } from "~/server/db/schema";
 interface SessionDrawerProps {
     children: ReactNode;
     climbs?: ReactNode;
-    isEdit?: boolean;
     session?: Session;
 }
 
 export default function SessionDrawer({
     children,
     climbs,
-    isEdit = false,
     session: initialSession,
 }: SessionDrawerProps) {
     const router = useRouter();
@@ -41,6 +39,7 @@ export default function SessionDrawer({
     const [session, setSession] = useState(
         initialSession ??
             ({
+                id: 0,
                 name: `${String(new Date().getMonth() + 1).padStart(2, "0")}/${String(new Date().getDate()).padStart(2, "0")}/${new Date().getFullYear()}`,
                 location: 0,
                 notes: "",
@@ -60,10 +59,10 @@ export default function SessionDrawer({
             >
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle>
-                        {isEdit ? "Edit session" : "Create a new session"}
+                        {session.id ? "Edit session" : "Create a new session"}
                     </DrawerTitle>
                     <DrawerDescription>
-                        {isEdit
+                        {session.id
                             ? "Edit your session details."
                             : "Add a new session to your logbook."}
                     </DrawerDescription>
@@ -182,17 +181,17 @@ export default function SessionDrawer({
                             }}
                         />
                     </div>
-                    {isEdit && (
+                    {session.id ? (
                         <div className="space-y-1">
                             <p>Climbs</p>
                             {climbs}
                         </div>
-                    )}
+                    ) : null}
                     <p className="italic text-foreground/50">
                         * Required field
                     </p>
                     <div className="mt-4 flex w-full flex-col space-y-2">
-                        {isEdit ? (
+                        {session.id ? (
                             <ClimbDrawer
                                 sessionId={session.id}
                                 climb={
@@ -230,7 +229,7 @@ export default function SessionDrawer({
                                 setIsSubmitting(true);
                                 setIsUploading(true);
                                 console.log("submitting form");
-                                if (isEdit && session.id) {
+                                if (session.id) {
                                     await editSession(session);
                                 } else {
                                     await addSession(session);
@@ -249,14 +248,14 @@ export default function SessionDrawer({
                             >
                                 {isSubmitting ? (
                                     <LoadingAnimation />
-                                ) : isEdit ? (
+                                ) : session.id ? (
                                     "Save Changes"
                                 ) : (
                                     "Submit"
                                 )}
                             </Button>
                         </form>
-                        {isEdit && (
+                        {session.id ? (
                             <form
                                 onSubmit={async (e) => {
                                     e.preventDefault();
@@ -286,7 +285,7 @@ export default function SessionDrawer({
                                     )}
                                 </Button>
                             </form>
-                        )}
+                        ) : null}
                         <DrawerClose asChild>
                             <Button
                                 variant="outline"
