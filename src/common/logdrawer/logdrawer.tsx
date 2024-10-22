@@ -41,7 +41,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
                     <div className="grid grid-cols-2 gap-4">
-                        <ClimbDrawer isEdit={false}>
+                        <ClimbDrawer>
                             <Button
                                 variant="secondary"
                                 className="relative aspect-square h-40 w-full overflow-hidden text-foreground"

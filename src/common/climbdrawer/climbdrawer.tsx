@@ -25,21 +25,11 @@ import type { Climb } from "~/server/db/schema";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
-    isEdit: boolean;
-    id?: number;
-    grade?: string;
-    name?: string;
-    attempts?: number;
-    rating?: number;
-    location?: number;
-    notes?: string;
-    date?: Date;
     climb?: Climb;
     sessionId?: number;
 }
 export function ClimbDrawer({
     children,
-    isEdit,
     climb: initialClimb,
     sessionId,
 }: ClimbDrawerProps) {
@@ -47,7 +37,7 @@ export function ClimbDrawer({
     const [climb, setClimb] = useState(
         initialClimb ??
             ({
-                id: -1,
+                id: 0,
                 name: "",
                 location: 0,
                 notes: "",
@@ -66,10 +56,10 @@ export function ClimbDrawer({
             <DrawerContent className="h-[calc(100dvh-1rem)]">
                 <DrawerHeader className="flex flex-col items-start justify-start -space-y-2">
                     <DrawerTitle className="text-2xl">
-                        {isEdit ? "Edit climb" : "Enter a climb"}
+                        {climb.id ? "Edit climb" : "Enter a climb"}
                     </DrawerTitle>
                     <DrawerDescription>
-                        {isEdit
+                        {climb.id
                             ? "Edit details for climb"
                             : "Details for climb go below"}
                     </DrawerDescription>
@@ -223,20 +213,19 @@ export function ClimbDrawer({
                     <div className="mt-4 space-y-2">
                         <SubmitButton
                             setIsUploading={setIsUploading}
-                            isEdit={isEdit}
                             climb={climb}
                             setIsRejected={setIsRejected}
                             sessionId={sessionId}
                             setOpen={setOpen}
                         />
-                        {isEdit && (
+                        {climb.id ? (
                             <DeleteClimbForm
                                 setIsUploading={setIsUploading}
                                 climbId={climb.id}
                                 setOpen={setOpen}
                                 setIsRejected={setIsRejected}
                             />
-                        )}
+                        ) : null}
                         <DrawerClose asChild>
                             <Button
                                 variant="outline"

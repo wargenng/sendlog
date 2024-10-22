@@ -3,11 +3,10 @@ import { useState } from "react";
 import { addClimb, editClimb } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { Button } from "~/components/ui/button";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 interface SubmitButtonProps {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
-    isEdit: boolean;
     sessionId?: number;
     climb: Climb;
     setIsRejected: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,7 +15,6 @@ interface SubmitButtonProps {
 
 export function SubmitButton({
     setIsUploading,
-    isEdit,
     sessionId,
     climb,
     setIsRejected,
@@ -48,7 +46,7 @@ export function SubmitButton({
                     return;
                 }
 
-                if (isEdit) {
+                if (climb.id) {
                     await editClimb(
                         climb.id,
                         climb.name,
@@ -85,7 +83,7 @@ export function SubmitButton({
             >
                 {isSubmitting ? (
                     <LoadingAnimation />
-                ) : isEdit ? (
+                ) : climb.id ? (
                     "Save Changes"
                 ) : (
                     "Submit"

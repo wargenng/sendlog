@@ -8,10 +8,10 @@ export async function RecentClimbs() {
 
     return (
         <div className="space-y-2">
-            <h1 className="text-base font-semibold">recent activity</h1>
+            <h1 className="text-base font-semibold">recent climbs</h1>
             <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
                 {climbs.map((climb) => (
-                    <ClimbDrawer isEdit={true} climb={climb} key={climb.id}>
+                    <ClimbDrawer climb={climb} key={climb.id}>
                         <div
                             className={`space-y-1 ${climbs.indexOf(climb) !== climbs.length - 1 ? "border-b border-foreground/15" : ""}`}
                         >

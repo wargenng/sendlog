@@ -194,7 +194,6 @@ export default function SessionDrawer({
                     <div className="mt-4 flex w-full flex-col space-y-2">
                         {isEdit ? (
                             <ClimbDrawer
-                                isEdit={false}
                                 sessionId={session.id}
                                 climb={
                                     {
