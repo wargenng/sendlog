@@ -1,6 +1,6 @@
 import { SignedIn } from "@clerk/nextjs";
 import { DataCarousel } from "./_components/data/datacarousel";
-import { RecentClimbs } from "./_components/recentclimbs";
+import { RecentClimbs } from "./_components/climbs/recentclimbs";
 import { TopNav } from "./_components/topnav";
 export const dynamic = "force-dynamic";
 

@@ -2,7 +2,7 @@ import { ChevronRight } from "lucide-react";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
 import { getCurrentUsersSessions } from "~/server/queries";
 import type { SessionWithClimbs } from "~/server/queries";
-import SessionClimbs from "../../_components/sessionclimbs";
+import SessionClimbs from "../../_components/climbs/sessionclimbs";
 import { locations } from "../../utils/locations";
 
 export async function RecentSessions() {

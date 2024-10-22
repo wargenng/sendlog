@@ -6,9 +6,10 @@ import {
     getUsersClimbs,
     getUsersHighestGrade,
 } from "~/server/queries";
-import { RecentClimbs } from "../_components/recentclimbs";
+import { RecentClimbs } from "../_components/climbs/recentclimbs";
 import { TopNav } from "../_components/topnav";
 import { ProfileActions } from "./_components/profileactions";
+import { ProfileClimbs } from "../_components/climbs/profileclimbs";
 
 export const dynamic = "force-dynamic";
 
@@ -97,7 +98,7 @@ export default async function UserPage({ params }: Params) {
                 </div>
                 <ProfileActions username={username} />
 
-                <RecentClimbs />
+                <ProfileClimbs user={user.id.toString()} />
             </div>
         </div>
     );
