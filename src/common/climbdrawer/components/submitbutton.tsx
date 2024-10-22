@@ -4,6 +4,7 @@ import { addClimb, editClimb } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { Button } from "~/components/ui/button";
 import type { Climb } from "~/server/db/schema";
+import { useToast } from "~/hooks/use-toast";
 
 interface SubmitButtonProps {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,6 +22,7 @@ export function SubmitButton({
     setOpen,
 }: SubmitButtonProps) {
     const router = useRouter();
+    const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     return (
@@ -70,6 +72,10 @@ export function SubmitButton({
                     );
                 }
                 console.log("submitted form");
+                toast({
+                    title: "Climb submitted",
+                    description: "Your climb has been submitted successfully",
+                });
                 router.refresh();
                 setIsSubmitting(false);
                 setIsUploading(false);
