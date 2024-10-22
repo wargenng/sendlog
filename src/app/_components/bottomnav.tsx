@@ -4,6 +4,7 @@ import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import Image from "next/image";
 import { Plus } from "lucide-react";
 import LogDrawer from "~/common/logdrawer/logdrawer";
 
@@ -58,10 +59,12 @@ export function BottomNav() {
                             className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "brightness-100" : "brightness-50"}`}
                         >
                             {user?.imageUrl ? (
-                                <img
+                                <Image
                                     src={user.imageUrl}
                                     className="h-7 w-7 rounded-full object-cover"
                                     alt="Profile"
+                                    width={28}
+                                    height={28}
                                 />
                             ) : (
                                 <svg
