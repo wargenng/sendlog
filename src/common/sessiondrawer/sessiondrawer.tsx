@@ -198,6 +198,7 @@ export default function SessionDrawer({
                                 sessionId={session.id}
                                 climb={
                                     {
+                                        name: "",
                                         location: session.location,
                                         sendDate: session.date,
                                     } as Climb

@@ -21,7 +21,7 @@ import { LocationsCombobox } from "../locationscombobox";
 import { RatingInput } from "./components/ratinginput";
 import { SubmitButton } from "./components/submitbutton";
 import DrawerMainContent from "../drawermaincontent";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
