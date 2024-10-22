@@ -1,12 +1,12 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import { climbs, sessions } from "~/server/db/schema";
 import type { Session } from "~/server/db/schema";
-import { getCurrentUsersSessions } from "~/server/queries";
+import { climbs, sessions } from "~/server/db/schema";
 
 export const addClimb = async (
     name: string,
@@ -148,4 +148,17 @@ export async function deleteSession(id: number) {
         .where(and(eq(sessions.id, id), eq(sessions.userId, user.userId)));
 
     revalidatePath("/");
+}
+
+export async function getIsUserProfile(profileUsername: string) {
+    const loggedUser = auth();
+    if (!loggedUser.userId) return false;
+
+    const response = await clerkClient().users.getUserList();
+    const users = response.data;
+    const profileUser = users.find(
+        (user: User) => user.id === loggedUser.userId,
+    )?.username;
+
+    return profileUser === profileUsername;
 }

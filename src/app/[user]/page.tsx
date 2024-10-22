@@ -1,14 +1,14 @@
-import { clerkClient } from "@clerk/nextjs/server";
 import type { User } from "@clerk/nextjs/server";
-import { TopNav } from "../_components/topnav";
-import { Button } from "~/components/ui/button";
-import { RecentClimbs } from "../_components/recentclimbs";
+import { clerkClient } from "@clerk/nextjs/server";
+import Image from "next/image";
 import {
     getCurrentUsersSessions,
     getUsersClimbs,
     getUsersHighestGrade,
 } from "~/server/queries";
-import Image from "next/image";
+import { RecentClimbs } from "../_components/recentclimbs";
+import { TopNav } from "../_components/topnav";
+import { ProfileActions } from "./_components/profileactions";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +32,7 @@ export default async function UserPage({ params }: Params) {
     const sessions = await getCurrentUsersSessions();
 
     return (
-        <main>
+        <div>
             <TopNav title={user.username ?? "404"} />
             <div className="mt-20 space-y-6 px-6 pb-32">
                 <div className="flex flex-col gap-2">
@@ -93,21 +93,12 @@ export default async function UserPage({ params }: Params) {
                     </div>
                 </div>
                 <div>
-                    <p className="text-sm">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Vitae quas tempora nam quidem qui aperiam aut
-                        excepturi explicabo porro quisquam.
-                    </p>
+                    <p className="text-sm"></p>
                 </div>
-                <div className="space-y-2">
-                    <Button className="w-full">Edit Profile</Button>
-                    <Button variant={"secondary"} className="w-full">
-                        Share Profile
-                    </Button>
-                </div>
+                <ProfileActions username={username} />
 
                 <RecentClimbs />
             </div>
-        </main>
+        </div>
     );
 }
