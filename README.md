@@ -32,7 +32,7 @@
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
 [ ] - Refactor server/async calls out of main page loads
 [ ] - Utilize IsSend
-[ ] - Make Icons below Bigger
+[x] - Make Icons below Bigger
 
 ## DATABASE
 

@@ -1,9 +1,8 @@
-"use client";
-
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import { SearchSheet } from "./searchsheet";
 
 interface TopNavProps {
     title: string;
@@ -22,7 +21,7 @@ export function TopNav({ title }: TopNavProps) {
                             {title}
                         </div>
                         <div className="flex flex-1 justify-end space-x-4">
-                            <Search />
+                            <SearchSheet />
                             <Link
                                 href="/notifications"
                                 className={`flex flex-col items-center`}
