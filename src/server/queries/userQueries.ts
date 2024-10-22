@@ -1,8 +1,6 @@
 import "server-only";
 import { grades } from "~/app/utils/grades";
 import { db } from "../db";
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import type { User } from "@clerk/nextjs/server";
 
 export async function getUsersClimbs(userId: string) {
     const climbs = await db.query.climbs.findMany({
