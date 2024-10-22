@@ -21,7 +21,7 @@ import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { useRouter } from "next/navigation";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
-import type { Session } from "~/server/db/schema";
+import type { Climb, Session } from "~/server/db/schema";
 
 interface SessionDrawerProps {
     children: ReactNode;
@@ -38,7 +38,6 @@ export default function SessionDrawer({
 }: SessionDrawerProps) {
     const router = useRouter();
     const [open, setOpen] = useState(false);
-    const [isUploading, setIsUploading] = useState(false);
     const [session, setSession] = useState(
         initialSession ??
             ({
@@ -48,6 +47,7 @@ export default function SessionDrawer({
                 date: new Date(),
             } as Session),
     );
+    const [isUploading, setIsUploading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
@@ -195,9 +195,13 @@ export default function SessionDrawer({
                         {isEdit ? (
                             <ClimbDrawer
                                 isEdit={false}
-                                location={session.location}
                                 sessionId={session.id}
-                                date={session.date}
+                                climb={
+                                    {
+                                        location: session.location,
+                                        sendDate: session.date,
+                                    } as Climb
+                                }
                             >
                                 <Button
                                     variant="secondary"

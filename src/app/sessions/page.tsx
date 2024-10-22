@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { TopNav } from "../_components/topnav";
 import { RecentSessions } from "./_components/recentsessions";
+export const dynamic = "force-dynamic";
 
 export default async function SessionsPage() {
     return (

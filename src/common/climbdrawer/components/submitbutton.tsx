@@ -3,19 +3,13 @@ import { useState } from "react";
 import { addClimb, editClimb } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { Button } from "~/components/ui/button";
+import { Climb } from "~/server/db/schema";
 
 interface SubmitButtonProps {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
     isEdit: boolean;
-    climbId: number;
-    name: string;
-    grade: string;
-    attempts: number;
-    rating: number;
-    notes: string;
-    location: number;
-    date: Date;
     sessionId?: number;
+    climb: Climb;
     setIsRejected: React.Dispatch<React.SetStateAction<boolean>>;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -23,15 +17,8 @@ interface SubmitButtonProps {
 export function SubmitButton({
     setIsUploading,
     isEdit,
-    climbId,
-    name,
-    grade,
-    attempts,
-    rating,
-    notes,
-    location,
-    date,
     sessionId,
+    climb,
     setIsRejected,
     setOpen,
 }: SubmitButtonProps) {
@@ -46,7 +33,12 @@ export function SubmitButton({
                 setIsUploading(true);
                 console.log("submitting form");
 
-                if (!name || !grade || !location || !date) {
+                if (
+                    !climb.name ||
+                    !climb.grade ||
+                    !climb.location ||
+                    !climb.sendDate
+                ) {
                     console.log(
                         "Name, grade, location, and date must not be empty",
                     );
@@ -58,24 +50,24 @@ export function SubmitButton({
 
                 if (isEdit) {
                     await editClimb(
-                        climbId,
-                        name,
-                        grade,
-                        attempts,
-                        rating,
-                        notes,
-                        location,
-                        date,
+                        climb.id,
+                        climb.name,
+                        climb.grade,
+                        climb.attempts ?? 0,
+                        climb.rating ?? 0,
+                        climb.notes ?? "",
+                        climb.location,
+                        climb.sendDate,
                     );
                 } else {
                     await addClimb(
-                        name,
-                        grade,
-                        attempts,
-                        rating,
-                        notes,
-                        location,
-                        date,
+                        climb.name,
+                        climb.grade,
+                        climb.attempts ?? 0,
+                        climb.rating ?? 0,
+                        climb.notes ?? "",
+                        climb.location,
+                        climb.sendDate,
                         sessionId,
                     );
                 }

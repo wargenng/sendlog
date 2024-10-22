@@ -21,6 +21,7 @@ import { LocationsCombobox } from "../locationscombobox";
 import { RatingInput } from "./components/ratinginput";
 import { SubmitButton } from "./components/submitbutton";
 import DrawerMainContent from "../drawermaincontent";
+import { Climb } from "~/server/db/schema";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
@@ -33,29 +34,29 @@ interface ClimbDrawerProps {
     location?: number;
     notes?: string;
     date?: Date;
+    climb?: Climb;
     sessionId?: number;
 }
 export function ClimbDrawer({
     children,
     isEdit,
-    id: climbId = -1,
-    grade: initialGrade = "",
-    name: initialName = "",
-    attempts: initialAttempts = 0,
-    rating: initialRating = 0,
-    location: initialLocation = 0,
-    notes: initialNotes = "",
-    date: initialDate = new Date(),
+    climb: initialClimb,
     sessionId,
 }: ClimbDrawerProps) {
-    const [grade, setGrade] = useState(initialGrade || "");
-    const [name, setName] = useState(initialName || "");
-    const [attempts, setAttempts] = useState(initialAttempts || 0);
-    const [rating, setRating] = useState(initialRating || 0);
-    const [location, setLocation] = useState(initialLocation || 0);
-    const [notes, setNotes] = useState(initialNotes || "");
     const [open, setOpen] = useState(false);
-    const [date, setDate] = useState<Date>(initialDate || new Date());
+    const [climb, setClimb] = useState(
+        initialClimb ??
+            ({
+                id: -1,
+                name: "",
+                location: 0,
+                notes: "",
+                grade: "",
+                attempts: 0,
+                rating: 0,
+                sendDate: new Date(),
+            } as Climb),
+    );
     const [isUploading, setIsUploading] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
 
@@ -78,20 +79,26 @@ export function ClimbDrawer({
                         <div className="flex justify-between">
                             <p
                                 className={
-                                    isRejected && !name ? "text-red-500" : ""
+                                    isRejected && !climb.name
+                                        ? "text-red-500"
+                                        : ""
                                 }
                             >
                                 Name *
                             </p>
                             <div className="italic text-red-500/50">
-                                {isRejected && !name && "Name is required"}
+                                {isRejected &&
+                                    !climb.name &&
+                                    "Name is required"}
                             </div>
                         </div>
                         <Input
                             type="text"
                             placeholder="Enter name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={climb.name}
+                            onChange={(e) =>
+                                setClimb({ ...climb, name: e.target.value })
+                            }
                             className="text-base"
                         />
                     </div>
@@ -100,7 +107,7 @@ export function ClimbDrawer({
                             <div className="flex justify-between">
                                 <p
                                     className={
-                                        isRejected && !grade
+                                        isRejected && !climb.grade
                                             ? "text-red-500"
                                             : ""
                                     }
@@ -109,32 +116,45 @@ export function ClimbDrawer({
                                 </p>
                                 <div className="italic text-red-500/50">
                                     {isRejected &&
-                                        !grade &&
+                                        !climb.grade &&
                                         "Grade is required"}
                                 </div>
                             </div>
-                            <GradeCombobox grade={grade} setGrade={setGrade} />
+                            <GradeCombobox
+                                grade={climb.grade}
+                                setGrade={(grade) => {
+                                    setClimb({ ...climb, grade });
+                                }}
+                            />
                         </div>
                         <div className="w-1/2 space-y-1">
                             <p>Attempts</p>
                             <Input
                                 type="number"
                                 placeholder="Enter attempts"
-                                value={attempts ? attempts : "-"}
+                                value={climb.attempts ? climb.attempts : "-"}
                                 onChange={(e) =>
-                                    setAttempts(Number(e.target.value))
+                                    setClimb({
+                                        ...climb,
+                                        attempts: parseInt(e.target.value),
+                                    })
                                 }
                                 className="text-base"
                             />
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <RatingInput rating={rating} setRating={setRating} />
+                        <RatingInput
+                            rating={climb.rating ?? 0}
+                            setRating={(rating) => {
+                                setClimb({ ...climb, rating: rating });
+                            }}
+                        />
                         <div className="w-full space-y-1">
                             <div className="flex justify-between">
                                 <p
                                     className={
-                                        isRejected && !date
+                                        isRejected && !climb.sendDate
                                             ? "text-red-500"
                                             : ""
                                     }
@@ -142,17 +162,24 @@ export function ClimbDrawer({
                                     Date Sent *
                                 </p>
                                 <div className="italic text-red-500/50">
-                                    {isRejected && !date && "Date is required"}
+                                    {isRejected &&
+                                        !climb.sendDate &&
+                                        "Date is required"}
                                 </div>
                             </div>
-                            <DatePicker date={date} setDate={setDate} />
+                            <DatePicker
+                                date={climb.sendDate}
+                                setDate={(date: Date) => {
+                                    setClimb({ ...climb, sendDate: date });
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="space-y-1">
                         <div className="flex justify-between">
                             <p
                                 className={
-                                    isRejected && !location
+                                    isRejected && !climb.location
                                         ? "text-red-500"
                                         : ""
                                 }
@@ -161,28 +188,33 @@ export function ClimbDrawer({
                             </p>
                             <div className="italic text-red-500/50">
                                 {isRejected &&
-                                    !location &&
+                                    !climb.location &&
                                     "Location is required"}
                             </div>
                         </div>
                         <LocationsCombobox
-                            location={location}
-                            setLocation={setLocation}
+                            location={climb.location}
+                            setLocation={(location) => {
+                                setClimb({ ...climb, location: location });
+                            }}
                         />
                     </div>
                     <div className="space-y-1">
                         <div className="flex justify-between">
                             <p>Notes</p>
                             <div className={`text-sm text-foreground/50`}>
-                                {notes.length} / 256
+                                {climb.notes?.length ?? 0} / 256
                             </div>
                         </div>
                         <Textarea
                             className="text-base"
-                            value={notes}
+                            value={climb.notes ?? ""}
                             onChange={(e) => {
                                 if (e.target.value.length <= 256) {
-                                    setNotes(e.target.value);
+                                    setClimb({
+                                        ...climb,
+                                        notes: e.target.value,
+                                    });
                                 }
                             }}
                         />
@@ -192,14 +224,7 @@ export function ClimbDrawer({
                         <SubmitButton
                             setIsUploading={setIsUploading}
                             isEdit={isEdit}
-                            climbId={climbId}
-                            name={name}
-                            grade={grade}
-                            attempts={attempts}
-                            rating={rating}
-                            notes={notes}
-                            location={location}
-                            date={date}
+                            climb={climb}
                             setIsRejected={setIsRejected}
                             sessionId={sessionId}
                             setOpen={setOpen}
@@ -207,7 +232,7 @@ export function ClimbDrawer({
                         {isEdit && (
                             <DeleteClimbForm
                                 setIsUploading={setIsUploading}
-                                climbId={climbId}
+                                climbId={climb.id}
                                 setOpen={setOpen}
                                 setIsRejected={setIsRejected}
                             />

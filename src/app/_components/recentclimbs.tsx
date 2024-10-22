@@ -11,18 +11,7 @@ export async function RecentClimbs() {
             <h1 className="text-base font-semibold">recent activity</h1>
             <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
                 {climbs.map((climb) => (
-                    <ClimbDrawer
-                        isEdit={true}
-                        id={climb.id}
-                        name={climb.name ?? ""}
-                        grade={climb.grade ?? ""}
-                        rating={climb.rating ?? 0}
-                        location={climb.location ?? -1}
-                        attempts={climb.attempts ?? 0}
-                        notes={climb.notes ?? ""}
-                        date={climb.sendDate ?? new Date()}
-                        key={climb.id}
-                    >
+                    <ClimbDrawer isEdit={true} climb={climb} key={climb.id}>
                         <div
                             className={`space-y-1 ${climbs.indexOf(climb) !== climbs.length - 1 ? "border-b border-foreground/15" : ""}`}
                         >
