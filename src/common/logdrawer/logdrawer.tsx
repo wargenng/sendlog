@@ -25,7 +25,6 @@ interface LogDrawerProps {
 
 export default function LogDrawer({ children }: LogDrawerProps) {
     const [open, setOpen] = useState(false);
-    const [isUploading, setIsUploading] = useState(false);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -39,7 +38,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                         Add a new session, climb, goal to your logbook.
                     </DrawerDescription>
                 </DrawerHeader>
-                <DrawerMainContent isUploading={isUploading}>
+                <DrawerMainContent>
                     <div className="grid grid-cols-2 gap-4">
                         <ClimbDrawer>
                             <Button

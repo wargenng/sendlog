@@ -1,11 +1,11 @@
 interface DrawerMainContentProps {
     children: React.ReactNode;
-    isUploading: boolean;
+    isUploading?: boolean;
 }
 
 export default function DrawerMainContent({
     children,
-    isUploading,
+    isUploading = false,
 }: DrawerMainContentProps) {
     return (
         <div
