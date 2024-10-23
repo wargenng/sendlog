@@ -1,15 +1,12 @@
 import type { User } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
-import {
-    getCurrentUsersSessions,
-    getUsersClimbs,
-    getUsersHighestGrade,
-} from "~/server/queries";
-import { RecentClimbs } from "../_components/climbs/recentclimbs";
-import { TopNav } from "../_components/topnav";
-import { ProfileActions } from "./_components/profileactions";
 import { ProfileClimbs } from "../_components/climbs/profileclimbs";
+import { TopNav } from "../_components/topnav";
+import { HighestGrade } from "./_components/highestgrade";
+import { ProfileActions } from "./_components/profileactions";
+import { UserClimbsAmount } from "./_components/userclimbsamount";
+import { UserSessionAmount } from "./_components/usersessionamount";
 
 export const dynamic = "force-dynamic";
 
@@ -27,10 +24,6 @@ export default async function UserPage({ params }: Params) {
     if (!user) {
         return <p>User not found</p>;
     }
-
-    const grade = await getUsersHighestGrade(user.id);
-    const climbs = await getUsersClimbs(user.id);
-    const sessions = await getCurrentUsersSessions();
 
     return (
         <div>
@@ -72,24 +65,9 @@ export default async function UserPage({ params }: Params) {
                     </div>
                     <div className="flex flex-col items-center space-y-1">
                         <div className="flex gap-8">
-                            <div className="w-12 text-center">
-                                <p className="text-base">{grade}</p>
-                                <p className="text-xs text-foreground/50">
-                                    grade
-                                </p>
-                            </div>
-                            <div className="w-12 text-center">
-                                <p className="text-base">{climbs.length}</p>
-                                <p className="text-xs text-foreground/50">
-                                    climbs
-                                </p>
-                            </div>
-                            <div className="w-12 text-center">
-                                <p className="text-base">{sessions.length}</p>
-                                <p className="text-xs text-foreground/50">
-                                    sessions
-                                </p>
-                            </div>
+                            <HighestGrade userId={user.id} />
+                            <UserClimbsAmount userId={user.id} />
+                            <UserSessionAmount userId={user.id} />
                         </div>
                     </div>
                 </div>
