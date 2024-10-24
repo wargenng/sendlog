@@ -39,7 +39,7 @@ export default function BulkLogDrawer({ children }: BulkLogProps) {
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
                     <Textarea
-                        className={`h-96 ${isUploading ? "pointer-events-none brightness-50" : ""}`}
+                        className={`h-96 text-base ${isUploading ? "pointer-events-none brightness-50" : ""}`}
                         placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
                         value={bulk}
                         onChange={(e) => setBulk(e.target.value)}
