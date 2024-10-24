@@ -14,6 +14,8 @@ import DrawerMainContent from "../drawermaincontent";
 import { Textarea } from "~/components/ui/textarea";
 import { Info } from "lucide-react";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
+import { LocationsCombobox } from "../locationscombobox";
+import { DatePicker } from "../datepicker";
 
 interface BulkLogProps {
     children: ReactNode;
@@ -22,7 +24,12 @@ interface BulkLogProps {
 export default function BulkLogDrawer({ children }: BulkLogProps) {
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
+    const [isRejected, setIsRejected] = useState(false);
     const [bulk, setBulk] = useState("");
+    const [session, setSession] = useState({
+        location: 0,
+        date: new Date(),
+    });
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -38,18 +45,77 @@ export default function BulkLogDrawer({ children }: BulkLogProps) {
                     </DrawerDescription>
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
-                    <Textarea
-                        className={`h-96 text-base ${isUploading ? "pointer-events-none brightness-50" : ""}`}
-                        placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
-                        value={bulk}
-                        onChange={(e) => setBulk(e.target.value)}
-                    ></Textarea>
+                    <div className="space-y-1">
+                        <p>Grades *</p>
+                        <Textarea
+                            className={`h-96 text-base ${isUploading ? "pointer-events-none brightness-50" : ""}`}
+                            placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
+                            value={bulk}
+                            onChange={(e) => setBulk(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-2 flex gap-2">
+                        <div className="w-1/2 space-y-1">
+                            <div className="flex justify-between">
+                                <p
+                                    className={
+                                        isRejected && !session.location
+                                            ? "text-red-500"
+                                            : ""
+                                    }
+                                >
+                                    Location *
+                                </p>
+                                <div className="italic text-red-500/50">
+                                    {isRejected &&
+                                        !session.location &&
+                                        "Location is required"}
+                                </div>
+                            </div>
+                            <LocationsCombobox
+                                location={session.location}
+                                setLocation={(location) => {
+                                    setSession({
+                                        ...session,
+                                        location: location,
+                                    });
+                                }}
+                            />
+                        </div>
+                        <div className="w-1/2 space-y-1">
+                            <div className="flex justify-between">
+                                <p
+                                    className={
+                                        isRejected && !session.date
+                                            ? "text-red-500"
+                                            : ""
+                                    }
+                                >
+                                    Date *
+                                </p>
+                                <div className="italic text-red-500/50">
+                                    {isRejected &&
+                                        !session.date &&
+                                        "Date is required"}
+                                </div>
+                            </div>
+                            <DatePicker
+                                date={session.date}
+                                setDate={(date: Date) => {
+                                    setSession({
+                                        ...session,
+                                        date: date,
+                                    });
+                                }}
+                            />
+                        </div>
+                    </div>
                     <BulkLogSubmit
                         bulk={bulk}
                         setIsUploading={setIsUploading}
                         setOpen={setOpen}
-                        location={1}
-                        date={new Date()}
+                        location={session.location}
+                        date={session.date}
                     />
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>
