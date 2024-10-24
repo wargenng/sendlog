@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "~/components/ui/button";
 import {
     Drawer,
@@ -15,6 +13,7 @@ import { useState, type ReactNode } from "react";
 import DrawerMainContent from "../drawermaincontent";
 import { Textarea } from "~/components/ui/textarea";
 import { Info } from "lucide-react";
+import { BulkLogSubmit } from "./components/bulklogsubmit";
 
 interface BulkLogProps {
     children: ReactNode;
@@ -23,6 +22,7 @@ interface BulkLogProps {
 export default function BulkLogDrawer({ children }: BulkLogProps) {
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
+    const [bulk, setBulk] = useState("");
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -39,10 +39,18 @@ export default function BulkLogDrawer({ children }: BulkLogProps) {
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
                     <Textarea
-                        className="h-96"
-                        placeholder="Enter the grade and modifier of each climb. seperate each climb with a space."
+                        className={`h-96 ${isUploading ? "pointer-events-none brightness-50" : ""}`}
+                        placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
+                        value={bulk}
+                        onChange={(e) => setBulk(e.target.value)}
                     ></Textarea>
-                    <Button>Submit</Button>
+                    <BulkLogSubmit
+                        bulk={bulk}
+                        setIsUploading={setIsUploading}
+                        setOpen={setOpen}
+                        location={1}
+                        date={new Date()}
+                    />
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>
                     </DrawerClose>

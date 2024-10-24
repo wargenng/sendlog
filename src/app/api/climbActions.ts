@@ -7,6 +7,8 @@ import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
 import type { Session } from "~/server/db/schema";
 import { climbs, sessions } from "~/server/db/schema";
+import { getCurrentUsersSessions } from "~/server/queries";
+import { grades } from "../utils/grades";
 
 export const addClimb = async (
     name: string,
@@ -26,31 +28,32 @@ export const addClimb = async (
     if (sessionId) {
         session = { id: sessionId };
     }
-    // if (!session) {
-    //     const currentsessions = await getCurrentUsersSessions();
-    //     let session = currentsessions.find(
-    //         (session) =>
-    //             session.date.getDate() === date.getDate() &&
-    //             session.date.getMonth() === date.getMonth() &&
-    //             session.date.getFullYear() === date.getFullYear(),
-    //     );
-    //     if (!session) {
-    //         console.log("no session found, creating one");
-    //         await db.insert(sessions).values({
-    //             userId: user.userId,
-    //             name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
-    //             location: location,
-    //             date: date,
-    //         });
-    //         const currentsessions = await getCurrentUsersSessions();
-    //         session = currentsessions.find(
-    //             (session) =>
-    //                 session.date.getDate() === date.getDate() &&
-    //                 session.date.getMonth() === date.getMonth() &&
-    //                 session.date.getFullYear() === date.getFullYear(),
-    //         );
-    //     }
-    // }
+    if (!session) {
+        const currentsessions = await getCurrentUsersSessions();
+        session = currentsessions.find(
+            (session) =>
+                session.date.getDate() === date.getDate() &&
+                session.date.getMonth() === date.getMonth() &&
+                session.date.getFullYear() === date.getFullYear(),
+        );
+        if (!session) {
+            console.log("no session found, creating one");
+            await db.insert(sessions).values({
+                userId: user.userId,
+                name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
+                location: location,
+                date: date,
+                notes: "",
+            });
+            const currentsessions = await getCurrentUsersSessions();
+            session = currentsessions.find(
+                (session) =>
+                    session.date.getDate() === date.getDate() &&
+                    session.date.getMonth() === date.getMonth() &&
+                    session.date.getFullYear() === date.getFullYear(),
+            );
+        }
+    }
 
     await db.insert(climbs).values({
         userId: user.userId,
@@ -63,6 +66,60 @@ export const addClimb = async (
         sendDate: date,
         sessionId: session ? session.id.toString() : "",
     });
+
+    revalidatePath("/");
+};
+
+export const bulkAddClimbs = async (
+    bulkClimbs: string[],
+    location: number,
+    date: Date,
+) => {
+    const user = auth();
+    if (!user.userId) return [];
+
+    const currentsessions = await getCurrentUsersSessions();
+    let session = currentsessions.find(
+        (session) =>
+            session.date.getDate() === date.getDate() &&
+            session.date.getMonth() === date.getMonth() &&
+            session.date.getFullYear() === date.getFullYear(),
+    );
+    if (!session) {
+        console.log("no session found, creating one");
+        await db.insert(sessions).values({
+            userId: user.userId,
+            name: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
+            location: location,
+            date: date,
+            notes: "",
+        });
+        const currentsessions = await getCurrentUsersSessions();
+        session = currentsessions.find(
+            (session) =>
+                session.date.getDate() === date.getDate() &&
+                session.date.getMonth() === date.getMonth() &&
+                session.date.getFullYear() === date.getFullYear(),
+        );
+    }
+
+    await Promise.all(
+        bulkClimbs.map(async (climb) => {
+            if (grades.map((grade) => grade.value.slice(1)).includes(climb)) {
+                await db.insert(climbs).values({
+                    userId: user.userId,
+                    name: "",
+                    grade: "V" + climb,
+                    attempts: 0,
+                    rating: 0,
+                    notes: "",
+                    location: location,
+                    sendDate: date,
+                    sessionId: session ? session.id.toString() : "",
+                });
+            }
+        }),
+    );
 
     revalidatePath("/");
 };

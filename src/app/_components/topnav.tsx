@@ -1,7 +1,5 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Search } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Button } from "~/components/ui/button";
 import { SearchSheet } from "./searchsheet";
 
 interface TopNavProps {
@@ -12,25 +10,22 @@ export function TopNav({ title }: TopNavProps) {
     return (
         <nav className="fixed z-10 flex w-full items-center justify-between bg-background p-4">
             <div className="flex w-full flex-row">
-                <SignedOut>
-                    <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                    <div className="flex w-full items-center justify-between">
-                        <div className="flex flex-1 justify-start text-2xl font-semibold">
-                            {title}
-                        </div>
-                        <div className="flex flex-1 justify-end space-x-4">
-                            <SearchSheet />
-                            <Link
-                                href="/notifications"
-                                className={`flex flex-col items-center`}
-                            >
-                                <NotificationsIcon />
-                            </Link>
-                        </div>
+                <div className="flex w-full items-center justify-between">
+                    <div className="flex flex-1 justify-start text-2xl font-semibold">
+                        {title}
                     </div>
-                </SignedIn>
+                    <div className="flex flex-1 justify-end space-x-4">
+                        <SignedIn>
+                            <SearchSheet />
+                        </SignedIn>
+                        <Link
+                            href="/notifications"
+                            className={`flex flex-col items-center`}
+                        >
+                            <NotificationsIcon />
+                        </Link>
+                    </div>
+                </div>
             </div>
         </nav>
     );

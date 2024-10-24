@@ -22,11 +22,11 @@
 [ ] - Edit Session edits all climbs
 [x] - Add Loading screen
 [ ] - Modify desktop version
-[ ] - Add quick add button
+[x] - Add quick add button
 [x] - Redesign climb cards
 [ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
 [ ] - Add a way to connect a Climb to a Goal
-[ ] - Bulk add button
+[x] - Bulk add button
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
@@ -43,7 +43,7 @@
 [x] - Make users profile public and viewable to other people
 [x] - Add in a user profile section for preferences
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
-[ ] - Friends list
+[x] - Friends list
 [ ] - Goals tab
 [ ] - Share sessions with friends
 
