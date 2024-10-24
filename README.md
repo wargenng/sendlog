@@ -20,7 +20,7 @@
 [ ] - Favorites
 [ ] - Plus and minus for attempts
 [ ] - Edit Session edits all climbs
-[ ] - Add Loading screen
+[x] - Add Loading screen
 [ ] - Modify desktop version
 [ ] - Add quick add button
 [x] - Redesign climb cards

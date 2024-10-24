@@ -18,6 +18,8 @@ import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { LogButton } from "./components/logbutton";
 import SessionDrawer from "../sessiondrawer/sessiondrawer";
 import { X } from "lucide-react";
+import GoalDrawer from "../goaldrawer/goaldrawer";
+import BulkLogDrawer from "../bulklogdrawer/bulklogdrawer";
 
 interface LogDrawerProps {
     children: ReactNode;
@@ -29,7 +31,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
     return (
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
-            <DrawerContent className="h-[calc(100dvh-1rem)]">
+            <DrawerContent className="">
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle className="text-2xl">
                         Log an activity
@@ -43,7 +45,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                         <ClimbDrawer>
                             <Button
                                 variant="secondary"
-                                className="relative aspect-square h-40 w-full overflow-hidden text-foreground"
+                                className="relative aspect-square h-24 w-full overflow-hidden text-foreground"
                             >
                                 <div
                                     className="duration-250 absolute inset-0 bg-cover bg-center opacity-25 transition-transform hover:scale-110"
@@ -59,7 +61,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                         <SessionDrawer>
                             <Button
                                 variant="secondary"
-                                className="relative aspect-square h-40 w-full overflow-hidden text-foreground"
+                                className="relative aspect-square h-24 w-full overflow-hidden text-foreground"
                             >
                                 <div
                                     className="duration-250 absolute inset-0 bg-cover bg-center opacity-25 transition-transform hover:scale-110"
@@ -72,18 +74,36 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                                 </span>
                             </Button>
                         </SessionDrawer>
-                        <LogButton
-                            backgroundImage="/goal.jpg"
-                            text="Set a goal"
-                        />
-                        <LogButton
-                            backgroundImage="/group.jpg"
-                            text="Create a group session"
-                        />
-                        <LogButton
-                            backgroundImage="/bulk.jpg"
-                            text="Bulk log"
-                        />
+                        <GoalDrawer>
+                            <Button
+                                variant="secondary"
+                                className="relative aspect-square h-24 w-full overflow-hidden text-foreground"
+                            >
+                                <div
+                                    className="duration-250 absolute inset-0 bg-cover bg-center opacity-25 transition-transform hover:scale-110"
+                                    style={{
+                                        backgroundImage: `url(/goal.jpg)`,
+                                    }}
+                                ></div>
+                                <span className="relative z-10">
+                                    Set a goal
+                                </span>
+                            </Button>
+                        </GoalDrawer>
+                        <BulkLogDrawer>
+                            <Button
+                                variant="secondary"
+                                className="relative aspect-square h-24 w-full overflow-hidden text-foreground"
+                            >
+                                <div
+                                    className="duration-250 absolute inset-0 bg-cover bg-center opacity-25 transition-transform hover:scale-110"
+                                    style={{
+                                        backgroundImage: `url(/bulk.jpg)`,
+                                    }}
+                                ></div>
+                                <span className="relative z-10">Bulk log</span>
+                            </Button>
+                        </BulkLogDrawer>
                     </div>
                 </DrawerMainContent>
                 <DrawerFooter className="mb-4">

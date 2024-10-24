@@ -10,7 +10,7 @@ export function LogButton({ backgroundImage, text }: LogButtonProps) {
     return (
         <Button
             variant="secondary"
-            className="relative aspect-square h-40 w-full overflow-hidden text-foreground"
+            className="relative aspect-square h-24 w-full overflow-hidden text-foreground"
         >
             <Image
                 src={backgroundImage}
