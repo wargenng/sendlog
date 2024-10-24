@@ -7,6 +7,7 @@ import { HighestGrade } from "./_components/highestgrade";
 import { ProfileActions } from "./_components/profileactions";
 import { UserClimbsAmount } from "./_components/userclimbsamount";
 import { UserSessionAmount } from "./_components/usersessionamount";
+import { FriendAmount } from "./_components/friendamount";
 
 export const dynamic = "force-dynamic";
 
@@ -68,13 +69,14 @@ export default async function UserPage({ params }: Params) {
                             <HighestGrade userId={user.id} />
                             <UserClimbsAmount userId={user.id} />
                             <UserSessionAmount userId={user.id} />
+                            <FriendAmount userId={user.id} />
                         </div>
                     </div>
                 </div>
                 <div>
                     <p className="text-sm"></p>
                 </div>
-                <ProfileActions username={username} />
+                <ProfileActions userId={user.id} />
 
                 <ProfileClimbs user={user.id.toString()} />
             </div>

@@ -150,15 +150,9 @@ export async function deleteSession(id: number) {
     revalidatePath("/");
 }
 
-export async function getIsUserProfile(profileUsername: string) {
+export async function getIsUserProfile(profileId: string) {
     const loggedUser = auth();
     if (!loggedUser.userId) return false;
 
-    const response = await clerkClient().users.getUserList();
-    const users = response.data;
-    const profileUser = users.find(
-        (user: User) => user.id === loggedUser.userId,
-    )?.username;
-
-    return profileUser === profileUsername;
+    return loggedUser.userId === profileId;
 }

@@ -136,6 +136,19 @@ export type Goal = {
     updatedAt: Date;
 };
 
+export const notifications = createTable("notification", {
+    id: serial("id").primaryKey(),
+    userId: varchar("userId", { length: 256 }).notNull(),
+    message: varchar("message", { length: 256 }).notNull(),
+    read: boolean("read").default(sql`false`),
+    createdAt: timestamp("created_at", { withTimezone: true })
+        .default(sql`CURRENT_TIMESTAMP`)
+        .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+        () => new Date(),
+    ),
+});
+
 export type Users = {
     bio: string;
     height: number;
