@@ -33,15 +33,8 @@ export function SubmitButton({
                 setIsUploading(true);
                 console.log("submitting form");
 
-                if (
-                    !climb.name ||
-                    !climb.grade ||
-                    !climb.location ||
-                    !climb.sendDate
-                ) {
-                    console.log(
-                        "Name, grade, location, and date must not be empty",
-                    );
+                if (!climb.grade || !climb.location || !climb.sendDate) {
+                    console.log("Grade, location, and date must not be empty");
                     setIsSubmitting(false);
                     setIsUploading(false);
                     setIsRejected(true);
@@ -51,7 +44,7 @@ export function SubmitButton({
                 if (climb.id) {
                     await editClimb(
                         climb.id,
-                        climb.name,
+                        climb.name ?? "",
                         climb.grade,
                         climb.attempts ?? 0,
                         climb.rating ?? 0,
@@ -61,7 +54,7 @@ export function SubmitButton({
                     );
                 } else {
                     await addClimb(
-                        climb.name,
+                        climb.name ?? "",
                         climb.grade,
                         climb.attempts ?? 0,
                         climb.rating ?? 0,

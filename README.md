@@ -16,23 +16,23 @@
 [x] - Redesign login page
 [x] - Make the create climb form come up when editing climb
 [x] - Add error checking on climb entry
+[x] - Make Icons below Bigger
+[x] - Add Loading screen
+[x] - Add quick add button
+[x] - Redesign climb cards
+[x] - Bulk add button
+[x] - Refactor server/async calls out of main page loads
 [ ] - If user swipes down on screen and previous changes were not saved then prompt the user to save changes
 [ ] - Favorites
 [ ] - Plus and minus for attempts
 [ ] - Edit Session edits all climbs
-[x] - Add Loading screen
 [ ] - Modify desktop version
-[x] - Add quick add button
-[x] - Redesign climb cards
 [ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
 [ ] - Add a way to connect a Climb to a Goal
-[x] - Bulk add button
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
-[ ] - Refactor server/async calls out of main page loads
 [ ] - Utilize IsSend
-[x] - Make Icons below Bigger
 
 ## DATABASE
 
@@ -41,9 +41,9 @@
 [x] - Allow users to delete their climbs
 [x] - After Climb Submission a session will Automatically be Created
 [x] - Make users profile public and viewable to other people
+[x] - Friends list
 [x] - Add in a user profile section for preferences
 [ ] - Create Session or add to existing Session (default to any session that is already made that day)
-[x] - Friends list
 [ ] - Goals tab
 [ ] - Share sessions with friends
 

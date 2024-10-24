@@ -67,20 +67,7 @@ export function ClimbDrawer({
                 <DrawerMainContent isUploading={isUploading}>
                     <div className="space-y-1">
                         <div className="flex justify-between">
-                            <p
-                                className={
-                                    isRejected && !climb.name
-                                        ? "text-red-500"
-                                        : ""
-                                }
-                            >
-                                Name *
-                            </p>
-                            <div className="italic text-red-500/50">
-                                {isRejected &&
-                                    !climb.name &&
-                                    "Name is required"}
-                            </div>
+                            <p>Name</p>
                         </div>
                         <Input
                             type="text"
