@@ -5,7 +5,7 @@ import { TopNav } from "./_components/topnav";
 import { Suspense } from "react";
 export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
+export default function HomePage() {
     return (
         <main className="">
             <SignedIn>
