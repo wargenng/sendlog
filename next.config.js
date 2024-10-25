@@ -13,7 +13,7 @@ const config = {
         ignoreDuringBuilds: true,
     },
     images: {
-        domains: ["img.clerk.com"],
+        domains: ["img.clerk.com", "utfs.io"],
     },
 };
 

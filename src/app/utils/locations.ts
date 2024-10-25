@@ -6,6 +6,7 @@ export const locations = [
         country: "USA",
         state: "NV",
         type: "Indoors",
+        image: "https://utfs.io/f/lXqKHYWPgVZHwdry8EZH9GFr7bgu28kpqA3cRa6WenvwdOJM",
     },
     {
         id: 2,
@@ -30,6 +31,7 @@ export const locations = [
         country: "USA",
         state: "NV",
         type: "Outdoors",
+        image: "https://utfs.io/f/lXqKHYWPgVZHxeJh2qV9a6jXxUs2gBWczRKwbpYEI3k5Dql1",
     },
     {
         id: 5,
@@ -38,6 +40,7 @@ export const locations = [
         country: "USA",
         state: "NV",
         type: "Outdoors",
+        image: "https://utfs.io/f/lXqKHYWPgVZH2T7oP47YXmGBJlOSW6co9ifbKCQwqp8Nad4n",
     },
     {
         id: 6,
@@ -109,6 +112,15 @@ export const locations = [
         location: "Red Rock",
         country: "USA",
         state: "NV",
+        type: "Outdoors",
+        image: "https://utfs.io/f/lXqKHYWPgVZH7FXYftmNGmcJQhp0sP1SDFXOtxnwRTeZ56za",
+    },
+    {
+        id: 15,
+        label: "The Buttermilks",
+        location: "Bishop",
+        country: "USA",
+        state: "CA",
         type: "Outdoors",
     },
 ];
