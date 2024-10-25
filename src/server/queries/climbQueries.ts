@@ -11,7 +11,7 @@ export async function getCurrentUsersClimbs() {
 
     const climbs = await db.query.climbs.findMany({
         where: (model, { eq }) => eq(model.userId, user.userId),
-        orderBy: (model, { desc }) => desc(model.sendDate),
+        orderBy: (model, { desc }) => [desc(model.sendDate), desc(model.id)],
         limit: 3,
     });
 
