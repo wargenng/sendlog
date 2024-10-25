@@ -3,9 +3,22 @@ import "server-only";
 import { grades } from "~/app/utils/grades";
 import { locations } from "~/app/utils/locations";
 import { db } from "../db";
-import type { Climb } from "../db/schema";
+import { climbs, type Climb } from "../db/schema";
+import { and, desc, eq } from "drizzle-orm";
 
 export async function getCurrentUsersClimbs() {
+    const user = auth();
+    if (!user.userId) return [];
+
+    const climbs = await db.query.climbs.findMany({
+        where: (model, { eq }) => eq(model.userId, user.userId),
+        orderBy: (model, { desc }) => [desc(model.sendDate), desc(model.id)],
+    });
+
+    return climbs;
+}
+
+export async function getLimitedCurrentUsersClimbs() {
     const user = auth();
     if (!user.userId) return [];
 

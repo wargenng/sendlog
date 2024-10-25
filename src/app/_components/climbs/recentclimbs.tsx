@@ -1,8 +1,8 @@
-import { getCurrentUsersClimbs } from "~/server/queries";
+import { getLimitedCurrentUsersClimbs } from "~/server/queries";
 import { ClimbCard } from "./climbcard";
 
 export async function RecentClimbs() {
-    const climbs = await getCurrentUsersClimbs();
+    const climbs = await getLimitedCurrentUsersClimbs();
 
     return (
         <div className="space-y-2">
