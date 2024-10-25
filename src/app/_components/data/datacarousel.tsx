@@ -28,15 +28,15 @@ export async function DataCarousel() {
     return (
         <div className="flex w-screen justify-center p-0">
             <Carousel className="w-full">
-                <CarouselContent className="mx-6">
-                    <CarouselItem>
+                <CarouselContent className="mx-10">
+                    <CarouselItem className="-translate-x-7">
                         <PointsRadialChart
                             outdoor={outdoorvpoints}
                             indoor={indoorvpoints}
                             total={totalvpoints}
                         />
                     </CarouselItem>
-                    <CarouselItem>
+                    <CarouselItem className="-translate-x-7">
                         <GradeAreaChart gradedistibution={gradedistibution} />
                     </CarouselItem>
                 </CarouselContent>
