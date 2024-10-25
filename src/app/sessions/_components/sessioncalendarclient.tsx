@@ -39,18 +39,24 @@ export function SessionCalendarClient({ climbs }: SessionCalendarProps) {
             />
             <div className="space-y-2">
                 <h1 className="text-base font-semibold"></h1>
-                <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
-                    {filteredClimbs.map((climb) => (
-                        <ClimbCard
-                            climb={climb}
-                            isLastCard={
-                                filteredClimbs.indexOf(climb) !==
-                                filteredClimbs.length - 1
-                            }
-                            key={climb.id}
-                        />
-                    ))}
-                </div>
+                {filteredClimbs.length ? (
+                    <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
+                        {filteredClimbs.map((climb) => (
+                            <ClimbCard
+                                climb={climb}
+                                isLastCard={
+                                    filteredClimbs.indexOf(climb) !==
+                                    filteredClimbs.length - 1
+                                }
+                                key={climb.id}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-center text-foreground/50">
+                        No climbs on this day
+                    </p>
+                )}
             </div>
         </div>
     );
