@@ -24,7 +24,7 @@ export function SessionCalendarClient({ climbs }: SessionCalendarProps) {
     ];
 
     return (
-        <div className="flex w-full flex-col justify-center space-y-2">
+        <div className="flex w-full flex-col justify-center space-y-4">
             <Calendar
                 mode="single"
                 selected={date}
@@ -38,7 +38,14 @@ export function SessionCalendarClient({ climbs }: SessionCalendarProps) {
                 }}
             />
             <div className="space-y-2">
-                <h1 className="text-base font-semibold"></h1>
+                <h1 className="text-base font-semibold">
+                    climbs sent on{" "}
+                    {date.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                    })}
+                </h1>
                 {filteredClimbs.length ? (
                     <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
                         {filteredClimbs.map((climb) => (
