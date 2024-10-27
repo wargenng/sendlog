@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ClimbCard } from "~/app/_components/climbs/climbcard";
 import { Calendar } from "~/components/ui/calendar";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
+import "../_styles/calendar.css";
 
 interface SessionCalendarProps {
     climbs: Climb[];
@@ -34,7 +35,8 @@ export function SessionCalendarClient({ climbs }: SessionCalendarProps) {
                     highlight: uniqueClimbDates,
                 }}
                 modifiersClassNames={{
-                    highlight: "bg-red-500",
+                    highlight:
+                        "highlight rounded-md flex items-center justify-center",
                 }}
             />
             <div className="space-y-2">
