@@ -1,14 +1,13 @@
 import { Suspense } from "react";
-import { SessionCalendar } from "./_components/sessioncalendar";
-import { RecentSessions } from "./_components/recentsessions";
+import { ClimbCalendar } from "./_components/climbcalendar";
 export const dynamic = "force-dynamic";
 
-export default function SessionsPage() {
+export default function ClimbsPage() {
     return (
         <main className="">
             <div className="mt-20 space-y-4 px-6 pb-32">
                 <Suspense fallback={<div>Loading...</div>}>
-                    <RecentSessions />
+                    <ClimbCalendar />
                 </Suspense>
             </div>
         </main>

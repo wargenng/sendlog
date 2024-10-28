@@ -24,19 +24,21 @@ export function BottomNav() {
                             href="/"
                             className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/" ? "brightness-100" : "brightness-50"}`}
                         >
-                            <DashboardIcon />
+                            <div className="flex h-7 w-7 items-center justify-center">
+                                <DashboardIcon />
+                            </div>
                             <span className="text-xs font-normal">
                                 Dashboard
                             </span>
                         </Link>
                         <Link
-                            href="/sessions"
-                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/sessions" ? "brightness-100" : "brightness-50"}`}
+                            href="/climbs"
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/climbs" ? "brightness-100" : "brightness-50"}`}
                         >
-                            <SessionsIcon />
-                            <span className="text-xs font-normal">
-                                Sessions
-                            </span>
+                            <div className="flex h-7 w-7 items-center justify-center">
+                                <ClimbIcon />
+                            </div>
+                            <span className="text-xs font-normal">Climbs</span>
                         </Link>
                         <LogDrawer>
                             <Button
@@ -48,39 +50,45 @@ export function BottomNav() {
                             </Button>
                         </LogDrawer>
                         <Link
-                            href="/goals"
-                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/goals" ? "brightness-100" : "brightness-50"}`}
+                            href="/sessions"
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/sessions" ? "brightness-100" : "brightness-50"}`}
                         >
-                            <GoalIcon />
-                            <span className="text-xs font-normal">Goals</span>
+                            <div className="flex h-7 w-7 items-center justify-center">
+                                <SessionsIcon />
+                            </div>
+                            <span className="text-xs font-normal">
+                                Sessions
+                            </span>
                         </Link>
                         <Link
                             href={`/${user?.username}`}
                             className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "brightness-100" : "brightness-50"}`}
                         >
-                            {user?.imageUrl ? (
-                                <Image
-                                    src={user.imageUrl}
-                                    className="h-7 w-7 rounded-full object-cover"
-                                    alt="Profile"
-                                    width={28}
-                                    height={28}
-                                />
-                            ) : (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="1.75rem"
-                                    height="1.75rem"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path
-                                        fill="currentColor"
-                                        fillRule="evenodd"
-                                        d="M8 14.5a6.47 6.47 0 0 0 3.25-.87V11.5A2.25 2.25 0 0 0 9 9.25H7a2.25 2.25 0 0 0-2.25 2.25v2.13A6.47 6.47 0 0 0 8 14.5m4.75-3v.937a6.5 6.5 0 1 0-9.5 0V11.5a3.75 3.75 0 0 1 2.486-3.532a3 3 0 1 1 4.528 0A3.75 3.75 0 0 1 12.75 11.5M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M9.5 6a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0"
-                                        clipRule="evenodd"
+                            <div className="flex h-7 w-7 items-center justify-center">
+                                {user?.imageUrl ? (
+                                    <Image
+                                        src={user.imageUrl}
+                                        className="h-7 w-7 rounded-full object-cover"
+                                        alt="Profile"
+                                        width={28}
+                                        height={28}
                                     />
-                                </svg>
-                            )}
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="1.75rem"
+                                        height="1.75rem"
+                                        viewBox="0 0 16 16"
+                                    >
+                                        <path
+                                            fill="currentColor"
+                                            fillRule="evenodd"
+                                            d="M8 14.5a6.47 6.47 0 0 0 3.25-.87V11.5A2.25 2.25 0 0 0 9 9.25H7a2.25 2.25 0 0 0-2.25 2.25v2.13A6.47 6.47 0 0 0 8 14.5m4.75-3v.937a6.5 6.5 0 1 0-9.5 0V11.5a3.75 3.75 0 0 1 2.486-3.532a3 3 0 1 1 4.528 0A3.75 3.75 0 0 1 12.75 11.5M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M9.5 6a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                )}
+                            </div>
                             <span className="text-xs font-normal">Profile</span>
                         </Link>
                     </div>
@@ -103,25 +111,17 @@ const DashboardIcon = () => (
         />
     </svg>
 );
-const GoalIcon = () => (
+const ClimbIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="1.5em"
-        height="1.5em"
-        viewBox="0 0 24 24"
+        width="1.2em"
+        height="1.2em"
+        viewBox="0 0 50 50"
     >
-        <g
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.5"
-        >
-            <path d="M10.66 10.66A1.9 1.9 0 0 0 10.1 12a1.9 1.9 0 0 0 1.9 1.9a1.9 1.9 0 0 0 1.34-.56" />
-            <path d="M12 6.3a5.7 5.7 0 1 0 5.7 5.7" />
-            <path d="M12 2.5a9.5 9.5 0 1 0 9.5 9.5m-5.975-3.524L12.95 11.05" />
-            <path d="M20.94 5.844L17.7 6.3l.456-3.24a.19.19 0 0 0-.313-.161l-2.148 2.137a1.9 1.9 0 0 0-.513 1.72l.342 1.72l1.72.341a1.9 1.9 0 0 0 1.72-.513L21.1 6.157a.19.19 0 0 0-.162-.313" />
-        </g>
+        <path
+            fill="currentColor"
+            d="M6.432 21.55a5.2 5.2 0 0 0-.519 2.261l.193 12.125l-4.205 9.024a2.7 2.7 0 0 0-.301.902a2.723 2.723 0 0 0 2.295 3.105a2.72 2.72 0 0 0 2.803-1.386l4.626-9.864c.096-.229.182-.47.217-.734l.025-.372l-.036-7.496l7.109 3.092l1.148 7.326a2.725 2.725 0 0 0 2.259 2.106a2.75 2.75 0 0 0 3.118-2.285c.035-.253.035-.506.011-.746l-1.401-8.844a2.76 2.76 0 0 0-1.534-1.962l-6.354-2.812l4.046-7.014l2.007 2.539c.205.228.471.421.772.541l7.648 2.225a2.154 2.154 0 0 0 2.452-1.286a2.15 2.15 0 0 0-1.183-2.803l-.109-.036l-6.645-1.949l-5.002-5.979a5.07 5.07 0 0 0-2.911-1.541a4.99 4.99 0 0 0-4.972 2.298zm21.939 17.384l-.483 3.633l-13.156 3.187l.127 2.246h32.086A2.046 2.046 0 0 0 49 45.957l-.036-43.069l-4.396-1.022l-2.526 11.323l-4.223 1.768l-3.745 10.441l3.558 7.989l-1.002 3.067zM19.438 9.157c2.259 0 4.095-1.828 4.095-4.078C23.532 2.83 21.697 1 19.438 1s-4.096 1.83-4.096 4.079c-.001 2.25 1.836 4.078 4.096 4.078m-8.149.638a1.16 1.16 0 0 0-.435-1.588L8.872 7.052a1.185 1.185 0 0 0-1.607.433L1.153 17.989a1.163 1.163 0 0 0 .434 1.588l1.994 1.144a1.17 1.17 0 0 0 1.594-.422z"
+        />
     </svg>
 );
 const SessionsIcon = () => (
