@@ -13,7 +13,10 @@ const config = {
         ignoreDuringBuilds: true,
     },
     images: {
-        domains: ["img.clerk.com", "utfs.io"],
+        remotePatterns: [
+            { hostname: "img.clerk.com" },
+            { hostname: "utfs.io" },
+        ],
     },
 };
 
