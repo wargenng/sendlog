@@ -9,7 +9,7 @@ export function SignInCard() {
                 <Button
                     variant="default"
                     size="lg"
-                    className="flex w-full gap-2 text-lg text-white"
+                    className="flex w-full gap-2 text-lg"
                 >
                     <span>Sign in</span>
                 </Button>
@@ -18,7 +18,7 @@ export function SignInCard() {
                 <Button
                     variant="default"
                     size="lg"
-                    className="flex w-full gap-2 bg-white text-lg text-black"
+                    className="flex w-full gap-2 bg-accent text-lg text-accent-foreground"
                 >
                     <span>Sign up</span>
                 </Button>
