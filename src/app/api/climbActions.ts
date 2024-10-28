@@ -64,6 +64,7 @@ export const addClimb = async (
         notes: notes,
         location: location,
         sendDate: date,
+        type: "boulder",
         sessionId: session ? session.id.toString() : "",
     });
 

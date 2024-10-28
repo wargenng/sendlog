@@ -23,6 +23,7 @@ export const climbs = createTable("climb", {
         .notNull(),
     isRepeat: boolean("is_repeat"),
     isSend: boolean("is_send"),
+    type: varchar("type", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
     sessionId: varchar("sessionId", { length: 256 }),
     createdAt: timestamp("created_at", { withTimezone: true })
