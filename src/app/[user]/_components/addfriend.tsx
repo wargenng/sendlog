@@ -14,7 +14,7 @@ export function AddFriend({ userId }: FriendAmountProps) {
                 await addFriend(userId);
             }}
         >
-            <Button className="w-full text-foreground">Add Friend</Button>
+            <Button className="w-full">Add Friend</Button>
         </form>
     );
 }

@@ -244,7 +244,7 @@ export default function SessionDrawer({
                         >
                             <Button
                                 type="submit"
-                                className="w-full items-center text-foreground"
+                                className="w-full items-center text-primary-foreground"
                             >
                                 {isSubmitting ? (
                                     <LoadingAnimation />

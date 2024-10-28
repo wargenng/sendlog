@@ -18,7 +18,7 @@ export function EditProfile() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button className="w-full text-foreground">Edit Profile</Button>
+                <Button className="w-full">Edit Profile</Button>
             </SheetTrigger>
             <SheetContent className="w-full">
                 <SheetHeader>
