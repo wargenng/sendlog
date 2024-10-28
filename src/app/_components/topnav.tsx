@@ -1,5 +1,4 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import Link from "next/link";
 import { SearchSheet } from "./searchsheet";
 
 interface TopNavProps {
@@ -18,12 +17,6 @@ export function TopNav({ title }: TopNavProps) {
                         <SignedIn>
                             <SearchSheet />
                         </SignedIn>
-                        <Link
-                            href="/notifications"
-                            className={`flex flex-col items-center`}
-                        >
-                            <NotificationsIcon />
-                        </Link>
                     </div>
                 </div>
             </div>
