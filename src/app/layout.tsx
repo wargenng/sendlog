@@ -7,6 +7,7 @@ import { BottomNav } from "./_components/bottomnav";
 import { SignInCard } from "./_components/signincard";
 import { dark } from "@clerk/themes";
 import { Toaster } from "~/components/ui/toaster";
+import { TopNav } from "./_components/topnav";
 
 export const metadata: Metadata = {
     title: "sendlog",
@@ -38,6 +39,7 @@ export default function RootLayout({
                 </head>
                 <body className="flex flex-col justify-between">
                     <SignedIn>
+                        <TopNav title="sendlog" />
                         {children}
                         <Toaster />
                         <BottomNav />

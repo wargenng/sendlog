@@ -1,4 +1,3 @@
-import { TopNav } from "../_components/topnav";
 import { UserProfile } from "./_components/userprofile";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +13,6 @@ export default function UserPage({ params }: Params) {
 
     return (
         <div>
-            <TopNav title={username} />
             <UserProfile username={username} />
         </div>
     );
