@@ -13,7 +13,7 @@ export function ClimbCard({ climb, isLastCard }: ClimbCardProps) {
     return (
         <ClimbDrawer climb={climb}>
             <div
-                className={`flex w-full items-center gap-4 ${isLastCard ? "border-b border-foreground/15" : ""}`}
+                className={`flex w-full items-center gap-4 ${isLastCard ? "border-b border-foreground/10" : ""}`}
             >
                 <Image
                     className="h-12 w-12 rounded-full object-cover"

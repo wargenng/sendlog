@@ -20,10 +20,13 @@ import {
     CommandList,
 } from "~/components/ui/command";
 import Link from "next/link";
+import Image from "next/image";
 
 interface UserData {
     id: string;
     username: string | null;
+    fullname: string | null;
+    image: string | null;
 }
 
 interface SearchSheetClientProps {
@@ -33,6 +36,7 @@ interface SearchSheetClientProps {
 export default function SearchSheetClient({ users }: SearchSheetClientProps) {
     const [inputValue, setInputValue] = useState("");
     const [open, setOpen] = useState(false);
+    console.log(users);
 
     const filteredUsers = users.filter((user) => {
         if (!inputValue || !user.username) return false;
@@ -54,13 +58,14 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
                         placeholder="Search users..."
                         value={inputValue}
                         onValueChange={(value: string) => setInputValue(value)}
+                        className="text-base"
                     />
                     <CommandList>
                         {inputValue && filteredUsers.length === 0 && (
                             <CommandEmpty>No results found.</CommandEmpty>
                         )}
                         {inputValue && filteredUsers.length > 0 && (
-                            <CommandGroup>
+                            <CommandGroup heading="Users">
                                 {filteredUsers.map((user) => (
                                     <CommandItem key={user.id}>
                                         <Link
@@ -69,7 +74,24 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
                                                 setOpen(false);
                                             }}
                                         >
-                                            {user.username}
+                                            <div className="flex items-center gap-2">
+                                                <Image
+                                                    className="h-12 w-12 rounded-full object-cover"
+                                                    src={
+                                                        user.image ||
+                                                        "/user.png"
+                                                    }
+                                                    alt="user image"
+                                                    width={40}
+                                                    height={40}
+                                                />
+                                                <div>
+                                                    <h1>{user.fullname}</h1>
+                                                    <h1 className="text-foreground/50">
+                                                        @{user.username}
+                                                    </h1>
+                                                </div>
+                                            </div>
                                         </Link>
                                     </CommandItem>
                                 ))}

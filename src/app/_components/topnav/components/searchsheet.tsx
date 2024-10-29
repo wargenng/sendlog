@@ -8,6 +8,8 @@ export async function SearchSheet() {
     const plainUsers = users.map((user) => ({
         id: user.id,
         username: user.username,
+        fullname: user.fullName,
+        image: user.imageUrl,
     }));
 
     return <SearchSheetClient users={plainUsers} />;
