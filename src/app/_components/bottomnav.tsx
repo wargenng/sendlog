@@ -44,9 +44,9 @@ export function BottomNav() {
                             <Button
                                 variant="default"
                                 size="icon"
-                                className="h-12 w-12 rounded-full bg-primary"
+                                className="h-12 w-12 rounded-full bg-accent"
                             >
-                                <Plus className="h-6 w-6 text-primary-foreground" />
+                                <Plus className="h-7 w-7 text-accent-foreground" />
                             </Button>
                         </LogDrawer>
                         <Link

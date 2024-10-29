@@ -22,7 +22,7 @@
 [x] - Redesign climb cards
 [x] - Bulk add button
 [x] - Refactor server/async calls out of main page loads
-[ ] - Add in a climbs page
+[x] - Add in a climbs page
 [ ] - Add in friends list screen
 [ ] - Add in a preview screen before edit screen
 [ ] - If user swipes down on screen and previous changes were not saved then prompt the user to save changes
