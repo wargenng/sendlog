@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { SearchSheet } from "./searchsheet";
+import { SearchSheet } from "./components/searchsheet";
 
 interface TopNavProps {
     title: string;

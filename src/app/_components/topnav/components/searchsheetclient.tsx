@@ -32,6 +32,7 @@ interface SearchSheetClientProps {
 
 export default function SearchSheetClient({ users }: SearchSheetClientProps) {
     const [inputValue, setInputValue] = useState("");
+    const [open, setOpen] = useState(false);
 
     const filteredUsers = users.filter((user) => {
         if (!inputValue || !user.username) return false;
@@ -39,7 +40,7 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
     });
 
     return (
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger>
                 <Search />
             </SheetTrigger>
@@ -62,7 +63,12 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
                             <CommandGroup>
                                 {filteredUsers.map((user) => (
                                     <CommandItem key={user.id}>
-                                        <Link href={`/${user.username}`}>
+                                        <Link
+                                            href={`/${user.username}`}
+                                            onClick={() => {
+                                                setOpen(false);
+                                            }}
+                                        >
                                             {user.username}
                                         </Link>
                                     </CommandItem>

@@ -7,7 +7,7 @@ import { BottomNav } from "./_components/bottomnav";
 import { SignInCard } from "./_components/signincard";
 import { dark } from "@clerk/themes";
 import { Toaster } from "~/components/ui/toaster";
-import { TopNav } from "./_components/topnav";
+import { TopNav } from "./_components/topnav/topnav";
 
 export const metadata: Metadata = {
     title: "sendlog",
