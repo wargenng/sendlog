@@ -36,7 +36,6 @@ interface SearchSheetClientProps {
 export default function SearchSheetClient({ users }: SearchSheetClientProps) {
     const [inputValue, setInputValue] = useState("");
     const [open, setOpen] = useState(false);
-    console.log(users);
 
     const filteredUsers = users.filter((user) => {
         if (!inputValue || !user.username) return false;

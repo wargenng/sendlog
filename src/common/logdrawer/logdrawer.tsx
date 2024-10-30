@@ -47,7 +47,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                                 variant="secondary"
                                 className="relative flex h-28 w-28 flex-col items-center justify-center overflow-hidden rounded-full text-foreground"
                             >
-                                <div className="duration-250 absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-25 transition-transform hover:scale-110"></div>
+                                <div className="duration-250 absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-50 transition-transform hover:scale-110"></div>
                                 <div className="relative flex h-10 w-10 items-center justify-center">
                                     <ClimbIcon />
                                 </div>
@@ -61,7 +61,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                                 variant="secondary"
                                 className="relative flex h-28 w-28 flex-col items-center justify-center overflow-hidden rounded-full text-foreground"
                             >
-                                <div className="duration-250 absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-25 transition-transform hover:scale-110"></div>
+                                <div className="duration-250 absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-50 transition-transform hover:scale-110"></div>
                                 <div className="relative flex h-10 w-10 items-center justify-center">
                                     <SessionsIcon />
                                 </div>
@@ -75,7 +75,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
                                 variant="secondary"
                                 className="relative flex h-28 w-28 flex-col items-center justify-center overflow-hidden rounded-full text-foreground"
                             >
-                                <div className="duration-250 absolute inset-0 bg-gradient-to-r from-yellow-500 to-red-500 opacity-25 transition-transform hover:scale-110"></div>
+                                <div className="duration-250 absolute inset-0 bg-gradient-to-r from-yellow-500 to-red-500 opacity-50 transition-transform hover:scale-110"></div>
                                 <div className="relative flex h-10 w-10 items-center justify-center">
                                     <LightningIcon />
                                 </div>
