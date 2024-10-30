@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
@@ -74,11 +74,24 @@ export const getUsersFriends = async () => {
 };
 
 export const getProfileFriends = async (userId: string) => {
-    const friends = await db.query.friendships.findMany({
-        where: (model, { eq }) => eq(model.userId, userId),
+    const response = await clerkClient().users.getUserList();
+    const users = response.data;
+
+    const friends = await db
+        .select()
+        .from(friendships)
+        .where(eq(friendships.userId, userId));
+
+    const friendsData = friends.map((friend) => {
+        const user = users.find((user) => user.id === friend.friendId);
+
+        return {
+            id: user?.id,
+            username: user?.username,
+            fullname: user?.fullName,
+            image: user?.imageUrl,
+        };
     });
 
-    console.log(friends);
-
-    return friends;
+    return friendsData;
 };
