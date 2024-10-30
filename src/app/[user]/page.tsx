@@ -11,9 +11,5 @@ interface Params {
 export default function UserPage({ params }: Params) {
     const { user: username } = params;
 
-    return (
-        <div>
-            <UserProfile username={username} />
-        </div>
-    );
+    return <UserProfile username={username} />;
 }

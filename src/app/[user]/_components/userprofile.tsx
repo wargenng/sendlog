@@ -3,7 +3,7 @@ import Image from "next/image";
 import { HighestGrade } from "./highestgrade";
 import { UserClimbsAmount } from "./userclimbsamount";
 import { UserSessionAmount } from "./usersessionamount";
-import { FriendAmount } from "./friendamount";
+import { FriendAmount } from "./friends/friendamount";
 import { ProfileActions } from "./profileactions";
 import { ProfileClimbs } from "~/app/_components/climbs/profileclimbs";
 

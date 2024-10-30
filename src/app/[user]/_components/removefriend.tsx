@@ -1,24 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { addFriend } from "~/app/api/friendActions";
+import { removeFriend } from "~/app/api/friendActions";
 import { Button } from "~/components/ui/button";
 
 interface FriendAmountProps {
     userId: string;
 }
-export function AddFriend({ userId }: FriendAmountProps) {
+export function RemoveFriend({ userId }: FriendAmountProps) {
     const router = useRouter();
-
     return (
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                await addFriend(userId);
+                await removeFriend(userId);
                 router.refresh();
             }}
         >
-            <Button className="w-full">Add Friend</Button>
+            <Button variant="destructive" className="w-full">
+                Remove Friend
+            </Button>
         </form>
     );
 }

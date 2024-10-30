@@ -35,7 +35,8 @@
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
-[ ] - Utilize IsSend
+[ ] - Create Session or add to existing Session (default to any session that is already made that day)
+[ ] - Share sessions with friends
 
 ## DATABASE
 
@@ -46,9 +47,6 @@
 [x] - Make users profile public and viewable to other people
 [x] - Friends list
 [x] - Add in a user profile section for preferences
-[ ] - Create Session or add to existing Session (default to any session that is already made that day)
-[ ] - Goals tab
-[ ] - Share sessions with friends
 
 ## BACKEND
 
@@ -72,3 +70,5 @@
 [ ] - Add congrats confetti
 [ ] - Multiple types of Goals (general, climbs, etc.)
 [ ] - Allow user to make their own locations (delete locations, edit locations, etc)
+[ ] - Utilize IsSend
+[ ] - Goals tab

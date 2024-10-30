@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
 import { friendships } from "~/server/db/schema";
@@ -23,6 +24,44 @@ export const addFriend = async (friendId: string) => {
     revalidatePath("/");
 };
 
+export const removeFriend = async (friendId: string) => {
+    const user = auth();
+    if (!user.userId) return [];
+
+    await Promise.all([
+        db
+            .delete(friendships)
+            .where(
+                and(
+                    eq(friendships.userId, user.userId),
+                    eq(friendships.friendId, friendId),
+                ),
+            ),
+        db
+            .delete(friendships)
+            .where(
+                and(
+                    eq(friendships.userId, friendId),
+                    eq(friendships.friendId, user.userId),
+                ),
+            ),
+    ]);
+
+    revalidatePath("/");
+};
+
+export const getIsFriend = async (userId: string) => {
+    const user = auth();
+    if (!user.userId) return false;
+
+    const friendship = await db.query.friendships.findMany({
+        where: (model, { and, eq }) =>
+            and(eq(model.userId, user.userId), eq(model.friendId, userId)),
+    });
+
+    return !!friendship[0];
+};
+
 export const getUsersFriends = async () => {
     const user = auth();
     if (!user.userId) return [];
@@ -38,6 +77,8 @@ export const getProfileFriends = async (userId: string) => {
     const friends = await db.query.friendships.findMany({
         where: (model, { eq }) => eq(model.userId, userId),
     });
+
+    console.log(friends);
 
     return friends;
 };
