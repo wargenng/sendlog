@@ -41,7 +41,7 @@ export function GradeAreaChart({ gradedistibution }: GradeAreaChartProps) {
     const climbsData = gradedistibution;
 
     return (
-        <Card className="h-full bg-secondary/50">
+        <Card className="h-full bg-secondary">
             <CardHeader>
                 <CardTitle>Total Climbs</CardTitle>
                 <CardDescription>

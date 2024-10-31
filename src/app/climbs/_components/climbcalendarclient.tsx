@@ -30,7 +30,7 @@ export function ClimbCalendarClient({ climbs }: ClimbCalendarProps) {
                 mode="single"
                 selected={date}
                 onSelect={(day) => day && setDate(day)}
-                className="flex justify-center rounded-md border bg-secondary/50"
+                className="flex justify-center rounded-lg border bg-secondary"
                 modifiers={{
                     highlight: uniqueClimbDates,
                 }}

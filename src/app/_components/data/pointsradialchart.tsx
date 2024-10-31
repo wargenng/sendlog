@@ -48,7 +48,7 @@ export function PointsRadialChart({
     ];
     const totalVisitors = total;
     return (
-        <Card className="flex flex-col bg-secondary/50">
+        <Card className="flex flex-col bg-secondary">
             <CardHeader className="items-center pb-0">
                 <CardTitle>Total V-points</CardTitle>
                 <CardDescription>
