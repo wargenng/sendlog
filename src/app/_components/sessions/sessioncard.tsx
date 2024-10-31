@@ -7,6 +7,7 @@ import type { Climb } from "~/server/db/schema";
 import type { SessionWithClimbs } from "~/server/queries";
 import { SessionActions } from "./sessionactions";
 import { useState } from "react";
+import { SessionClimbCard } from "./sessionclimbcard";
 
 interface SessionCardProps {
     session: SessionWithClimbs;
@@ -64,36 +65,7 @@ export function SessionCard({ session }: SessionCardProps) {
                 } overflow-hidden`}
             >
                 {session.climbs.map((climb: Climb) => (
-                    <div
-                        key={climb.id}
-                        className="flex w-full items-center gap-2 pl-4"
-                    >
-                        <Image
-                            className="h-12 w-12 object-cover"
-                            src={
-                                locations.find(
-                                    (location) =>
-                                        location.id === climb.location,
-                                )?.image ?? "/path/to/default/image.jpg"
-                            }
-                            alt="location image"
-                            width={48}
-                            height={48}
-                        />
-                        <div className="flex flex-col gap-1">
-                            <p className="text-sm">
-                                {climb.name} {climb.grade}
-                            </p>
-                            <p className="text-xs text-foreground/50">
-                                {
-                                    locations.find(
-                                        (location) =>
-                                            location.id === climb.location,
-                                    )?.label
-                                }
-                            </p>
-                        </div>
-                    </div>
+                    <SessionClimbCard climb={climb} key={climb.id} />
                 ))}
             </div>
         </div>
