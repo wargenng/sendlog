@@ -1,10 +1,12 @@
-import { ChevronDownCircle, ChevronRight, Ellipsis } from "lucide-react";
+"use client";
+
 import Image from "next/image";
 import { locations } from "~/app/utils/locations";
 import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
-import { Climb } from "~/server/db/schema";
-import { SessionWithClimbs } from "~/server/queries";
+import type { Climb } from "~/server/db/schema";
+import type { SessionWithClimbs } from "~/server/queries";
 import { SessionActions } from "./sessionactions";
+import { useState } from "react";
 
 interface SessionCardProps {
     session: SessionWithClimbs;
@@ -14,6 +16,7 @@ export function SessionCard({ session }: SessionCardProps) {
     const location = locations.find(
         (location) => location.id === session.location,
     );
+    const [showClimbs, setShowClimbs] = useState(false);
 
     return (
         <div className="space-y-2 py-2">
@@ -47,7 +50,51 @@ export function SessionCard({ session }: SessionCardProps) {
                         </div>
                     </div>
                 </SessionDrawer>
-                <SessionActions session={session} />
+                <SessionActions
+                    session={session}
+                    setShowClimbs={setShowClimbs}
+                    showClimbs={showClimbs}
+                />
+            </div>
+            <div
+                className={`flex flex-col gap-2 transition-all duration-500 ${
+                    showClimbs
+                        ? "max-h-screen opacity-100"
+                        : "max-h-0 opacity-0"
+                } overflow-hidden`}
+            >
+                {session.climbs.map((climb: Climb) => (
+                    <div
+                        key={climb.id}
+                        className="flex w-full items-center gap-2 pl-4"
+                    >
+                        <Image
+                            className="h-12 w-12 object-cover"
+                            src={
+                                locations.find(
+                                    (location) =>
+                                        location.id === climb.location,
+                                )?.image ?? "/path/to/default/image.jpg"
+                            }
+                            alt="location image"
+                            width={48}
+                            height={48}
+                        />
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm">
+                                {climb.name} {climb.grade}
+                            </p>
+                            <p className="text-xs text-foreground/50">
+                                {
+                                    locations.find(
+                                        (location) =>
+                                            location.id === climb.location,
+                                    )?.label
+                                }
+                            </p>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
