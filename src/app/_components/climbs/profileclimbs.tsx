@@ -16,6 +16,7 @@ export async function ProfileClimbs({ user }: ProfileClimbsProps) {
                     <ClimbCard
                         climb={climb}
                         isLastCard={climbs.indexOf(climb) !== climbs.length - 1}
+                        isProfile={true}
                         key={climb.id}
                     />
                 ))}

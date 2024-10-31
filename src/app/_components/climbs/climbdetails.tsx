@@ -22,7 +22,7 @@ export function ClimbDetails({ children, climb, sessionId }: ClimbDrawerProps) {
 
     return (
         <Sheet>
-            <SheetTrigger>{children}</SheetTrigger>
+            <SheetTrigger asChild>{children}</SheetTrigger>
             <SheetContent className="w-full">
                 <SheetHeader>
                     <SheetTitle>Climb Details</SheetTitle>
@@ -32,8 +32,8 @@ export function ClimbDetails({ children, climb, sessionId }: ClimbDrawerProps) {
                 <div className="relative h-96 overflow-hidden rounded-lg p-4">
                     <div className="absolute inset-0 opacity-50 blur-md">
                         <Image
-                            src={location?.image || "/default-image.jpg"}
-                            alt={location?.label || "Climb location"}
+                            src={location?.image ?? "/default-image.jpg"}
+                            alt={location?.label ?? "Climb location"}
                             layout="fill"
                             objectFit="cover"
                             className="rounded-lg"
