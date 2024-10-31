@@ -7,16 +7,15 @@ import Image from "next/image";
 
 interface ClimbCardProps {
     climb: Climb;
-    isLastCard: boolean;
     isProfile?: boolean;
 }
 
-export function ClimbCard({ climb, isLastCard, isProfile }: ClimbCardProps) {
+export function ClimbCard({ climb, isProfile }: ClimbCardProps) {
     return (
         <div className="relative w-full">
             <ClimbDetails climb={climb}>
                 <div
-                    className={`flex w-full items-center gap-4 overflow-hidden rounded-lg bg-secondary text-left ${isLastCard ? "" : ""}`}
+                    className={`flex w-full items-center gap-4 overflow-hidden rounded-lg bg-secondary text-left`}
                 >
                     <Image
                         className="h-24 w-24 object-cover"

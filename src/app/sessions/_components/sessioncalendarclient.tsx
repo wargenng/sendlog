@@ -51,14 +51,7 @@ export function SessionCalendarClient({ climbs }: SessionCalendarProps) {
                 {filteredClimbs.length ? (
                     <div className="flex flex-col gap-2 rounded-lg">
                         {filteredClimbs.map((climb) => (
-                            <ClimbCard
-                                climb={climb}
-                                isLastCard={
-                                    filteredClimbs.indexOf(climb) !==
-                                    filteredClimbs.length - 1
-                                }
-                                key={climb.id}
-                            />
+                            <ClimbCard climb={climb} key={climb.id} />
                         ))}
                     </div>
                 ) : (
