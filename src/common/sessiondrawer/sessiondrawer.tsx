@@ -22,10 +22,12 @@ import { useRouter } from "next/navigation";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
 import type { Climb, Session } from "~/server/db/schema";
+import { SessionWithClimbs } from "~/server/queries";
+import SessionClimbs from "~/app/_components/climbs/sessionclimbs";
 
 interface SessionDrawerProps {
     children: ReactNode;
-    climbs?: ReactNode;
+    climbs?: Climb[];
     session?: Session;
 }
 
@@ -184,7 +186,7 @@ export default function SessionDrawer({
                     {session.id ? (
                         <div className="space-y-1">
                             <p>Climbs</p>
-                            {climbs}
+                            <SessionClimbs climbs={climbs ?? []} />
                         </div>
                     ) : null}
                     <p className="italic text-foreground/50">

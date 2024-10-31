@@ -1,8 +1,10 @@
-import { getUserSessionClimbs } from "~/server/queries";
+import { Climb } from "~/server/db/schema";
 
-export default async function SessionClimbs(sessionId: number) {
-    const climbs = await getUserSessionClimbs(sessionId);
+interface SessionClimbsProps {
+    climbs: Climb[];
+}
 
+export default function SessionClimbs({ climbs }: SessionClimbsProps) {
     return (
         <div>
             {climbs.length > 0 ? (

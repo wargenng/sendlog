@@ -71,7 +71,7 @@ export function ClimbCard({ climb, isLastCard, isProfile }: ClimbCardProps) {
                 </div>
             </ClimbDetails>
             {!isProfile ? (
-                <ClimbDrawer>
+                <ClimbDrawer climb={climb}>
                     <Ellipsis className="absolute right-4 top-4 h-4 w-4 text-foreground/50" />
                 </ClimbDrawer>
             ) : null}
