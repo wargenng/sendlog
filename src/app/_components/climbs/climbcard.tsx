@@ -1,5 +1,6 @@
 import { locations } from "../../utils/locations";
 import { ClimbDrawer } from "~/common/climbdrawer/climbdrawer";
+import { ClimbDetails } from "./climbdetails";
 import { ChevronRight } from "lucide-react";
 import type { Climb } from "~/server/db/schema";
 import Image from "next/image";
@@ -11,9 +12,9 @@ interface ClimbCardProps {
 
 export function ClimbCard({ climb, isLastCard }: ClimbCardProps) {
     return (
-        <ClimbDrawer climb={climb}>
+        <ClimbDetails climb={climb}>
             <div
-                className={`flex w-full items-center gap-4 ${isLastCard ? "border-b border-foreground/10" : ""}`}
+                className={`flex w-full items-center gap-4 text-left ${isLastCard ? "border-b border-foreground/10" : ""}`}
             >
                 <Image
                     className="h-12 w-12 rounded-full object-cover"
@@ -68,6 +69,6 @@ export function ClimbCard({ climb, isLastCard }: ClimbCardProps) {
                     </p>
                 </div>
             </div>
-        </ClimbDrawer>
+        </ClimbDetails>
     );
 }
