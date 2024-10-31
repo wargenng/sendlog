@@ -49,7 +49,7 @@ export function SessionCalendarClient({ climbs }: SessionCalendarProps) {
                     })}
                 </h1>
                 {filteredClimbs.length ? (
-                    <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
+                    <div className="flex flex-col gap-2 rounded-lg">
                         {filteredClimbs.map((climb) => (
                             <ClimbCard
                                 climb={climb}

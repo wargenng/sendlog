@@ -41,7 +41,7 @@ export function ClimbCalendarClient({ climbs }: ClimbCalendarProps) {
             />
             <div className="space-y-2">
                 {filteredClimbs.length ? (
-                    <div className="flex flex-col gap-2 rounded-lg bg-secondary/50 p-4">
+                    <div className="flex flex-col gap-2 rounded-lg">
                         {filteredClimbs.map((climb) => (
                             <ClimbCard
                                 climb={climb}

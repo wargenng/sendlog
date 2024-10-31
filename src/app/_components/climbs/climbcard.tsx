@@ -1,7 +1,7 @@
 import { locations } from "../../utils/locations";
 import { ClimbDrawer } from "~/common/climbdrawer/climbdrawer";
 import { ClimbDetails } from "./climbdetails";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Ellipsis } from "lucide-react";
 import type { Climb } from "~/server/db/schema";
 import Image from "next/image";
 
@@ -14,29 +14,29 @@ export function ClimbCard({ climb, isLastCard }: ClimbCardProps) {
     return (
         <ClimbDetails climb={climb}>
             <div
-                className={`flex w-full items-center gap-4 text-left ${isLastCard ? "border-b border-foreground/10" : ""}`}
+                className={`flex w-full items-center gap-4 overflow-hidden rounded-lg bg-secondary text-left ${isLastCard ? "" : ""}`}
             >
                 <Image
-                    className="h-12 w-12 rounded-full object-cover"
+                    className="h-24 w-24 object-cover"
                     src={
-                        locations[climb.location - 1]?.image ||
+                        locations[climb.location - 1]?.image ??
                         "/path/to/default/image.jpg"
                     }
                     alt="location image"
-                    width={48}
-                    height={48}
+                    width={96}
+                    height={96}
                 />
-                <div className={`w-full space-y-1`}>
+                <div className={`w-full space-y-1 pr-4`}>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                            <h1 className="text-lg font-semibold">
+                            <h1 className="text-xs font-semibold">
                                 {climb.name} {climb.grade}
                             </h1>
                         </div>
                         <div className="flex items-center space-x-2">
                             <div>
                                 {climb.rating ? (
-                                    <p className="flex items-center text-base text-primary">
+                                    <p className="flex items-center text-xs text-primary">
                                         {"★".repeat(climb.rating)}
                                         {"★"
                                             .repeat(5 - climb.rating)
@@ -52,7 +52,7 @@ export function ClimbCard({ climb, isLastCard }: ClimbCardProps) {
                                     </p>
                                 ) : null}
                             </div>
-                            <ChevronRight className="h-6 w-6 text-foreground/50" />
+                            <Ellipsis className="h-4 w-4 text-foreground/50" />
                         </div>
                     </div>
                     <p className="text-xs text-foreground/50">
