@@ -13,7 +13,7 @@ export default function HomePage() {
                         <div className="space-y-2">
                             <DataCarousel />
                         </div>
-                        <div className="p-6">
+                        <div className="px-6">
                             <RecentClimbs />
                         </div>
                     </Suspense>
