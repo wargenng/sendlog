@@ -12,6 +12,12 @@ import {
 import { GradeAreaChart } from "./gradeareachart";
 import { PointsRadialChart } from "./pointsradialchart";
 
+interface GradeDistibution {
+    grade: string;
+    outdoors: number;
+    indoors: number;
+}
+
 export async function DataCarousel() {
     const { outdoorvpoints, indoorvpoints, totalvpoints } =
         (await getCurrentUsersVpoints()) as {
@@ -19,11 +25,8 @@ export async function DataCarousel() {
             indoorvpoints: number;
             totalvpoints: number;
         };
-    const gradedistibution = (await getCurrentUsersGradeDistribution()) as {
-        grade: string;
-        outdoors: number;
-        indoors: number;
-    }[];
+    const gradedistibution =
+        (await getCurrentUsersGradeDistribution()) as GradeDistibution[];
 
     return (
         <div className="flex w-screen justify-center p-0">

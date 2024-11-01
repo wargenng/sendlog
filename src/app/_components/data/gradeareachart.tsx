@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 import {
     Card,
@@ -67,12 +67,26 @@ export function GradeAreaChart({ gradedistibution }: GradeAreaChartProps) {
                             dataKey="outdoors"
                             fill="var(--color-outdoors)"
                             radius={4}
-                        />
+                        >
+                            <LabelList
+                                position="top"
+                                offset={12}
+                                className="fill-foreground"
+                                fontSize={12}
+                            />
+                        </Bar>
                         <Bar
                             dataKey="indoors"
                             fill="var(--color-indoors)"
                             radius={4}
-                        />
+                        >
+                            <LabelList
+                                position="top"
+                                offset={12}
+                                className="fill-foreground"
+                                fontSize={12}
+                            />
+                        </Bar>
                     </BarChart>
                 </ChartContainer>
             </CardContent>

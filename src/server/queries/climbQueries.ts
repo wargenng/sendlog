@@ -124,5 +124,11 @@ export async function getCurrentUsersGradeDistribution() {
         ).length,
     }));
 
-    return climbsData;
+    const filteredgradedistibution = climbsData.map((grade) => ({
+        ...grade,
+        outdoors: grade.outdoors === 0 ? null : grade.outdoors,
+        indoors: grade.indoors === 0 ? null : grade.indoors,
+    }));
+
+    return filteredgradedistibution;
 }
