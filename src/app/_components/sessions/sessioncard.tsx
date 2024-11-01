@@ -20,20 +20,20 @@ export function SessionCard({ session }: SessionCardProps) {
     const [showClimbs, setShowClimbs] = useState(false);
 
     return (
-        <div className="space-y-2 py-2">
+        <div className="space-y-2">
             <h1 className="text-base font-bold">
                 {new Date(session.date).toLocaleDateString("en-US") ===
                 new Date().toLocaleDateString("en-US")
                     ? "Today"
                     : new Date(session.date).toLocaleDateString("en-US")}
             </h1>
-            <div className="flex w-full justify-between">
+            <div className="flex w-full justify-between pb-2">
                 <SessionDrawer climbs={session.climbs} session={session}>
                     <div
                         className={`relative flex w-full items-center gap-2 overflow-hidden text-left`}
                     >
                         <Image
-                            className="h-16 w-16 object-cover"
+                            className="h-16 w-16 rounded-lg object-cover"
                             src={
                                 location?.image ?? "/path/to/default/image.jpg"
                             }
@@ -58,7 +58,7 @@ export function SessionCard({ session }: SessionCardProps) {
                 />
             </div>
             <div
-                className={`flex flex-col gap-2 transition-all duration-500 ${
+                className={`flex flex-col gap-4 transition-all duration-500 ${
                     showClimbs
                         ? "max-h-screen opacity-100"
                         : "max-h-0 opacity-0"

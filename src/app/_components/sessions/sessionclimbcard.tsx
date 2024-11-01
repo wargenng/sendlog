@@ -15,7 +15,7 @@ export function SessionClimbCard({ climb }: { climb: Climb }) {
             <ClimbDetails climb={climb}>
                 <div className="flex w-full items-center gap-4">
                     <Image
-                        className="h-12 w-12 object-cover"
+                        className="h-12 w-12 rounded-lg object-cover"
                         src={location?.image ?? "/path/to/default/image.jpg"}
                         alt="location image"
                         width={48}

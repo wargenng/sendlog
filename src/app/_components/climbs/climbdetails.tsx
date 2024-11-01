@@ -7,15 +7,14 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "~/components/ui/sheet";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 import Image from "next/image";
 
-interface ClimbDrawerProps {
+interface ClimbDetailsProps {
     children: React.ReactNode;
     climb: Climb;
-    sessionId?: number;
 }
-export function ClimbDetails({ children, climb, sessionId }: ClimbDrawerProps) {
+export function ClimbDetails({ children, climb }: ClimbDetailsProps) {
     const location = locations.find(
         (location) => location.id === climb.location,
     );

@@ -8,7 +8,7 @@ import {
     SheetTrigger,
 } from "~/components/ui/sheet";
 import Image from "next/image";
-import { SessionWithClimbs } from "~/server/queries";
+import type { SessionWithClimbs } from "~/server/queries";
 
 interface SessionDrawerProps {
     children: React.ReactNode;
