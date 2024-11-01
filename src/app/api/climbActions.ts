@@ -64,7 +64,7 @@ export const addClimb = async (
         notes: notes,
         location: location,
         sendDate: date,
-        type: "boulder",
+        type: "Boulder",
         sessionId: session ? session.id.toString() : "",
     });
 
@@ -116,6 +116,7 @@ export const bulkAddClimbs = async (
                     notes: "",
                     location: location,
                     sendDate: date,
+                    type: "Boulder",
                     sessionId: session ? session.id.toString() : "",
                 });
             }
