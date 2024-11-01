@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { locations } from "~/app/utils/locations";
-import SessionDrawer from "~/common/sessiondrawer/sessiondrawer";
 import type { Climb } from "~/server/db/schema";
 import type { SessionWithClimbs } from "~/server/queries";
 import { SessionActions } from "./sessionactions";
-import { useState } from "react";
 import { SessionClimbCard } from "./sessionclimbcard";
 import { SessionDetails } from "./sessiondetails";
 
