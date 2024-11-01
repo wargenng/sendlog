@@ -24,6 +24,7 @@ import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
 import type { Climb, Session } from "~/server/db/schema";
 import { SessionWithClimbs } from "~/server/queries";
 import SessionClimbs from "~/app/_components/climbs/sessionclimbs";
+import { DeleteSessionForm } from "./components/deletesessionform";
 
 interface SessionDrawerProps {
     children: ReactNode;
@@ -258,35 +259,12 @@ export default function SessionDrawer({
                             </Button>
                         </form>
                         {session.id ? (
-                            <form
-                                onSubmit={async (e) => {
-                                    e.preventDefault();
-                                    setIsDeleting(true);
-                                    setIsUploading(true);
-                                    console.log("deleting form");
-                                    if (session.id !== undefined) {
-                                        await deleteSession(session.id);
-                                    }
-                                    console.log("deleted form");
-                                    router.refresh();
-                                    setIsRejected(false);
-                                    setIsDeleting(false);
-                                    setIsUploading(false);
-                                    setOpen(false);
-                                }}
-                            >
-                                <Button
-                                    type="submit"
-                                    variant={"destructive"}
-                                    className="w-full items-center text-foreground"
-                                >
-                                    {isDeleting ? (
-                                        <LoadingAnimation />
-                                    ) : (
-                                        "Delete Session"
-                                    )}
-                                </Button>
-                            </form>
+                            <DeleteSessionForm
+                                setFormOpen={setOpen}
+                                setIsUploading={setIsUploading}
+                                sessionId={session.id}
+                                setIsRejected={setIsRejected}
+                            />
                         ) : null}
                         <DrawerClose asChild>
                             <Button

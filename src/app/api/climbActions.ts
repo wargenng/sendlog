@@ -203,6 +203,15 @@ export async function deleteSession(id: number) {
     if (!user.userId) return [];
 
     await db
+        .delete(climbs)
+        .where(
+            and(
+                eq(climbs.sessionId, id.toString()),
+                eq(climbs.userId, user.userId),
+            ),
+        );
+
+    await db
         .delete(sessions)
         .where(and(eq(sessions.id, id), eq(sessions.userId, user.userId)));
 

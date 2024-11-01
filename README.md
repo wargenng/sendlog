@@ -25,12 +25,12 @@
 [x] - Add in a climbs page
 [x] - Add in friends list screen
 [x] - Add in a preview screen before edit screen
+[x] - Add are you sure message before delete. (w/ preference for if you want to show again)
 [ ] - If user swipes down on screen and previous changes were not saved then prompt the user to save changes
 [ ] - Favorites
 [ ] - Plus and minus for attempts
 [ ] - Edit Session edits all climbs
 [ ] - Modify desktop version
-[ ] - Add are you sure message before submit. (w/ preference for if you want to show again)
 [ ] - Add a way to connect a Climb to a Goal
 [ ] - Organize homescreen data by (All, Week, Month, Year)
 [ ] - Toast when upload is complete

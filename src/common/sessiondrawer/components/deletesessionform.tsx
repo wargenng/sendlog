@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { deleteClimb } from "~/app/api/climbActions";
+import { deleteClimb, deleteSession } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/hooks/use-toast";
@@ -17,34 +17,39 @@ import {
 
 interface DeleteButtonProps {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
-    climbId: number;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    sessionId: number;
+    setFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsRejected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function DeleteClimbForm({
+export function DeleteSessionForm({
     setIsUploading,
-    climbId,
-    setOpen,
+    sessionId,
+    setFormOpen,
     setIsRejected,
 }: DeleteButtonProps) {
     const [isDeleting, setIsDeleting] = useState(false);
+    const [open, setOpen] = useState(false);
     const router = useRouter();
     const { toast } = useToast();
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="destructive" className="w-full">
-                    {isDeleting ? <LoadingAnimation /> : "Delete Climb"}
+                <Button
+                    type="submit"
+                    variant="destructive"
+                    className="w-full items-center text-foreground"
+                >
+                    {isDeleting ? <LoadingAnimation /> : "Delete Session"}
                 </Button>
             </DialogTrigger>
             <DialogContent className="w-96 rounded-lg">
                 <DialogHeader className="text-left">
                     <DialogTitle>Are you absolutely sure?</DialogTitle>
                     <DialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete your climb.
+                        This action cannot be undone. This will delete your
+                        session along with all of that session's climbs.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="flex gap-2">
@@ -54,25 +59,27 @@ export function DeleteClimbForm({
                             setIsDeleting(true);
                             setIsUploading(true);
                             console.log("deleting form");
-                            await deleteClimb(climbId);
-                            console.log("deleting form");
+                            if (sessionId !== undefined) {
+                                await deleteSession(sessionId);
+                            }
+                            console.log("deleted form");
                             toast({
-                                title: "Deleted Climb",
-                                description: "Your climb has been deleted.",
+                                title: "Deleted Session",
                             });
                             router.refresh();
+                            setIsRejected(false);
                             setIsDeleting(false);
                             setIsUploading(false);
+                            setFormOpen(false);
                             setOpen(false);
-                            setIsRejected(false);
                         }}
                     >
                         <Button
                             type="submit"
-                            className="w-full"
+                            className="relative w-full"
                             variant="destructive"
                         >
-                            Delete Climb
+                            Delete Session
                         </Button>
                     </form>
                     <DialogClose
