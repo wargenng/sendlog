@@ -24,7 +24,7 @@
 [x] - Refactor server/async calls out of main page loads
 [x] - Add in a climbs page
 [x] - Add in friends list screen
-[ ] - Add in a preview screen before edit screen
+[x] - Add in a preview screen before edit screen
 [ ] - If user swipes down on screen and previous changes were not saved then prompt the user to save changes
 [ ] - Favorites
 [ ] - Plus and minus for attempts

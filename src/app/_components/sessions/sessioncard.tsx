@@ -8,6 +8,7 @@ import type { SessionWithClimbs } from "~/server/queries";
 import { SessionActions } from "./sessionactions";
 import { useState } from "react";
 import { SessionClimbCard } from "./sessionclimbcard";
+import { SessionDetails } from "./sessiondetails";
 
 interface SessionCardProps {
     session: SessionWithClimbs;
@@ -28,7 +29,7 @@ export function SessionCard({ session }: SessionCardProps) {
                     : new Date(session.date).toLocaleDateString("en-US")}
             </h1>
             <div className="flex w-full justify-between pb-2">
-                <SessionDrawer climbs={session.climbs} session={session}>
+                <SessionDetails session={session}>
                     <div
                         className={`relative flex w-full items-center gap-2 overflow-hidden text-left`}
                     >
@@ -50,7 +51,7 @@ export function SessionCard({ session }: SessionCardProps) {
                             </p>
                         </div>
                     </div>
-                </SessionDrawer>
+                </SessionDetails>
                 <SessionActions
                     session={session}
                     setShowClimbs={setShowClimbs}
@@ -58,7 +59,7 @@ export function SessionCard({ session }: SessionCardProps) {
                 />
             </div>
             <div
-                className={`flex flex-col gap-4 transition-all duration-500 ${
+                className={`flex flex-col gap-4 pl-4 transition-all duration-500 ${
                     showClimbs
                         ? "max-h-screen opacity-100"
                         : "max-h-0 opacity-0"

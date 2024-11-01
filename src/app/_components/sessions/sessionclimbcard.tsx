@@ -11,7 +11,7 @@ export function SessionClimbCard({ climb }: { climb: Climb }) {
     );
 
     return (
-        <div className="flex w-full items-center gap-4 pl-4">
+        <div className="flex w-full items-center gap-4">
             <ClimbDetails climb={climb}>
                 <div className="flex w-full items-center gap-4">
                     <Image
