@@ -17,6 +17,7 @@ export const climbs = createTable("climb", {
     attempts: integer("attempts"),
     rating: integer("rating"),
     location: integer("location").notNull(),
+    pitches: integer("pitches"),
     notes: varchar("notes", { length: 256 }),
     sendDate: timestamp("sent_on", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)

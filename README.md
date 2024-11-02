@@ -68,7 +68,7 @@
 [ ] - Arrow pointing to add button when there is no sends added
 [ ] - Create verified users (enter new locations, enter new grade levels, etc.)
 [ ] - Add congrats confetti
-[ ] - Multiple types of Goals (general, climbs, etc.)
 [ ] - Allow user to make their own locations (delete locations, edit locations, etc)
 [ ] - Utilize IsSend
+[ ] - Multiple types of Goals (general, climbs, etc.)
 [ ] - Goals tab
