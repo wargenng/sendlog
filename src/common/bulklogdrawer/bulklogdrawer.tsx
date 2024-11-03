@@ -16,6 +16,7 @@ import { Info } from "lucide-react";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
 import { LocationsCombobox } from "../locationscombobox";
 import { DatePicker } from "../datepicker";
+import { SessionTab } from "~/app/_components/climbs/sessiontabs";
 
 interface BulkLogProps {
     children: ReactNode;
@@ -110,6 +111,7 @@ export default function BulkLogDrawer({ children }: BulkLogProps) {
                             />
                         </div>
                     </div>
+                    <SessionTab />
                     <BulkLogSubmit
                         bulk={bulk}
                         setIsUploading={setIsUploading}
