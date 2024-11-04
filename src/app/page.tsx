@@ -1,8 +1,5 @@
 import { SignedIn } from "@clerk/nextjs";
 import { Suspense } from "react";
-import { RecentClimbs } from "./_components/climbs/recentclimbs";
-import { DataCarousel } from "./_components/data/datacarousel";
-import { RecentSessions } from "./sessions/_components/recentsessions";
 import { Snapshot } from "./_components/data/snapshot/snapshot";
 import { HomeSessions } from "./_components/sessions/homesessions";
 export const dynamic = "force-dynamic";
