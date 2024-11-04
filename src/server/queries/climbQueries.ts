@@ -31,6 +31,34 @@ export async function getLimitedCurrentUsersClimbs() {
     return climbs;
 }
 
+export async function getUsersWeeklySnapshot() {
+    const user = auth();
+    if (!user.userId) return [];
+
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 6);
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const climbs = await db.query.climbs.findMany({
+        where: (model, { and, eq, gte, lte }) =>
+            and(
+                eq(model.userId, user.userId),
+                gte(model.sendDate, startOfWeek),
+                lte(model.sendDate, endOfWeek),
+            ),
+    });
+
+    const climbsAmount = climbs.length;
+    const sessionAmount = new Set(climbs.map((climb) => climb.sessionId)).size;
+    const locationAmount = new Set(climbs.map((climb) => climb.location)).size;
+
+    return [climbsAmount, sessionAmount, locationAmount];
+}
+
 export async function getCurrentUsersVpoints() {
     const user = auth();
     if (!user.userId) return [];

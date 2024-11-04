@@ -1,5 +1,18 @@
+import { getUsersWeeklySnapshot } from "~/server/queries";
 import { SnapshotClient } from "./snapshotclient";
 
 export async function Snapshot() {
-    return <SnapshotClient />;
+    const [climbs, sessions, locations] = (await getUsersWeeklySnapshot()) as [
+        number,
+        number,
+        number,
+    ];
+
+    return (
+        <SnapshotClient
+            climbs={climbs}
+            sessions={sessions}
+            locations={locations}
+        />
+    );
 }
