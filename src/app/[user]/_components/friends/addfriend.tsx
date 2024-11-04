@@ -18,7 +18,7 @@ export function AddFriend({ userId }: FriendAmountProps) {
                 router.refresh();
             }}
         >
-            <Button className="w-full">Add Friend</Button>
+            <Button className="w-full">Follow</Button>
         </form>
     );
 }

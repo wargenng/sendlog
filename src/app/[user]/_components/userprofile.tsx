@@ -1,12 +1,10 @@
-import { clerkClient } from "@clerk/nextjs/server";
 import type { User } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { HighestGrade } from "./highestgrade";
-import { UserClimbsAmount } from "./userclimbsamount";
-import { UserSessionAmount } from "./usersessionamount";
+import { ProfileClimbs } from "~/app/_components/climbs/profileclimbs";
+import { FollowerAmount } from "./friends/followersamount";
 import { FriendAmount } from "./friends/friendamount";
 import { ProfileActions } from "./profileactions";
-import { ProfileClimbs } from "~/app/_components/climbs/profileclimbs";
 
 interface UserProfileProps {
     username: string;
@@ -22,12 +20,12 @@ export async function UserProfile({ username }: UserProfileProps) {
 
     return (
         <div className="mt-20 space-y-6 px-6 pb-32">
-            <div className="flex flex-col gap-2">
-                <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2">
                     {user?.imageUrl ? (
                         <Image
                             src={user?.imageUrl}
-                            className="h-24 w-24 rounded-full object-cover"
+                            className="h-12 w-12 rounded-full object-cover"
                             alt="Profile"
                             width={96}
                             height={96}
@@ -47,28 +45,28 @@ export async function UserProfile({ username }: UserProfileProps) {
                             />
                         </svg>
                     )}
-                    <div className="flex flex-col items-center">
-                        <h1 className="text-lg font-semibold">
+                    <div className="flex flex-col">
+                        <h1 className="text-sm font-semibold">
                             {user.fullName}
                         </h1>
-                        <h1 className="text-lg font-semibold">
+                        <h1 className="text-sm text-foreground/50">
                             @{user.username}
                         </h1>
                     </div>
                 </div>
-                <div className="flex flex-col items-center space-y-1">
-                    <div className="flex gap-8">
-                        <HighestGrade userId={user.id} />
-                        <UserClimbsAmount userId={user.id} />
-                        <UserSessionAmount userId={user.id} />
+                <div className="flex items-center justify-between">
+                    <div className="flex gap-4">
+                        <FollowerAmount userId={user.id} />
                         <FriendAmount userId={user.id} />
+                    </div>
+                    <div className="">
+                        <ProfileActions userId={user.id} />
                     </div>
                 </div>
             </div>
             <div>
                 <p className="text-sm"></p>
             </div>
-            <ProfileActions userId={user.id} />
             <ProfileClimbs user={user.id.toString()} />
         </div>
     );

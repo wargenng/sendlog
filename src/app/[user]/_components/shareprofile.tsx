@@ -1,5 +1,6 @@
 "use client";
 
+import { Share } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/hooks/use-toast";
 
@@ -11,12 +12,12 @@ export function ShareProfile({ username }: ShareProfileProps) {
     const { toast } = useToast();
 
     return (
-        <div className="space-y-2">
+        <div className="">
             <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => {
-                    navigator.clipboard.writeText(
+                variant="outline"
+                className="flex w-full gap-1"
+                onClick={async () => {
+                    await navigator.clipboard.writeText(
                         `https://sendlog.vercel.app/${username}`,
                     );
                     toast({
@@ -24,7 +25,8 @@ export function ShareProfile({ username }: ShareProfileProps) {
                     });
                 }}
             >
-                Share Profile
+                <Share size={14} />
+                <p>Share</p>
             </Button>
         </div>
     );

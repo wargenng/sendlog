@@ -18,7 +18,7 @@ export function RemoveFriend({ userId }: FriendAmountProps) {
             }}
         >
             <Button variant="destructive" className="w-full">
-                Remove Friend
+                Unfollow
             </Button>
         </form>
     );

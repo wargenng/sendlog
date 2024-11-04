@@ -2,6 +2,7 @@
 
 import { UserProfile } from "@clerk/clerk-react";
 import { useClerk } from "@clerk/nextjs";
+import { Edit } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import {
@@ -19,7 +20,10 @@ export function EditProfile() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button className="w-full">Edit Profile</Button>
+                <Button className="flex w-full gap-1" variant="outline">
+                    <Edit size={14} />
+                    <p>Edit</p>
+                </Button>
             </SheetTrigger>
             <SheetContent className="w-full">
                 <ScrollArea className="h-full pb-10">

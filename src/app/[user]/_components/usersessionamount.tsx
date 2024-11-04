@@ -8,9 +8,9 @@ export async function UserSessionAmount({ userId }: HighestGradeProps) {
     const sessions = await getUsersSessions(userId);
 
     return (
-        <div className="w-12 text-center">
+        <div className="w-12">
+            <p className="text-xs text-foreground/50">Sessions</p>
             <p className="text-base">{sessions.length}</p>
-            <p className="text-xs text-foreground/50">sessions</p>
         </div>
     );
 }

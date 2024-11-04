@@ -83,3 +83,26 @@ export const getProfileFriends = async (userId: string) => {
 
     return friendsData;
 };
+
+export const getProfileFollowers = async (userId: string) => {
+    const response = await clerkClient().users.getUserList();
+    const users = response.data;
+
+    const friends = await db
+        .select()
+        .from(friendships)
+        .where(eq(friendships.friendId, userId));
+
+    const friendsData = friends.map((friend) => {
+        const user = users.find((user) => user.id === friend.userId);
+
+        return {
+            id: user?.id,
+            username: user?.username,
+            fullname: user?.fullName,
+            image: user?.imageUrl,
+        };
+    });
+
+    return friendsData;
+};

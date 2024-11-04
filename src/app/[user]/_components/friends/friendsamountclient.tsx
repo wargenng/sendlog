@@ -24,6 +24,7 @@ import {
 interface FriendsAmountClientProps {
     friends: UserData[];
     username: string;
+    isFollowing: boolean;
 }
 
 interface UserData {
@@ -36,15 +37,18 @@ interface UserData {
 export function FriendsAmountClient({
     friends,
     username,
+    isFollowing,
 }: FriendsAmountClientProps) {
     const [open, setOpen] = useState(false);
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger>
-                <div className="w-12 text-center">
+            <SheetTrigger asChild>
+                <div className="w-12">
+                    <p className="text-xs text-foreground/50">
+                        {isFollowing ? "Following" : "Followers"}
+                    </p>
                     <p className="text-base">{friends.length}</p>
-                    <p className="text-xs text-foreground/50">friends</p>
                 </div>
             </SheetTrigger>
             <SheetContent className="w-full">
