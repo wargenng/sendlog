@@ -13,7 +13,7 @@ export function BottomNav() {
     const { user } = useUser();
 
     return (
-        <nav className="fixed bottom-0 flex w-full items-center justify-center border-t bg-background p-4 text-xl font-semibold">
+        <nav className="fixed bottom-0 flex w-full items-center justify-center bg-background p-4 text-xl font-semibold">
             <div className="flex w-full flex-row items-center space-x-4">
                 <SignedOut>
                     <SignInButton />
@@ -68,7 +68,7 @@ export function BottomNav() {
                                 {user?.imageUrl ? (
                                     <Image
                                         src={user.imageUrl}
-                                        className="h-7 w-7 rounded-full object-cover"
+                                        className="h-7 w-7 rounded-full border-2 border-foreground object-cover"
                                         alt="Profile"
                                         width={28}
                                         height={28}
