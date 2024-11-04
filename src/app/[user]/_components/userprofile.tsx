@@ -71,7 +71,6 @@ export async function UserProfile({ username }: UserProfileProps) {
             </div>
             <UserAreaChart />
             <UserPieChart />
-            {/* <ProfileClimbs user={user.id.toString()} /> */}
         </div>
     );
 }
