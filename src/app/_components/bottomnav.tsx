@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { Home, Plus, PlusCircle } from "lucide-react";
 import LogDrawer from "~/common/logdrawer/logdrawer";
 
 export function BottomNav() {
@@ -22,16 +22,14 @@ export function BottomNav() {
                     <div className="flex w-full justify-around gap-2 pb-4">
                         <Link
                             href="/"
-                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/" ? "brightness-100" : "brightness-50"}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/" ? "text-accent" : "text-foreground"}`}
                         >
-                            <div className="flex h-7 w-7 items-center justify-center">
-                                <DashboardIcon />
+                            <div className="flex items-center justify-center">
+                                <Home size={28} />
                             </div>
-                            <span className="text-xs font-normal">
-                                Dashboard
-                            </span>
+                            <span className="text-xs font-normal">Home</span>
                         </Link>
-                        <Link
+                        {/* <Link
                             href="/climbs"
                             className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/climbs" ? "brightness-100" : "brightness-50"}`}
                         >
@@ -39,17 +37,18 @@ export function BottomNav() {
                                 <ClimbIcon />
                             </div>
                             <span className="text-xs font-normal">Climbs</span>
-                        </Link>
+                        </Link> */}
                         <LogDrawer>
-                            <Button
-                                variant="default"
-                                size="icon"
-                                className="h-12 w-12 rounded-full bg-accent"
+                            <div
+                                className={`flex w-1/5 flex-col items-center space-y-1`}
                             >
-                                <Plus className="h-7 w-7 text-accent-foreground" />
-                            </Button>
+                                <div className="flex h-7 w-7 items-center justify-center">
+                                    <ClimbIcon />
+                                </div>
+                                <span className="text-xs font-normal">Log</span>
+                            </div>
                         </LogDrawer>
-                        <Link
+                        {/* <Link
                             href="/sessions"
                             className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/sessions" ? "brightness-100" : "brightness-50"}`}
                         >
@@ -59,16 +58,16 @@ export function BottomNav() {
                             <span className="text-xs font-normal">
                                 Sessions
                             </span>
-                        </Link>
+                        </Link> */}
                         <Link
                             href={`/${user?.username}`}
-                            className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "brightness-100" : "brightness-50"}`}
+                            className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "text-accent" : "text-foreground"}`}
                         >
                             <div className="flex h-7 w-7 items-center justify-center">
                                 {user?.imageUrl ? (
                                     <Image
                                         src={user.imageUrl}
-                                        className="h-7 w-7 rounded-full border-2 border-foreground object-cover"
+                                        className={`h-7 w-7 rounded-full border-2 object-cover ${currentPath === `/${user?.username}` ? "border-accent" : "border-foreground"}`}
                                         alt="Profile"
                                         width={28}
                                         height={28}

@@ -19,7 +19,7 @@ export async function UserProfile({ username }: UserProfileProps) {
     }
 
     return (
-        <div className="mt-20 space-y-6 px-6 pb-32">
+        <div className="mt-16 space-y-6 px-6 pb-32">
             <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                     {user?.imageUrl ? (

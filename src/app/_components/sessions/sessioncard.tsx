@@ -20,7 +20,7 @@ export function SessionCard({ session }: SessionCardProps) {
     const [showClimbs, setShowClimbs] = useState(false);
 
     return (
-        <div className="space-y-2">
+        <div className="flex flex-col gap-2 bg-secondary p-4">
             <h1 className="text-base font-bold">
                 {new Date(session.date).toLocaleDateString("en-US") ===
                 new Date().toLocaleDateString("en-US")
