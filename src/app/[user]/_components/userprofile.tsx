@@ -6,6 +6,7 @@ import { FollowerAmount } from "./friends/followersamount";
 import { FriendAmount } from "./friends/friendamount";
 import { ProfileActions } from "./profileactions";
 import { UserAreaChart } from "./userareachart";
+import { UserPieChart } from "./userpiechart";
 
 interface UserProfileProps {
     username: string;
@@ -69,6 +70,7 @@ export async function UserProfile({ username }: UserProfileProps) {
                 <p className="text-sm"></p>
             </div>
             <UserAreaChart />
+            <UserPieChart />
             {/* <ProfileClimbs user={user.id.toString()} /> */}
         </div>
     );
