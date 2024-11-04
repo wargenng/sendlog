@@ -27,7 +27,7 @@ export function SessionCardClient({
     const [showClimbs, setShowClimbs] = useState(false);
 
     return (
-        <div className="flex flex-col gap-2 bg-secondary px-4 py-2">
+        <div className="flex flex-col gap-4 bg-secondary p-4">
             <div className="flex items-center gap-2">
                 <Image
                     className="h-10 w-10 rounded-full object-cover"
@@ -66,7 +66,9 @@ export function SessionCardClient({
                     </div>
                 </div>
             </div>
-            <div className="flex w-full justify-between">
+            <div
+                className={`flex w-full justify-between transition-all duration-500 ${showClimbs ? "mb-0" : "-mb-4"}`}
+            >
                 <SessionDetails session={session}>
                     <div
                         className={`relative flex w-full items-center gap-2 overflow-hidden text-left`}
