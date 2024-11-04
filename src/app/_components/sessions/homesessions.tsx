@@ -1,9 +1,6 @@
 import { SessionCard } from "~/app/_components/sessions/sessioncard";
 import type { SessionWithClimbs } from "~/server/queries";
-import {
-    getCurrentUsersSessions,
-    getCurrentUsersSessionsWithFollowing,
-} from "~/server/queries";
+import { getCurrentUsersSessionsWithFollowing } from "~/server/queries";
 
 export async function HomeSessions() {
     const sessions =
