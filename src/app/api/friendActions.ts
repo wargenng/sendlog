@@ -15,10 +15,6 @@ export const addFriend = async (friendId: string) => {
             userId: user.userId,
             friendId: friendId,
         }),
-        db.insert(friendships).values({
-            userId: friendId,
-            friendId: user.userId,
-        }),
     ]);
 
     revalidatePath("/");
@@ -35,14 +31,6 @@ export const removeFriend = async (friendId: string) => {
                 and(
                     eq(friendships.userId, user.userId),
                     eq(friendships.friendId, friendId),
-                ),
-            ),
-        db
-            .delete(friendships)
-            .where(
-                and(
-                    eq(friendships.userId, friendId),
-                    eq(friendships.friendId, user.userId),
                 ),
             ),
     ]);
