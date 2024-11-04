@@ -5,6 +5,7 @@ import { ProfileClimbs } from "~/app/_components/climbs/profileclimbs";
 import { FollowerAmount } from "./friends/followersamount";
 import { FriendAmount } from "./friends/friendamount";
 import { ProfileActions } from "./profileactions";
+import { UserAreaChart } from "./userareachart";
 
 interface UserProfileProps {
     username: string;
@@ -19,8 +20,8 @@ export async function UserProfile({ username }: UserProfileProps) {
     }
 
     return (
-        <div className="mt-16 space-y-6 px-6 pb-32">
-            <div className="flex flex-col gap-4">
+        <div className="mt-16 space-y-2 pb-32">
+            <div className="flex flex-col gap-6 bg-secondary p-6">
                 <div className="flex items-center gap-2">
                     {user?.imageUrl ? (
                         <Image
@@ -55,7 +56,7 @@ export async function UserProfile({ username }: UserProfileProps) {
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="flex gap-4">
+                    <div className="flex gap-6">
                         <FollowerAmount userId={user.id} />
                         <FriendAmount userId={user.id} />
                     </div>
@@ -67,7 +68,8 @@ export async function UserProfile({ username }: UserProfileProps) {
             <div>
                 <p className="text-sm"></p>
             </div>
-            <ProfileClimbs user={user.id.toString()} />
+            <UserAreaChart />
+            {/* <ProfileClimbs user={user.id.toString()} /> */}
         </div>
     );
 }

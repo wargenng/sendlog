@@ -17,7 +17,10 @@ export function RemoveFriend({ userId }: FriendAmountProps) {
                 router.refresh();
             }}
         >
-            <Button variant="destructive" className="w-full">
+            <Button
+                variant="link"
+                className="w-full rounded-lg border border-accent text-accent"
+            >
                 Unfollow
             </Button>
         </form>

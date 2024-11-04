@@ -20,7 +20,10 @@ export function EditProfile() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button className="flex w-full gap-1" variant="outline">
+                <Button
+                    className="flex w-full gap-1 rounded-lg border border-accent text-accent"
+                    variant="link"
+                >
                     <Edit size={14} />
                     <p>Edit</p>
                 </Button>
