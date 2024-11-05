@@ -1,12 +1,10 @@
 import type { User } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { ProfileClimbs } from "~/app/_components/climbs/profileclimbs";
+import { UserCharts } from "./charts/usercharts";
 import { FollowerAmount } from "./friends/followersamount";
 import { FriendAmount } from "./friends/friendamount";
 import { ProfileActions } from "./profileactions";
-import { UserAreaChart } from "./userareachart";
-import { UserPieChart } from "./userpiechart";
 
 interface UserProfileProps {
     username: string;
@@ -66,11 +64,7 @@ export async function UserProfile({ username }: UserProfileProps) {
                     </div>
                 </div>
             </div>
-            <div>
-                <p className="text-sm"></p>
-            </div>
-            <UserAreaChart />
-            <UserPieChart />
+            <UserCharts user={user} />
         </div>
     );
 }

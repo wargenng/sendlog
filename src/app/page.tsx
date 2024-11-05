@@ -9,7 +9,7 @@ export default function HomePage() {
         <main className="">
             <SignedIn>
                 <div className="mt-16 space-y-2 pb-32">
-                    <Suspense fallback={<div className="p-6">Loading...</div>}>
+                    <Suspense fallback={<div className="px-6">Loading...</div>}>
                         <Snapshot />
                         <HomeSessions />
                     </Suspense>
