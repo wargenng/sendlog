@@ -1,10 +1,10 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import { getIsUserProfile } from "~/app/api/climbActions";
 import { getIsFriend } from "~/app/api/friendActions";
-import { EditProfile } from "./editprofile";
-import { AddFriend } from "./friends/addfriend";
-import { RemoveFriend } from "./friends/removefriend";
-import { ShareProfile } from "./shareprofile";
+import { EditProfile } from "./components/editprofile";
+import { AddFriend } from "./components/addfriend";
+import { RemoveFriend } from "./components/removefriend";
+import { ShareProfile } from "./components/shareprofile";
 
 interface ProfileActionsProps {
     userId: string;
