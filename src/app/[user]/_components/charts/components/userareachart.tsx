@@ -1,15 +1,15 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
+import { useState } from "react";
 import {
     Area,
     AreaChart,
     CartesianGrid,
-    LabelList,
+    ReferenceLine,
     XAxis,
     YAxis,
 } from "recharts";
-import { useState, useEffect } from "react";
 
 import {
     Card,
@@ -19,12 +19,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import {
-    ChartConfig,
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
-} from "~/components/ui/chart";
+import { ChartConfig, ChartContainer } from "~/components/ui/chart";
 
 const chartData = [
     { month: "January", climbs: 186 },
@@ -44,30 +39,7 @@ const chartConfig = {
 
 export function UserAreaChart() {
     const [selectedMonth, setSelectedMonth] = useState("");
-
-    const CustomChartTooltipContent = ({
-        payload,
-        label,
-        hideLabel,
-    }: {
-        payload?: any;
-        label?: string;
-        hideLabel: boolean;
-    }) => {
-        useEffect(() => {
-            if (payload && payload.length > 0 && label) {
-                setSelectedMonth(label);
-            }
-        }, [payload, label]);
-
-        return (
-            <ChartTooltipContent
-                payload={payload}
-                label={label}
-                hideLabel={hideLabel}
-            />
-        );
-    };
+    const [selectedXValue, setSelectedXValue] = useState("");
 
     return (
         <Card className="border-none bg-secondary">
@@ -82,15 +54,20 @@ export function UserAreaChart() {
             <CardContent>
                 <ChartContainer config={chartConfig}>
                     <AreaChart
-                        accessibilityLayer
                         data={chartData}
                         margin={{ left: -20, right: 12, top: 20 }}
+                        onClick={(event) => {
+                            if (event && event.activeLabel) {
+                                setSelectedMonth(event.activeLabel);
+                                setSelectedXValue(event.activeLabel);
+                            }
+                        }}
                     >
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="month"
-                            tickLine={false}
-                            axisLine={false}
+                            tickLine={true}
+                            axisLine={true}
                             tickMargin={8}
                             tickFormatter={(value) => value.slice(0, 3)}
                         />
@@ -98,13 +75,6 @@ export function UserAreaChart() {
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                        />
-                        <ChartTooltip
-                            cursor={false}
-                            content={
-                                <CustomChartTooltipContent hideLabel={true} />
-                            }
-                            trigger="click"
                         />
                         <defs>
                             <linearGradient
@@ -126,6 +96,12 @@ export function UserAreaChart() {
                                 />
                             </linearGradient>
                         </defs>
+                        {selectedXValue && (
+                            <ReferenceLine
+                                x={selectedXValue}
+                                stroke="hsl(var(--foreground))"
+                            />
+                        )}
                         <Area
                             dataKey="climbs"
                             type="natural"
@@ -133,8 +109,11 @@ export function UserAreaChart() {
                             fillOpacity={0.4}
                             stroke="var(--color-climbs)"
                             stackId="a"
-                            dot={true}
-                        ></Area>
+                            dot={{
+                                fill: "var(--color-climbs)",
+                                stroke: "var(--color-climbs)",
+                            }}
+                        />
                     </AreaChart>
                 </ChartContainer>
             </CardContent>

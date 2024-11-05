@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { UserAreaChart } from "./userareachart";
-import { UserChartFilter } from "./userchartfilter";
-import { UserPieChart } from "./userpiechart";
+import { UserAreaChart } from "./components/userareachart";
+import { UserChartFilter } from "./components/userchartfilter";
+import { UserPieChart } from "./components/userpiechart";
 import type { Climb } from "~/server/db/schema";
 
 interface UserChartsClientProps {
