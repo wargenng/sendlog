@@ -9,6 +9,7 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
+import { useState, useEffect } from "react";
 
 import {
     Card,
@@ -24,8 +25,6 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "~/components/ui/chart";
-
-export const description = "An area chart with gradient fill";
 
 const chartData = [
     { month: "January", climbs: 186 },
@@ -44,10 +43,38 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function UserAreaChart() {
+    const [selectedMonth, setSelectedMonth] = useState("");
+
+    const CustomChartTooltipContent = ({
+        payload,
+        label,
+        hideLabel,
+    }: {
+        payload?: any;
+        label?: string;
+        hideLabel: boolean;
+    }) => {
+        useEffect(() => {
+            if (payload && payload.length > 0 && label) {
+                setSelectedMonth(label);
+            }
+        }, [payload, label]);
+
+        return (
+            <ChartTooltipContent
+                payload={payload}
+                label={label}
+                hideLabel={hideLabel}
+            />
+        );
+    };
+
     return (
         <Card className="border-none bg-secondary">
             <CardHeader>
-                <CardTitle className="text-sm">Last 6 months</CardTitle>
+                <CardTitle className="text-sm">
+                    {selectedMonth ? selectedMonth : "Last 6 months"}
+                </CardTitle>
                 <CardDescription>
                     Showing total visitors for the last 6 months
                 </CardDescription>
@@ -74,7 +101,10 @@ export function UserAreaChart() {
                         />
                         <ChartTooltip
                             cursor={false}
-                            content={<ChartTooltipContent />}
+                            content={
+                                <CustomChartTooltipContent hideLabel={true} />
+                            }
+                            trigger="click"
                         />
                         <defs>
                             <linearGradient
@@ -103,14 +133,8 @@ export function UserAreaChart() {
                             fillOpacity={0.4}
                             stroke="var(--color-climbs)"
                             stackId="a"
-                        >
-                            <LabelList
-                                dataKey="climbs"
-                                position="top"
-                                offset={18}
-                                className="fill-foreground"
-                            />
-                        </Area>
+                            dot={true}
+                        ></Area>
                     </AreaChart>
                 </ChartContainer>
             </CardContent>

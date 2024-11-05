@@ -4,8 +4,13 @@ import { useState } from "react";
 import { UserAreaChart } from "./userareachart";
 import { UserChartFilter } from "./userchartfilter";
 import { UserPieChart } from "./userpiechart";
+import { Climb } from "~/server/db/schema";
 
-export function UserChartsClient() {
+interface UserChartsClientProps {
+    climbs: Climb[];
+}
+
+export function UserChartsClient({ climbs }: UserChartsClientProps) {
     const [filter, setFilter] = useState("Week");
 
     return (
