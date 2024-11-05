@@ -21,15 +21,6 @@ import {
 } from "~/components/ui/card";
 import { ChartConfig, ChartContainer } from "~/components/ui/chart";
 
-const chartData = [
-    { month: "January", climbs: 186 },
-    { month: "February", climbs: 305 },
-    { month: "March", climbs: 237 },
-    { month: "April", climbs: 73 },
-    { month: "May", climbs: 209 },
-    { month: "June", climbs: 214 },
-];
-
 const chartConfig = {
     climbs: {
         label: "Climbs",
@@ -37,39 +28,102 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
-export function UserAreaChart() {
-    const [selectedMonth, setSelectedMonth] = useState("");
-    const [selectedXValue, setSelectedXValue] = useState("");
+interface UserAreaChartProps {
+    climbsByWeek: { week: Date; climbs: number }[];
+}
+
+export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
+    const [selectedWeek, setSelectedWeek] = useState("");
+    const [selectedXValue, setSelectedXValue] = useState<number | null>(null);
+
+    const formattedData = climbsByWeek.map((item) => ({
+        ...item,
+        week: item.week.getTime(),
+    }));
+
+    const formatWeek = (timestamp: number) => {
+        const date = new Date(timestamp);
+        return date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+        });
+    };
+
+    const formatMonth = (timestamp: number) => {
+        const date = new Date(timestamp);
+        return date.toLocaleDateString("en-US", {
+            month: "short",
+        });
+    };
+
+    const getMonthTicks = (data: { week: number }[]) => {
+        const timestamps = data.map((item) => item.week);
+        const minTimestamp = Math.min(...timestamps);
+        const maxTimestamp = Math.max(...timestamps);
+
+        const ticks = [];
+        const maxDate = new Date(maxTimestamp);
+
+        let currentDate = new Date(minTimestamp).getTime();
+
+        while (currentDate <= maxDate.getTime()) {
+            ticks.push(currentDate);
+            const currentMonth = new Date(currentDate).getMonth();
+            const currentYear = new Date(currentDate).getFullYear();
+            currentDate = new Date(currentYear, currentMonth + 1, 1).getTime();
+        }
+
+        return ticks;
+    };
+
+    const monthTicks = getMonthTicks(formattedData);
 
     return (
         <Card className="border-none bg-secondary">
             <CardHeader>
                 <CardTitle className="text-sm">
-                    {selectedMonth ? selectedMonth : "Last 6 months"}
+                    {selectedWeek &&
+                    selectedXValue &&
+                    new Date(selectedXValue).getTime() >=
+                        new Date().setHours(0, 0, 0, 0) -
+                            7 * 24 * 60 * 60 * 1000
+                        ? "This week"
+                        : selectedWeek
+                          ? `${selectedWeek} - ${formatWeek((selectedXValue ?? 0) + 6 * 24 * 60 * 60 * 1000)}`
+                          : "Total climbs for the last 3 months"}
                 </CardTitle>
                 <CardDescription>
-                    Showing total visitors for the last 6 months
+                    Showing total climbs for the last 3 months
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
                     <AreaChart
-                        data={chartData}
+                        data={formattedData}
                         margin={{ left: -20, right: 12, top: 20 }}
                         onClick={(event) => {
-                            if (event && event.activeLabel) {
-                                setSelectedMonth(event.activeLabel);
-                                setSelectedXValue(event.activeLabel);
+                            if (
+                                event &&
+                                event.activePayload &&
+                                event.activePayload.length
+                            ) {
+                                const payload = event.activePayload[0].payload;
+                                setSelectedWeek(formatWeek(payload.week));
+                                setSelectedXValue(payload.week);
                             }
                         }}
                     >
                         <CartesianGrid vertical={false} />
                         <XAxis
-                            dataKey="month"
+                            dataKey="week"
+                            type="number"
+                            domain={["dataMin", "dataMax"]}
+                            scale="time"
+                            ticks={monthTicks}
                             tickLine={true}
                             axisLine={true}
                             tickMargin={8}
-                            tickFormatter={(value) => value.slice(0, 3)}
+                            tickFormatter={formatMonth}
                         />
                         <YAxis
                             tickLine={false}
@@ -96,7 +150,7 @@ export function UserAreaChart() {
                                 />
                             </linearGradient>
                         </defs>
-                        {selectedXValue && (
+                        {selectedXValue !== null && (
                             <ReferenceLine
                                 x={selectedXValue}
                                 stroke="hsl(var(--foreground))"
@@ -104,7 +158,7 @@ export function UserAreaChart() {
                         )}
                         <Area
                             dataKey="climbs"
-                            type="natural"
+                            type="monotone"
                             fill="url(#fillClimbs)"
                             fillOpacity={0.4}
                             stroke="var(--color-climbs)"
