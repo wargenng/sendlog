@@ -11,7 +11,7 @@ interface UserChartsClientProps {
 }
 
 export function UserChartsClient({ climbs }: UserChartsClientProps) {
-    const [filter, setFilter] = useState("Week");
+    const [filter, setFilter] = useState("1M");
 
     return (
         <div className="">
