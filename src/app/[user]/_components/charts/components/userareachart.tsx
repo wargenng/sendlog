@@ -10,6 +10,7 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
+import { SnapshotData } from "~/app/_components/data/snapshot/snapshotdata";
 
 import {
     Card,
@@ -19,7 +20,8 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import { ChartConfig, ChartContainer } from "~/components/ui/chart";
+import type { ChartConfig } from "~/components/ui/chart";
+import { ChartContainer } from "~/components/ui/chart";
 
 const chartConfig = {
     climbs: {
@@ -29,13 +31,19 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface UserAreaChartProps {
-    climbsByWeek: { week: Date; climbs: number }[];
+    climbsByWeek: {
+        week: Date;
+        climbs: number;
+        sessions: number;
+        locations: number;
+    }[];
+}
+
+interface CustomEvent {
+    activePayload?: { payload: { week: number } }[];
 }
 
 export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
-    const [selectedWeek, setSelectedWeek] = useState("");
-    const [selectedXValue, setSelectedXValue] = useState<number | null>(null);
-
     const formattedData = climbsByWeek.map((item) => ({
         ...item,
         week: item.week.getTime(),
@@ -48,6 +56,37 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
             day: "numeric",
         });
     };
+
+    // Calculate the start of the current week
+    const today = new Date();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay()); // Assuming the week starts on Sunday
+    startOfWeek.setHours(0, 0, 0, 0);
+    const currentWeekTimestamp = startOfWeek.getTime();
+
+    // Check if the current week exists in your data
+    const currentWeekData = formattedData.find(
+        (item) => item.week === currentWeekTimestamp,
+    );
+
+    // Set initial selected values
+    const initialSelectedXValue = currentWeekData
+        ? currentWeekTimestamp
+        : Math.max(...formattedData.map((item) => item.week));
+    const initialSelectedWeek = formatWeek(initialSelectedXValue);
+
+    const [selectedWeek, setSelectedWeek] = useState(initialSelectedWeek);
+    const [selectedXValue, setSelectedXValue] = useState<number | null>(
+        initialSelectedXValue,
+    );
+    const climbs =
+        formattedData.find((item) => item.week === selectedXValue)?.climbs ?? 0;
+    const sessions =
+        formattedData.find((item) => item.week === selectedXValue)?.sessions ??
+        0;
+    const locations =
+        formattedData.find((item) => item.week === selectedXValue)?.locations ??
+        0;
 
     const formatMonth = (timestamp: number) => {
         const date = new Date(timestamp);
@@ -78,6 +117,17 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
 
     const monthTicks = getMonthTicks(formattedData);
 
+    // Helper function to handle pointer event
+    const handlePointerEvent = (event: CustomEvent) => {
+        if (event?.activePayload?.length) {
+            const payload = event.activePayload[0]?.payload;
+            if (payload?.week !== undefined) {
+                setSelectedWeek(formatWeek(payload.week));
+                setSelectedXValue(payload.week);
+            }
+        }
+    };
+
     return (
         <Card className="border-none bg-secondary">
             <CardHeader>
@@ -89,29 +139,26 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
                             7 * 24 * 60 * 60 * 1000
                         ? "This week"
                         : selectedWeek
-                          ? `${selectedWeek} - ${formatWeek((selectedXValue ?? 0) + 6 * 24 * 60 * 60 * 1000)}`
+                          ? `${selectedWeek} - ${formatWeek(
+                                (selectedXValue ?? 0) + 6 * 24 * 60 * 60 * 1000,
+                            )}`
                           : "Total climbs for the last 3 months"}
                 </CardTitle>
-                <CardDescription>
-                    Showing total climbs for the last 3 months
-                </CardDescription>
+                <CardDescription></CardDescription>
+                <SnapshotData
+                    climbs={climbs}
+                    sessions={sessions}
+                    locations={locations}
+                />
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
                     <AreaChart
                         data={formattedData}
                         margin={{ left: -20, right: 12, top: 20 }}
-                        onClick={(event) => {
-                            if (
-                                event &&
-                                event.activePayload &&
-                                event.activePayload.length
-                            ) {
-                                const payload = event.activePayload[0].payload;
-                                setSelectedWeek(formatWeek(payload.week));
-                                setSelectedXValue(payload.week);
-                            }
-                        }}
+                        onMouseDown={(event: CustomEvent) =>
+                            handlePointerEvent(event)
+                        }
                     >
                         <CartesianGrid vertical={false} />
                         <XAxis

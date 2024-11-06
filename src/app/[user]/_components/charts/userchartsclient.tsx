@@ -8,7 +8,12 @@ import type { Climb } from "~/server/db/schema";
 
 interface UserChartsClientProps {
     climbs: Climb[];
-    climbsByWeek: { week: Date; climbs: number }[];
+    climbsByWeek: {
+        week: Date;
+        climbs: number;
+        sessions: number;
+        locations: number;
+    }[];
 }
 
 export function UserChartsClient({

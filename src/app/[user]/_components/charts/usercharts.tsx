@@ -22,13 +22,31 @@ export async function UserCharts({ username }: UserChartsProps) {
     );
 
     const climbsByWeek = climbsFromPastThreeMonths.reduce(
-        (acc: Record<string, number>, climb) => {
+        (
+            acc: Record<
+                string,
+                {
+                    climbs: number;
+                    sessions: Set<string>;
+                    locations: Set<string>;
+                }
+            >,
+            climb,
+        ) => {
             const weekStart = startOfWeek(new Date(climb.sendDate));
             const weekStartStr = weekStart.toISOString();
             if (!acc[weekStartStr]) {
-                acc[weekStartStr] = 0;
+                acc[weekStartStr] = {
+                    climbs: 0,
+                    sessions: new Set(),
+                    locations: new Set(),
+                };
             }
-            acc[weekStartStr]++;
+            acc[weekStartStr].climbs++;
+            if (climb.sessionId) {
+                acc[weekStartStr].sessions.add(climb.sessionId);
+            }
+            acc[weekStartStr].locations.add(climb.location.toString());
             return acc;
         },
         {},
@@ -41,9 +59,16 @@ export async function UserCharts({ username }: UserChartsProps) {
 
     const climbsByWeekArray = weeks.map((week) => {
         const weekStr = week.toISOString();
+        const weekData = climbsByWeek[weekStr] ?? {
+            climbs: 0,
+            sessions: new Set(),
+            locations: new Set(),
+        };
         return {
             week,
-            climbs: climbsByWeek[weekStr] || 0,
+            climbs: weekData.climbs,
+            sessions: weekData.sessions.size,
+            locations: weekData.locations.size,
         };
     });
 
