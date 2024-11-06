@@ -10,13 +10,10 @@ export const addFriend = async (friendId: string) => {
     const user = auth();
     if (!user.userId) return [];
 
-    await Promise.all([
-        db.insert(friendships).values({
-            userId: user.userId,
-            friendId: friendId,
-        }),
-    ]);
-
+    await db.insert(friendships).values({
+        userId: user.userId,
+        friendId: friendId,
+    });
     revalidatePath("/");
 };
 
@@ -24,17 +21,14 @@ export const removeFriend = async (friendId: string) => {
     const user = auth();
     if (!user.userId) return [];
 
-    await Promise.all([
-        db
-            .delete(friendships)
-            .where(
-                and(
-                    eq(friendships.userId, user.userId),
-                    eq(friendships.friendId, friendId),
-                ),
+    await db
+        .delete(friendships)
+        .where(
+            and(
+                eq(friendships.userId, user.userId),
+                eq(friendships.friendId, friendId),
             ),
-    ]);
-
+        );
     revalidatePath("/");
 };
 

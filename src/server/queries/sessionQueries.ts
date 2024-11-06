@@ -20,48 +20,11 @@ export async function getCurrentUsersSessions() {
         orderBy: (model, { desc }) => desc(model.date),
     });
 
-    const sessionsWithClimbs = await Promise.all(
-        sessions.map(async (session) => {
-            const climbs = await db.query.climbs.findMany({
-                where: (model, { eq }) =>
-                    eq(model.sessionId, session.id.toString()),
-            });
+    const climbs = await db.query.climbs.findMany({
+        where: (model, { eq }) => eq(model.userId, user.userId),
+    });
 
-            return { ...session, climbs };
-        }),
-    );
-
-    const sessionsWithClimbsAndHighestGrade = await Promise.all(
-        sessionsWithClimbs.map(async (session) => {
-            const highestGrade = await getUserSessionClimbsHighestGrade(
-                session.id,
-            );
-
-            return { ...session, highestGrade };
-        }),
-    );
-
-    const sessionsWithClimbsAndTotalAttempts = await Promise.all(
-        sessionsWithClimbsAndHighestGrade.map(async (session) => {
-            const totalAttempts = await getUserSessionClimbsTotalAttempts(
-                session.id,
-            );
-
-            return { ...session, totalAttempts };
-        }),
-    );
-
-    const sessionsWithClimbsAndTotalVpoints = await Promise.all(
-        sessionsWithClimbsAndTotalAttempts.map(async (session) => {
-            const totalVpoints = await getUserSessionClimbsTotalVpoints(
-                session.id,
-            );
-
-            return { ...session, totalVpoints };
-        }),
-    );
-
-    return sessionsWithClimbsAndTotalVpoints;
+    return sessionWithFields(sessions as Session[], climbs);
 }
 
 export async function getCurrentUsersSessionsWithFollowing() {
@@ -75,64 +38,16 @@ export async function getCurrentUsersSessionsWithFollowing() {
     const users = following.map((follow) => follow.friendId);
     users.push(user.userId);
 
-    const sessions = await Promise.all(
-        users.map(async (userId) => {
-            const sessions = await db.query.sessions.findMany({
-                where: (model, { eq }) => eq(model.userId, userId),
-                orderBy: (model, { desc }) => desc(model.date),
-            });
+    const sessions = await db.query.sessions.findMany({
+        where: (model, { inArray }) => inArray(model.userId, users),
+        orderBy: (model, { desc }) => desc(model.date),
+    });
 
-            return sessions;
-        }),
-    );
-    const flattenedSessions = sessions
-        .flat()
-        .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-        );
+    const climbs = await db.query.climbs.findMany({
+        where: (model, { inArray }) => inArray(model.userId, users),
+    });
 
-    const sessionsWithClimbs = await Promise.all(
-        flattenedSessions.map(async (session) => {
-            const climbs = await db.query.climbs.findMany({
-                where: (model, { eq }) =>
-                    eq(model.sessionId, session.id.toString()),
-            });
-
-            return { ...session, climbs };
-        }),
-    );
-
-    const sessionsWithClimbsAndHighestGrade = await Promise.all(
-        sessionsWithClimbs.map(async (session) => {
-            const highestGrade = await getUserSessionClimbsHighestGrade(
-                session.id,
-            );
-
-            return { ...session, highestGrade };
-        }),
-    );
-
-    const sessionsWithClimbsAndTotalAttempts = await Promise.all(
-        sessionsWithClimbsAndHighestGrade.map(async (session) => {
-            const totalAttempts = await getUserSessionClimbsTotalAttempts(
-                session.id,
-            );
-
-            return { ...session, totalAttempts };
-        }),
-    );
-
-    const sessionsWithClimbsAndTotalVpoints = await Promise.all(
-        sessionsWithClimbsAndTotalAttempts.map(async (session) => {
-            const totalVpoints = await getUserSessionClimbsTotalVpoints(
-                session.id,
-            );
-
-            return { ...session, totalVpoints };
-        }),
-    );
-
-    return sessionsWithClimbsAndTotalVpoints;
+    return sessionWithFields(sessions as Session[], climbs);
 }
 
 export async function getUserSessionClimbs(sessionId: number) {
@@ -150,60 +65,39 @@ export async function getUserSessionClimbs(sessionId: number) {
     return sessionClimbs;
 }
 
-export async function getUserSessionClimbsHighestGrade(sessionId: number) {
-    const user = auth();
-    if (!user.userId) return [];
+function sessionWithFields(sessions: Session[], climbs: Climb[]) {
+    return sessions.map((session) => {
+        const sessionClimbs = climbs.filter(
+            (climb) => climb.sessionId === session.id.toString(),
+        );
+        const highestGrade =
+            grades.find(
+                (grade) =>
+                    sessionClimbs
+                        .map(
+                            (climb) =>
+                                grades.find(
+                                    (grade) => grade.value === climb.grade,
+                                )?.ranking,
+                        )
+                        .sort((a, b) => (b ?? 0) - (a ?? 0))[0] ===
+                    grade.ranking,
+            )?.value ?? "N/A";
 
-    const climbs = await db.query.climbs.findMany({
-        where: (model, { eq }) => eq(model.userId, user.userId),
-        orderBy: (model, { desc }) => desc(model.sendDate),
+        const totalAttempts = sessionClimbs
+            .map((climb) => climb.attempts ?? 0)
+            .reduce((acc: number, grade) => acc + grade, 0);
+
+        const totalVpoints = sessionClimbs
+            .map((climb) => grades.find((grade) => grade.label === climb.grade))
+            .reduce((acc: number, grade) => acc + (grade?.gradeValue ?? 0), 0);
+
+        return {
+            ...session,
+            climbs: sessionClimbs,
+            highestGrade,
+            totalAttempts,
+            totalVpoints,
+        };
     });
-
-    return (
-        grades.find(
-            (grade) =>
-                climbs
-                    .filter((climb) => climb.sessionId === sessionId.toString())
-                    .map(
-                        (climb) =>
-                            grades.find((grade) => grade.value === climb.grade)
-                                ?.ranking,
-                    )
-                    .sort((a, b) => (b ?? 0) - (a ?? 0))[0] === grade.ranking,
-        )?.value ?? "N/A"
-    );
-}
-
-export async function getUserSessionClimbsTotalAttempts(sessionId: number) {
-    const user = auth();
-    if (!user.userId) return [];
-
-    const climbs = await db.query.climbs.findMany({
-        where: (model, { and, eq }) =>
-            and(
-                eq(model.userId, user.userId),
-                eq(model.sessionId, sessionId.toString()),
-            ),
-    });
-
-    return climbs
-        .map((climb) => climb.attempts ?? 0)
-        .reduce((acc: number, grade) => acc + grade, 0);
-}
-
-export async function getUserSessionClimbsTotalVpoints(sessionId: number) {
-    const user = auth();
-    if (!user.userId) return [];
-
-    const climbs = await db.query.climbs.findMany({
-        where: (model, { and, eq }) =>
-            and(
-                eq(model.userId, user.userId),
-                eq(model.sessionId, sessionId.toString()),
-            ),
-    });
-
-    return climbs
-        .map((climb) => grades.find((grade) => grade.label === climb.grade))
-        .reduce((acc: number, grade) => acc + (grade?.gradeValue ?? 0), 0);
 }
