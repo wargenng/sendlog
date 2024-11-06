@@ -19,10 +19,10 @@ export function BottomNav() {
                     <SignInButton />
                 </SignedOut>
                 <SignedIn>
-                    <div className="flex w-full justify-around gap-2 pb-4">
+                    <div className="flex h-16 w-full justify-around gap-2">
                         <Link
                             href="/"
-                            className={`flex w-1/5 flex-col items-center space-y-1 ${currentPath === "/" ? "text-accent" : "text-foreground"}`}
+                            className={`flex h-full w-1/3 flex-col items-center space-y-1 ${currentPath === "/" ? "text-accent" : "text-foreground"}`}
                         >
                             <div className="flex items-center justify-center">
                                 <Home size={28} />
@@ -31,7 +31,7 @@ export function BottomNav() {
                         </Link>
                         <LogDrawer>
                             <div
-                                className={`flex w-1/5 flex-col items-center space-y-1`}
+                                className={`flex h-full w-1/3 flex-col items-center space-y-1`}
                             >
                                 <div className="flex items-center justify-center">
                                     <PlusCircle size={28} />
@@ -43,7 +43,7 @@ export function BottomNav() {
                         </LogDrawer>
                         <Link
                             href={`/${user?.username}`}
-                            className={`flex w-1/5 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "text-accent" : "text-foreground"}`}
+                            className={`flex h-full w-1/3 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "text-accent" : "text-foreground"}`}
                         >
                             <div className="flex h-7 w-7 items-center justify-center">
                                 {user?.imageUrl ? (
