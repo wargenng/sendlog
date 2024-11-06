@@ -1,9 +1,9 @@
-import { clerkClient } from "@clerk/nextjs/server";
+import { User } from "@clerk/nextjs/server";
 import { getProfileFollowers } from "~/app/api/friendActions";
 import { FriendsAmountClient } from "./friendsamountclient";
 
 interface FriendAmountProps {
-    userId: string;
+    user: User;
 }
 
 interface UserData {
@@ -13,8 +13,8 @@ interface UserData {
     image: string | null;
 }
 
-export async function FollowerAmount({ userId }: FriendAmountProps) {
-    const friends = (await getProfileFollowers(userId)) as UserData[];
+export async function FollowerAmount({ user }: FriendAmountProps) {
+    const friends = (await getProfileFollowers(user.id)) as UserData[];
 
     if (!friends) {
         return (
@@ -25,14 +25,10 @@ export async function FollowerAmount({ userId }: FriendAmountProps) {
         );
     }
 
-    const response = await clerkClient().users.getUserList();
-    const username =
-        response.data.find((user) => user.id === userId)?.username ?? "";
-
     return (
         <FriendsAmountClient
             friends={friends}
-            username={username}
+            username={user.username ?? ""}
             isFollowing={false}
         />
     );

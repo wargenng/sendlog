@@ -1,17 +1,18 @@
 import { Suspense } from "react";
 import { UserCharts } from "./charts/usercharts";
 import { ProfileInformation } from "./profileinformation/profileinformation";
+import { User } from "@clerk/nextjs/server";
 
 interface UserProfileProps {
-    username: string;
+    user: User;
 }
 
-export function UserProfile({ username }: UserProfileProps) {
+export function UserProfile({ user }: UserProfileProps) {
     return (
         <div className="mt-16 space-y-2 pb-32">
             <Suspense fallback={<p className="px-6">Loading...</p>}>
-                <ProfileInformation username={username} />
-                <UserCharts username={username} />
+                <ProfileInformation user={user} />
+                <UserCharts user={user} />
             </Suspense>
         </div>
     );

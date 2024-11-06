@@ -44,11 +44,11 @@ export function ProfileInformationClient({ user }: ProfileInformationProps) {
             </div>
             <div className="flex items-center justify-between">
                 <div className="flex gap-6">
-                    <FollowerAmount userId={user.id} />
-                    <FriendAmount userId={user.id} />
+                    <FollowerAmount user={user} />
+                    <FriendAmount user={user} />
                 </div>
                 <div className="">
-                    <ProfileActions userId={user.id} />
+                    <ProfileActions user={user} />
                 </div>
             </div>
         </div>

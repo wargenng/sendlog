@@ -1,3 +1,4 @@
+import { clerkClient, User } from "@clerk/nextjs/server";
 import { UserProfile } from "./_components/userprofile";
 
 export const dynamic = "force-dynamic";
@@ -8,8 +9,14 @@ interface Params {
     };
 }
 
-export default function UserPage({ params }: Params) {
+export default async function UserPage({ params }: Params) {
     const { user: username } = params;
+    const response = await clerkClient().users.getUserList();
+    const users = response.data;
+    const user = users.find((user: User) => user.username === username);
+    if (!user) {
+        return <p>User not found</p>;
+    }
 
-    return <UserProfile username={username} />;
+    return <UserProfile user={user} />;
 }

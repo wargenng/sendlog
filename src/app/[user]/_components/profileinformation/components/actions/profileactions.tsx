@@ -1,4 +1,4 @@
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient, User } from "@clerk/nextjs/server";
 import { getIsUserProfile } from "~/app/api/climbActions";
 import { getIsFriend } from "~/app/api/friendActions";
 import { EditProfile } from "./components/editprofile";
@@ -7,26 +7,23 @@ import { RemoveFriend } from "./components/removefriend";
 import { ShareProfile } from "./components/shareprofile";
 
 interface ProfileActionsProps {
-    userId: string;
+    user: User;
 }
 
-export async function ProfileActions({ userId }: ProfileActionsProps) {
-    const isCurrectUser = await getIsUserProfile(userId);
-    const isFriends = await getIsFriend(userId);
-    const response = await clerkClient().users.getUserList();
-    const username =
-        response.data.find((user) => user.id === userId)?.username ?? "";
+export async function ProfileActions({ user }: ProfileActionsProps) {
+    const isCurrectUser = await getIsUserProfile(user.id);
+    const isFriends = await getIsFriend(user.id);
 
     return (
         <div className="flex gap-2">
             {isCurrectUser ? (
                 <EditProfile />
             ) : isFriends ? (
-                <RemoveFriend userId={userId} />
+                <RemoveFriend userId={user.id} />
             ) : (
-                <AddFriend userId={userId} />
+                <AddFriend userId={user.id} />
             )}
-            <ShareProfile username={username} />
+            <ShareProfile username={user.username ?? ""} />
         </div>
     );
 }

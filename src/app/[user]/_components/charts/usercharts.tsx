@@ -4,16 +4,10 @@ import { getUsersClimbs } from "~/server/queries";
 import { startOfWeek, subMonths, eachWeekOfInterval } from "date-fns";
 
 interface UserChartsProps {
-    username: string;
+    user: User;
 }
 
-export async function UserCharts({ username }: UserChartsProps) {
-    const response = await clerkClient().users.getUserList();
-    const users = response.data;
-    const user = users.find((user: User) => user.username === username);
-    if (!user) {
-        return <p>User not found</p>;
-    }
+export async function UserCharts({ user }: UserChartsProps) {
     const climbs = await getUsersClimbs(user.id);
 
     const threeMonthsAgo = subMonths(new Date(), 3);
