@@ -8,25 +8,16 @@ import type { Climb } from "~/server/db/schema";
 
 interface UserChartsClientProps {
     climbs: Climb[];
-    climbsByWeek: {
-        week: Date;
-        climbs: number;
-        sessions: number;
-        locations: number;
-    }[];
 }
 
-export function UserChartsClient({
-    climbs,
-    climbsByWeek,
-}: UserChartsClientProps) {
+export function UserChartsClient({ climbs }: UserChartsClientProps) {
     const [filter, setFilter] = useState("1M");
 
     return (
         <div className="">
-            <UserChartFilter filter={filter} setFilter={setFilter} />
-            <UserAreaChart climbsByWeek={climbsByWeek} />
+            <UserAreaChart climbs={climbs} />
             <UserPieChart />
+            <UserChartFilter filter={filter} setFilter={setFilter} />
         </div>
     );
 }

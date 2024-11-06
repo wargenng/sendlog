@@ -1,5 +1,6 @@
 "use client";
 
+import { eachWeekOfInterval, startOfWeek, subMonths } from "date-fns";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import {
@@ -22,6 +23,7 @@ import {
 } from "~/components/ui/card";
 import type { ChartConfig } from "~/components/ui/chart";
 import { ChartContainer } from "~/components/ui/chart";
+import type { Climb } from "~/server/db/schema";
 
 const chartConfig = {
     climbs: {
@@ -31,19 +33,15 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface UserAreaChartProps {
-    climbsByWeek: {
-        week: Date;
-        climbs: number;
-        sessions: number;
-        locations: number;
-    }[];
+    climbs: Climb[];
 }
 
 interface CustomEvent {
     activePayload?: { payload: { week: number } }[];
 }
 
-export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
+export function UserAreaChart({ climbs }: UserAreaChartProps) {
+    const climbsByWeek = climbsGroupedByWeeks(climbs);
     const formattedData = climbsByWeek.map((item) => ({
         ...item,
         week: item.week.getTime(),
@@ -79,7 +77,7 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
     const [selectedXValue, setSelectedXValue] = useState<number | null>(
         initialSelectedXValue,
     );
-    const climbs =
+    const climbsForSelectedWeek =
         formattedData.find((item) => item.week === selectedXValue)?.climbs ?? 0;
     const sessions =
         formattedData.find((item) => item.week === selectedXValue)?.sessions ??
@@ -152,7 +150,7 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
                 </CardTitle>
                 <CardDescription></CardDescription>
                 <SnapshotData
-                    climbs={climbs}
+                    climbs={climbsForSelectedWeek}
                     sessions={sessions}
                     locations={locations}
                 />
@@ -268,5 +266,69 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
                 </div>
             </CardFooter>
         </Card>
+    );
+}
+
+function climbsGroupedByWeeks(climbs: Climb[]) {
+    const threeMonthsAgo = subMonths(new Date(), 3);
+    const climbsFromPastThreeMonths = climbs.filter(
+        (climb) => new Date(climb.sendDate) >= threeMonthsAgo,
+    );
+
+    const climbsByWeek = climbsFromPastThreeMonths.reduce(
+        (
+            acc: Record<
+                string,
+                {
+                    climbs: number;
+                    sessions: Set<string>;
+                    locations: Set<string>;
+                }
+            >,
+            climb,
+        ) => {
+            const weekStart = startOfWeek(new Date(climb.sendDate), {
+                weekStartsOn: 0,
+            });
+            const weekStartStr = weekStart.toISOString();
+            if (!acc[weekStartStr]) {
+                acc[weekStartStr] = {
+                    climbs: 0,
+                    sessions: new Set(),
+                    locations: new Set(),
+                };
+            }
+            acc[weekStartStr].climbs++;
+            if (climb.sessionId) {
+                acc[weekStartStr].sessions.add(climb.sessionId);
+            }
+            acc[weekStartStr].locations.add(climb.location.toString());
+            return acc;
+        },
+        {},
+    );
+
+    const weeks = eachWeekOfInterval({
+        start: startOfWeek(threeMonthsAgo, { weekStartsOn: 0 }),
+        end: new Date(),
+    });
+
+    const climbsByWeekArray = weeks.map((week) => {
+        const weekStr = week.toISOString();
+        const weekData = climbsByWeek[weekStr] ?? {
+            climbs: 0,
+            sessions: new Set(),
+            locations: new Set(),
+        };
+        return {
+            week,
+            climbs: weekData.climbs,
+            sessions: weekData.sessions.size,
+            locations: weekData.locations.size,
+        };
+    });
+
+    return climbsByWeekArray.sort(
+        (a, b) => a.week.getTime() - b.week.getTime(),
     );
 }
