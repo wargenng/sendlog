@@ -9,7 +9,6 @@ interface UserChartsProps {
 
 export async function UserCharts({ user }: UserChartsProps) {
     const climbs = await getUsersClimbs(user.id);
-
     const threeMonthsAgo = subMonths(new Date(), 3);
     const climbsFromPastThreeMonths = climbs.filter(
         (climb) => new Date(climb.sendDate) >= threeMonthsAgo,
@@ -27,7 +26,9 @@ export async function UserCharts({ user }: UserChartsProps) {
             >,
             climb,
         ) => {
-            const weekStart = startOfWeek(new Date(climb.sendDate));
+            const weekStart = startOfWeek(new Date(climb.sendDate), {
+                weekStartsOn: 0,
+            });
             const weekStartStr = weekStart.toISOString();
             if (!acc[weekStartStr]) {
                 acc[weekStartStr] = {
@@ -47,7 +48,7 @@ export async function UserCharts({ user }: UserChartsProps) {
     );
 
     const weeks = eachWeekOfInterval({
-        start: startOfWeek(threeMonthsAgo),
+        start: startOfWeek(threeMonthsAgo, { weekStartsOn: 0 }),
         end: new Date(),
     });
 
@@ -66,7 +67,6 @@ export async function UserCharts({ user }: UserChartsProps) {
         };
     });
 
-    // Sort the climbsByWeekArray by week in ascending order (oldest first)
     climbsByWeekArray.sort((a, b) => a.week.getTime() - b.week.getTime());
 
     return (

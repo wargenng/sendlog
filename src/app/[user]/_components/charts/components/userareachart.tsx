@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import {
     Area,
@@ -128,6 +128,12 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
         }
     };
 
+    const percentageChange =
+        (((climbsByWeek.at(-1)?.climbs ?? 0) -
+            (climbsByWeek.at(-2)?.climbs ?? 0)) /
+            (climbsByWeek.at(-2)?.climbs ?? 1)) *
+        100;
+
     return (
         <Card className="border-none bg-secondary">
             <CardHeader>
@@ -141,7 +147,7 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
                         : selectedWeek
                           ? `${selectedWeek} - ${formatWeek(
                                 (selectedXValue ?? 0) + 6 * 24 * 60 * 60 * 1000,
-                            )}`
+                            )}, ${selectedXValue ? new Date(selectedXValue).getFullYear() : ""}`
                           : "Total climbs for the last 3 months"}
                 </CardTitle>
                 <CardDescription></CardDescription>
@@ -221,12 +227,42 @@ export function UserAreaChart({ climbsByWeek }: UserAreaChartProps) {
             <CardFooter>
                 <div className="flex w-full items-start gap-2 text-sm">
                     <div className="grid gap-2">
-                        <div className="flex items-center gap-2 font-medium leading-none">
-                            Trending up by 5.2% this month{" "}
-                            <TrendingUp className="h-4 w-4" />
-                        </div>
+                        {percentageChange >= 0 ? (
+                            <div className="flex items-center gap-2 font-medium leading-none">
+                                <span>
+                                    Trending up{" "}
+                                    {Math.abs(percentageChange).toFixed(2)}%
+                                    this week
+                                </span>
+                                <TrendingUp className="h-4 w-4" />
+                            </div>
+                        ) : (
+                            <div className="flex items-center gap-2 font-medium leading-none">
+                                <span>
+                                    Trending down{" "}
+                                    {Math.abs(percentageChange).toFixed(2)}%
+                                    this week
+                                </span>
+                                <TrendingDown className="h-4 w-4" />
+                            </div>
+                        )}
                         <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                            January - June 2024
+                            {new Date(
+                                Math.min(
+                                    ...formattedData.map((item) => item.week),
+                                ),
+                            ).toLocaleDateString("en-US", {
+                                month: "long",
+                            })}{" "}
+                            -{" "}
+                            {new Date(
+                                Math.max(
+                                    ...formattedData.map((item) => item.week),
+                                ),
+                            ).toLocaleDateString("en-US", {
+                                month: "long",
+                                year: "numeric",
+                            })}
                         </div>
                     </div>
                 </div>
