@@ -8,7 +8,8 @@ interface UserChartFilterProps {
 
 export function UserChartFilter({ filter, setFilter }: UserChartFilterProps) {
     return (
-        <div className="flex space-x-6 bg-secondary p-6">
+        <div className="flex w-full justify-center space-x-6 p-6">
+            <Filter label="1W" filter={filter} setFilter={setFilter} />
             <Filter label="1M" filter={filter} setFilter={setFilter} />
             <Filter label="3M" filter={filter} setFilter={setFilter} />
             <Filter label="YTD" filter={filter} setFilter={setFilter} />
