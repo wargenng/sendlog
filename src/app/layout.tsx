@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { BottomNav } from "./_components/bottomnav";
+import { BottomNav } from "./_components/bottomnav/bottomnav";
 import { SignInCard } from "./_components/signincard";
 import { dark } from "@clerk/themes";
 import { Toaster } from "~/components/ui/toaster";

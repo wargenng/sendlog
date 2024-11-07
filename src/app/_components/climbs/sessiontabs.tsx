@@ -1,3 +1,6 @@
+import { DatePicker } from "~/common/datepicker";
+import { LocationsSheet } from "~/common/locationssheet";
+import { SessionSheet } from "~/common/sessionssheet";
 import { Button } from "~/components/ui/button";
 import {
     Card,
@@ -10,8 +13,25 @@ import {
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import type { Session } from "~/server/db/schema";
 
-export function SessionTab() {
+interface SessionTabProps {
+    isRejected: boolean;
+    session: Session;
+    setSession: (session: Session) => void;
+    sessionId: string;
+    setSessionId: (sessionId: string) => void;
+    sessions: Session[];
+}
+
+export function SessionTab({
+    isRejected,
+    session,
+    setSession,
+    sessionId,
+    setSessionId,
+    sessions,
+}: SessionTabProps) {
     return (
         <div className="space-y-1">
             <p>Session</p>
@@ -31,10 +51,10 @@ export function SessionTab() {
                         <CardContent className="space-y-2">
                             <div className="space-y-1">
                                 <Label htmlFor="name">Enter Session Name</Label>
-                                <Input
-                                    id="name"
-                                    defaultValue="Session 1"
-                                    className="text-base"
+                                <SessionSheet
+                                    sessions={sessions}
+                                    sessionId={sessionId}
+                                    setSessionId={setSessionId}
                                 />
                             </div>
                         </CardContent>
@@ -44,9 +64,7 @@ export function SessionTab() {
                     <Card>
                         <CardHeader>
                             <CardTitle>Create Session</CardTitle>
-                            <CardDescription>
-                                Create a new session to add the climb to.
-                            </CardDescription>
+                            <CardDescription></CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
                             <div className="space-y-1">
@@ -59,29 +77,66 @@ export function SessionTab() {
                                     className="text-base"
                                 />
                             </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="location">Enter Location</Label>
-                                <Input
-                                    id="location"
-                                    type="text"
-                                    placeholder="Optional..."
-                                    className="text-base"
+
+                            <div className="w-full space-y-1">
+                                <div className="flex justify-between">
+                                    <p
+                                        className={
+                                            isRejected && !session.location
+                                                ? "text-red-500"
+                                                : ""
+                                        }
+                                    >
+                                        Location *
+                                    </p>
+                                    <div className="italic text-red-500/50">
+                                        {isRejected &&
+                                            !session.location &&
+                                            "Location is required"}
+                                    </div>
+                                </div>
+                                <LocationsSheet
+                                    location={session.location}
+                                    setLocation={(location) => {
+                                        setSession({
+                                            ...session,
+                                            location: location,
+                                        });
+                                    }}
                                 />
                             </div>
-                            <div className="space-y-1">
-                                <Label htmlFor="location">Enter Type</Label>
-                                <Input
-                                    id="location"
-                                    type="text"
-                                    placeholder="Optional..."
-                                    className="text-base"
+                            <div className="w-full space-y-1">
+                                <div className="flex justify-between">
+                                    <p
+                                        className={
+                                            isRejected && !session.date
+                                                ? "text-red-500"
+                                                : ""
+                                        }
+                                    >
+                                        Date *
+                                    </p>
+                                    <div className="italic text-red-500/50">
+                                        {isRejected &&
+                                            !session.date &&
+                                            "Date is required"}
+                                    </div>
+                                </div>
+                                <DatePicker
+                                    date={session.date}
+                                    setDate={(date: Date) => {
+                                        setSession({
+                                            ...session,
+                                            date: date,
+                                        });
+                                    }}
                                 />
                             </div>
                         </CardContent>
                         <CardFooter>
-                            <Button type="submit" variant="secondary">
+                            {/* <Button type="submit" variant="secondary">
                                 Create Session
-                            </Button>
+                            </Button> */}
                         </CardFooter>
                     </Card>
                 </TabsContent>

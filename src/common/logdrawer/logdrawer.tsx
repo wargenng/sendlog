@@ -12,14 +12,12 @@ import {
     DrawerTrigger,
 } from "~/components/ui/drawer";
 
+import { X } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import DrawerMainContent from "../drawermaincontent";
-import { ClimbDrawer } from "../climbdrawer/climbdrawer";
-import { LogButton } from "./components/logbutton";
-import SessionDrawer from "../sessiondrawer/sessiondrawer";
-import { BicepsFlexed, X } from "lucide-react";
-import GoalDrawer from "../goaldrawer/goaldrawer";
 import BulkLogDrawer from "../bulklogdrawer/bulklogdrawer";
+import { ClimbDrawer } from "../climbdrawer/climbdrawer";
+import DrawerMainContent from "../drawermaincontent";
+import SessionDrawer from "../sessiondrawer/sessiondrawer";
 
 interface LogDrawerProps {
     children: ReactNode;

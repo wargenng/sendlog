@@ -1,5 +1,6 @@
 "use client";
 
+import type { Session } from "~/server/db/schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import {
     Command,
@@ -18,16 +19,20 @@ import {
     SheetTrigger,
 } from "~/components/ui/sheet";
 import { cn } from "~/lib/utils";
-import { locations } from "../app/utils/locations";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 
-interface LocationsSheetProps {
-    location: number;
-    setLocation: (location: number) => void;
+interface SessionSheetClientProps {
+    sessionId: string;
+    setSessionId: (sessionId: string) => void;
+    sessions: Session[];
 }
 
-export function LocationsSheet({ location, setLocation }: LocationsSheetProps) {
+export function SessionSheetClient({
+    sessionId,
+    setSessionId,
+    sessions,
+}: SessionSheetClientProps) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -49,33 +54,37 @@ export function LocationsSheet({ location, setLocation }: LocationsSheetProps) {
                             whiteSpace: "nowrap",
                         }}
                     >
-                        {location
-                            ? locations.find((g) => g.id === location)?.label
-                            : "Select location..."}
+                        {sessionId
+                            ? sessions.find(
+                                  (g) => g.id.toString() === sessionId,
+                              )?.name
+                            : "Select session..."}
                     </span>
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </SheetTrigger>
             <SheetContent className="w-full">
                 <SheetHeader>
-                    <SheetTitle>Search Location</SheetTitle>
+                    <SheetTitle>Search Session</SheetTitle>
                     <SheetDescription></SheetDescription>
                 </SheetHeader>
                 <Command>
                     <CommandInput
-                        placeholder="Search location..."
+                        placeholder="Search session..."
                         className="text-base"
                     />
                     <CommandList className="h-full max-h-full w-full">
-                        <CommandEmpty>No location found.</CommandEmpty>
+                        <CommandEmpty>No session found.</CommandEmpty>
                         <CommandGroup className="w-full">
-                            {locations.map((g) => (
+                            {sessions.map((g) => (
                                 <CommandItem
                                     key={g.id}
-                                    value={g.label}
+                                    value={g.id.toString()}
                                     onSelect={() => {
-                                        setLocation(
-                                            g.id === location ? 0 : g.id,
+                                        setSessionId(
+                                            g.id.toString() === sessionId
+                                                ? ""
+                                                : g.id.toString(),
                                         );
                                         setOpen(false);
                                     }}
@@ -85,15 +94,15 @@ export function LocationsSheet({ location, setLocation }: LocationsSheetProps) {
                                         <Check
                                             className={cn(
                                                 "mr-2 h-4 w-4",
-                                                location === g.id
+                                                sessionId === g.id.toString()
                                                     ? "opacity-100"
                                                     : "opacity-0",
                                             )}
                                         />
-                                        {g.label}
+                                        {g.name}
                                     </div>
                                     <div className="text-xs text-foreground/50">
-                                        {g.location}, {g.state}
+                                        {g.date.toLocaleDateString()}
                                     </div>
                                 </CommandItem>
                             ))}

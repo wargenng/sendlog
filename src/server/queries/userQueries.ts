@@ -48,11 +48,11 @@ export async function getUsersHighestGrade(userId: string) {
     return highestGrade;
 }
 
-export async function getUsersSessions(userId: string) {
-    const sessions = await db.query.sessions.findMany({
-        where: (model, { eq }) => eq(model.userId, userId),
-        orderBy: (model, { desc }) => desc(model.id),
-    });
+// export async function getUsersSessions(userId: string) {
+//     const sessions = await db.query.sessions.findMany({
+//         where: (model, { eq }) => eq(model.userId, userId),
+//         orderBy: (model, { desc }) => desc(model.id),
+//     });
 
-    return sessions;
-}
+//     return sessions;
+// }

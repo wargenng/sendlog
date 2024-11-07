@@ -14,6 +14,7 @@ interface BulkLogSubmitProps {
     setOpen: (open: boolean) => void;
     location: number;
     date: Date;
+    setIsRejected: (isRejected: boolean) => void;
 }
 
 export function BulkLogSubmit({
@@ -22,6 +23,7 @@ export function BulkLogSubmit({
     setOpen,
     location,
     date,
+    setIsRejected,
 }: BulkLogSubmitProps) {
     const router = useRouter();
     const { toast } = useToast();
@@ -31,8 +33,14 @@ export function BulkLogSubmit({
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
+
+                if (bulk === "") {
+                    setIsRejected(true);
+                    return;
+                }
                 setIsSubmitting(true);
                 setIsUploading(true);
+
                 console.log("submitting form");
 
                 const climbs = bulk.split(" ");
