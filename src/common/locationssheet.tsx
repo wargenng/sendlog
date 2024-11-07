@@ -1,6 +1,8 @@
 "use client";
 
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useState } from "react";
+import { Button } from "~/components/ui/button";
 import {
     Command,
     CommandEmpty,
@@ -19,8 +21,6 @@ import {
 } from "~/components/ui/sheet";
 import { cn } from "~/lib/utils";
 import { locations } from "../app/utils/locations";
-import { useState } from "react";
-import { Button } from "~/components/ui/button";
 
 interface LocationsSheetProps {
     location: number;

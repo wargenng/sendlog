@@ -1,11 +1,10 @@
 "use server";
 
-import type { User } from "@clerk/nextjs/server";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import type { Session, Climb } from "~/server/db/schema";
+import type { Session } from "~/server/db/schema";
 import { climbs, sessions } from "~/server/db/schema";
 import { getCurrentUsersSessions } from "~/server/queries";
 import { grades } from "../utils/grades";

@@ -1,5 +1,6 @@
 "use client";
 
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useState } from "react";
 import { locations } from "~/app/utils/locations";
@@ -8,8 +9,6 @@ import type { SessionWithClimbs } from "~/server/queries";
 import { SessionActions } from "./sessionactions";
 import { SessionClimbCard } from "./sessionclimbcard";
 import { SessionDetails } from "./sessiondetails";
-import type { User } from "@clerk/nextjs/server";
-import { useUser } from "@clerk/nextjs";
 
 interface SessionCardProps {
     session: SessionWithClimbs;
@@ -29,8 +28,6 @@ export function SessionCardClient({
     );
     const [showClimbs, setShowClimbs] = useState(false);
     const { user } = useUser();
-
-    console.log(user);
 
     return (
         <div className="flex flex-col gap-4 bg-secondary p-4">

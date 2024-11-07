@@ -1,13 +1,10 @@
 import { useRouter } from "next/navigation";
-import { useToast } from "~/hooks/use-toast";
 import { useState } from "react";
-import { Button } from "~/components/ui/button";
-import { addClimb, addSession, bulkAddClimbs } from "~/app/api/climbActions";
-import { grades } from "~/app/utils/grades";
-import { getCurrentUsersSessions } from "~/server/queries";
-import { db } from "~/server/db";
+import { addSession, bulkAddClimbs } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation";
-import { Session } from "~/server/db/schema";
+import { Button } from "~/components/ui/button";
+import { useToast } from "~/hooks/use-toast";
+import type { Session } from "~/server/db/schema";
 
 interface BulkLogSubmitProps {
     bulk: string;
