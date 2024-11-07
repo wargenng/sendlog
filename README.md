@@ -32,10 +32,10 @@
 [ ] - Edit Session edits all climbs
 [ ] - Modify desktop version
 [ ] - Add a way to connect a Climb to a Goal
-[ ] - Organize homescreen data by (All, Week, Month, Year)
-[ ] - Toast when upload is complete
+[x] - Organize homescreen data by (All, Week, Month, Year)
+[x] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
-[ ] - Create Session or add to existing Session (default to any session that is already made that day)
+[x] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Share sessions with friends
 
 ## DATABASE
