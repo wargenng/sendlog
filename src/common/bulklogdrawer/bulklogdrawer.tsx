@@ -9,14 +9,15 @@ import {
     DrawerTrigger,
 } from "~/components/ui/drawer";
 
-import { useState, type ReactNode } from "react";
-import DrawerMainContent from "../drawermaincontent";
-import { Textarea } from "~/components/ui/textarea";
 import { Info } from "lucide-react";
-import { BulkLogSubmit } from "./components/bulklogsubmit";
-import { LocationsCombobox } from "../locationscombobox";
-import { DatePicker } from "../datepicker";
+import { useState, type ReactNode } from "react";
 import { SessionTab } from "~/app/_components/climbs/sessiontabs";
+import { Textarea } from "~/components/ui/textarea";
+import type { Session } from "~/server/db/schema";
+import { DatePicker } from "../datepicker";
+import DrawerMainContent from "../drawermaincontent";
+import { LocationsSheet } from "../locationssheet";
+import { BulkLogSubmit } from "./components/bulklogsubmit";
 
 interface BulkLogProps {
     children: ReactNode;
@@ -30,7 +31,7 @@ export default function BulkLogDrawer({ children }: BulkLogProps) {
     const [session, setSession] = useState({
         location: 0,
         date: new Date(),
-    });
+    } as Session);
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -73,7 +74,7 @@ export default function BulkLogDrawer({ children }: BulkLogProps) {
                                         "Location is required"}
                                 </div>
                             </div>
-                            <LocationsCombobox
+                            <LocationsSheet
                                 location={session.location}
                                 setLocation={(location) => {
                                     setSession({
