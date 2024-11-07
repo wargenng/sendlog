@@ -22,6 +22,8 @@ interface SessionTabProps {
     sessionId: string;
     setSessionId: (sessionId: string) => void;
     sessions: Session[];
+    sessionTabValue: string;
+    setSessionTabValue: (sessionTabValue: string) => void;
 }
 
 export function SessionTab({
@@ -31,11 +33,21 @@ export function SessionTab({
     sessionId,
     setSessionId,
     sessions,
+    sessionTabValue,
+    setSessionTabValue,
 }: SessionTabProps) {
     return (
         <div className="space-y-1">
             <p>Session</p>
-            <Tabs defaultValue="existing" className="w-full">
+            <Tabs
+                defaultValue={sessionTabValue}
+                onValueChange={(value) => {
+                    setSessionTabValue(
+                        sessionTabValue === "existing" ? "create" : "existing",
+                    );
+                }}
+                className="w-full"
+            >
                 <TabsList>
                     <TabsTrigger value="existing">Existing Session</TabsTrigger>
                     <TabsTrigger value="create">Create Session</TabsTrigger>
@@ -74,6 +86,13 @@ export function SessionTab({
                                 <Input
                                     id="current"
                                     type="text"
+                                    value={session.name}
+                                    onChange={(e) =>
+                                        setSession({
+                                            ...session,
+                                            name: e.target.value,
+                                        })
+                                    }
                                     className="text-base"
                                 />
                             </div>
@@ -133,11 +152,6 @@ export function SessionTab({
                                 />
                             </div>
                         </CardContent>
-                        <CardFooter>
-                            {/* <Button type="submit" variant="secondary">
-                                Create Session
-                            </Button> */}
-                        </CardFooter>
                     </Card>
                 </TabsContent>
             </Tabs>

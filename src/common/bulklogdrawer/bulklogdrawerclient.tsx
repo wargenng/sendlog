@@ -33,10 +33,15 @@ export default function BulkLogDrawerClient({
     const [isRejected, setIsRejected] = useState(false);
     const [bulk, setBulk] = useState("");
     const [session, setSession] = useState({
+        name: `${new Date().toLocaleString("en-US", { weekday: "long" })} ${new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Night"} Session`,
         location: 0,
         date: new Date(),
+        notes: "",
     } as Session);
-    const [sessionId, setSessionId] = useState("");
+    const [sessionId, setSessionId] = useState(
+        sessions.at(0)?.id.toString() ?? "",
+    );
+    const [sessionTabValue, setSessionTabValue] = useState("existing");
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -68,14 +73,17 @@ export default function BulkLogDrawerClient({
                         sessionId={sessionId}
                         setSessionId={setSessionId}
                         sessions={sessions}
+                        sessionTabValue={sessionTabValue}
+                        setSessionTabValue={setSessionTabValue}
                     />
                     <BulkLogSubmit
                         bulk={bulk}
                         setIsUploading={setIsUploading}
                         setOpen={setOpen}
-                        location={session.location}
-                        date={session.date}
+                        session={session}
                         setIsRejected={setIsRejected}
+                        sessionTabValue={sessionTabValue}
+                        sessionId={sessionId}
                     />
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>
