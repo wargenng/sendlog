@@ -19,6 +19,7 @@ export async function SessionCard({ session }: SessionCardProps) {
             session={session}
             userImage={user.imageUrl}
             userFullName={user.fullName ?? user.username ?? ""}
+            userId={user.id}
         />
     );
 }

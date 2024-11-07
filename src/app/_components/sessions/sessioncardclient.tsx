@@ -9,22 +9,28 @@ import { SessionActions } from "./sessionactions";
 import { SessionClimbCard } from "./sessionclimbcard";
 import { SessionDetails } from "./sessiondetails";
 import type { User } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 
 interface SessionCardProps {
     session: SessionWithClimbs;
     userImage: string;
     userFullName: string;
+    userId: string;
 }
 
 export function SessionCardClient({
     session,
     userImage,
     userFullName,
+    userId,
 }: SessionCardProps) {
     const location = locations.find(
         (location) => location.id === session.location,
     );
     const [showClimbs, setShowClimbs] = useState(false);
+    const { user } = useUser();
+
+    console.log(user);
 
     return (
         <div className="flex flex-col gap-4 bg-secondary p-4">
@@ -92,10 +98,12 @@ export function SessionCardClient({
                         </div>
                     </div>
                 </SessionDetails>
+
                 <SessionActions
                     session={session}
                     setShowClimbs={setShowClimbs}
                     showClimbs={showClimbs}
+                    isEditable={user?.id === userId}
                 />
             </div>
             <div
@@ -106,7 +114,11 @@ export function SessionCardClient({
                 } overflow-hidden`}
             >
                 {session.climbs.map((climb: Climb) => (
-                    <SessionClimbCard climb={climb} key={climb.id} />
+                    <SessionClimbCard
+                        climb={climb}
+                        key={climb.id}
+                        isEditable={user?.id === userId}
+                    />
                 ))}
             </div>
         </div>

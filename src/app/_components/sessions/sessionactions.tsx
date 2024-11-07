@@ -6,12 +6,14 @@ interface SessionActionsProps {
     session: SessionWithClimbs;
     setShowClimbs: (showClimbs: boolean) => void;
     showClimbs: boolean;
+    isEditable: boolean;
 }
 
 export function SessionActions({
     session,
     setShowClimbs,
     showClimbs,
+    isEditable,
 }: SessionActionsProps) {
     return (
         <div className="flex flex-col justify-between">
@@ -23,9 +25,11 @@ export function SessionActions({
                     setShowClimbs(!showClimbs);
                 }}
             />
-            <SessionDrawer climbs={session.climbs} session={session}>
-                <Ellipsis size={20} />
-            </SessionDrawer>
+            {isEditable ? (
+                <SessionDrawer climbs={session.climbs} session={session}>
+                    <Ellipsis size={20} />
+                </SessionDrawer>
+            ) : null}
         </div>
     );
 }

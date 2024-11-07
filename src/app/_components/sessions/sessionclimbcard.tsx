@@ -5,7 +5,12 @@ import { ClimbDrawer } from "~/common/climbdrawer/climbdrawer";
 import type { Climb } from "~/server/db/schema";
 import { ClimbDetails } from "../climbs/climbdetails";
 
-export function SessionClimbCard({ climb }: { climb: Climb }) {
+interface SessionClimbCardProps {
+    climb: Climb;
+    isEditable: boolean;
+}
+
+export function SessionClimbCard({ climb, isEditable }: SessionClimbCardProps) {
     const location = locations.find(
         (location) => location.id === climb.location,
     );
@@ -32,9 +37,11 @@ export function SessionClimbCard({ climb }: { climb: Climb }) {
                 </div>
             </ClimbDetails>
 
-            <ClimbDrawer climb={climb}>
-                <Ellipsis size={20} />
-            </ClimbDrawer>
+            {isEditable ? (
+                <ClimbDrawer climb={climb}>
+                    <Ellipsis size={20} />
+                </ClimbDrawer>
+            ) : null}
         </div>
     );
 }
