@@ -3,6 +3,12 @@ import { ProfileActions } from "./components/actions/profileactions";
 import { FollowerAmount } from "./components/friends/followersamount";
 import { FriendAmount } from "./components/friends/friendamount";
 import { User } from "@clerk/nextjs/server";
+import {
+    ActivityIcon,
+    ChartNoAxesCombined,
+    ChevronRight,
+    GroupIcon,
+} from "lucide-react";
 
 interface ProfileInformationProps {
     user: User;
@@ -49,6 +55,38 @@ export function ProfileInformationClient({ user }: ProfileInformationProps) {
                 </div>
                 <div className="">
                     <ProfileActions user={user} />
+                </div>
+            </div>
+            <div className="">
+                <div className="flex items-center gap-4 py-2">
+                    <ChartNoAxesCombined size={24} />
+                    <div className="grow">
+                        <h1 className="text-sm font-semibold">Statistics</h1>
+                        <h1 className="text-sm text-foreground/50">
+                            View your statistics
+                        </h1>
+                    </div>
+                    <ChevronRight size={24} />
+                </div>
+                <div className="flex items-center gap-4 py-2">
+                    <GroupIcon size={24} />
+                    <div className="grow">
+                        <h1 className="text-sm font-semibold">Sessions</h1>
+                        <h1 className="text-sm text-foreground/50">
+                            View your recent sessions
+                        </h1>
+                    </div>
+                    <ChevronRight size={24} />
+                </div>
+                <div className="flex items-center gap-4 py-2">
+                    <ActivityIcon size={24} />
+                    <div className="grow">
+                        <h1 className="text-sm font-semibold">Climbs</h1>
+                        <h1 className="text-sm text-foreground/50">
+                            View your recent climbs
+                        </h1>
+                    </div>
+                    <ChevronRight size={24} />
                 </div>
             </div>
         </div>
