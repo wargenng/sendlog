@@ -17,13 +17,14 @@ export const climbs = createTable("climb", {
     attempts: integer("attempts"),
     rating: integer("rating"),
     location: integer("location").notNull(),
-    pitches: integer("pitches"),
-    notes: varchar("notes", { length: 256 }),
+    pitches: integer("pitches").default(sql`1`),
+    notes: varchar("notes", { length: 256 }).default(sql`''`),
     sendDate: timestamp("sent_on", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
-    isRepeat: boolean("is_repeat"),
-    isSend: boolean("is_send"),
+    isRepeat: boolean("is_repeat").default(sql`false`),
+    isSend: boolean("is_send").default(sql`true`),
+    isFavorite: boolean("is_favorite").default(sql`false`),
     type: varchar("type", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
     sessionId: varchar("sessionId", { length: 256 }),
@@ -57,7 +58,7 @@ export const sessions = createTable("session", {
     name: varchar("name", { length: 256 }).notNull(),
     date: timestamp("date", { withTimezone: true }).notNull(),
     location: integer("location").notNull(),
-    notes: varchar("notes", { length: 256 }),
+    notes: varchar("notes", { length: 256 }).default(sql`''`),
     groupId: varchar("groupId", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
     sessionDate: timestamp("sent_on", { withTimezone: true }).default(
