@@ -16,11 +16,11 @@ interface UserData {
 export async function FriendAmount({ user }: FriendAmountProps) {
     const friends = (await getProfileFriends(user.id)) as UserData[];
 
-    if (!friends) {
+    if (!friends || friends.length === 0) {
         return (
-            <div className="w-12">
+            <div className="w-12 space-y-1">
                 <p className="text-xs text-foreground/50">Following</p>
-                <p className="text-base brightness-50">0</p>
+                <p className="text-lg brightness-50">0</p>
             </div>
         );
     }

@@ -43,7 +43,7 @@ export function ProfileInformationClient({ user }: ProfileInformationProps) {
                 </div>
             </div>
             <div className="flex items-center justify-between">
-                <div className="flex gap-6">
+                <div className="flex gap-8">
                     <FollowerAmount user={user} />
                     <FriendAmount user={user} />
                 </div>

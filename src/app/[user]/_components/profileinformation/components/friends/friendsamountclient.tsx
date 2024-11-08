@@ -44,11 +44,11 @@ export function FriendsAmountClient({
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-                <div className="w-12">
+                <div className="w-12 space-y-1">
                     <p className="text-xs text-foreground/50">
                         {isFollowing ? "Following" : "Followers"}
                     </p>
-                    <p className="text-base">{friends.length}</p>
+                    <p className="text-lg">{friends.length}</p>
                 </div>
             </SheetTrigger>
             <SheetContent className="w-full">

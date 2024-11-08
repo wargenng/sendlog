@@ -10,18 +10,18 @@ export function SnapshotData({
     locations = 0,
 }: SnapshotClientProps) {
     return (
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-12">
             <div className="space-y-1">
                 <p className="text-xs text-foreground/50">Climbs</p>
-                <p className="text-sm">{climbs}</p>
+                <p className="text-lg">{climbs}</p>
             </div>
             <div className="space-y-1">
                 <p className="text-xs text-foreground/50">Sessions</p>
-                <p className="text-sm">{sessions}</p>
+                <p className="text-lg">{sessions}</p>
             </div>
             <div className="space-y-1">
                 <p className="text-xs text-foreground/50">Locations</p>
-                <p className="text-sm">{locations}</p>
+                <p className="text-lg">{locations}</p>
             </div>
         </div>
     );
