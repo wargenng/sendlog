@@ -22,7 +22,7 @@ export function EditProfile() {
             <SheetTrigger asChild>
                 <Button
                     className="border-accent-2 text-accent-2 flex w-full gap-1 rounded-lg border"
-                    variant="link"
+                    variant="none"
                 >
                     <Edit size={14} />
                     <p>Edit</p>

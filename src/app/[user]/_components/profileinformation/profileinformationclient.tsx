@@ -17,14 +17,14 @@ interface ProfileInformationProps {
 export function ProfileInformationClient({ user }: ProfileInformationProps) {
     return (
         <div className="flex flex-col gap-6 bg-secondary p-6">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
                 {user?.imageUrl ? (
                     <Image
                         src={user?.imageUrl}
-                        className="h-12 w-12 rounded-full object-cover"
+                        className="h-20 w-20 rounded-full object-cover"
                         alt="Profile"
-                        width={96}
-                        height={96}
+                        width={80}
+                        height={80}
                     />
                 ) : (
                     <svg
@@ -41,52 +41,17 @@ export function ProfileInformationClient({ user }: ProfileInformationProps) {
                         />
                     </svg>
                 )}
-                <div className="flex flex-col">
+                <div className="flex flex-col space-y-2">
                     <h1 className="text-sm font-semibold">{user.fullName}</h1>
-                    <h1 className="text-sm text-foreground/50">
-                        @{user.username}
-                    </h1>
+                    <div className="flex gap-8">
+                        <FollowerAmount user={user} />
+                        <FriendAmount user={user} />
+                    </div>
                 </div>
             </div>
             <div className="flex items-center justify-between">
-                <div className="flex gap-8">
-                    <FollowerAmount user={user} />
-                    <FriendAmount user={user} />
-                </div>
-                <div className="">
+                <div className="w-full">
                     <ProfileActions user={user} />
-                </div>
-            </div>
-            <div className="">
-                <div className="flex items-center gap-4 py-2">
-                    <ChartNoAxesCombined size={24} />
-                    <div className="grow">
-                        <h1 className="text-sm font-semibold">Statistics</h1>
-                        <h1 className="text-sm text-foreground/50">
-                            View your statistics
-                        </h1>
-                    </div>
-                    <ChevronRight size={24} />
-                </div>
-                <div className="flex items-center gap-4 py-2">
-                    <GroupIcon size={24} />
-                    <div className="grow">
-                        <h1 className="text-sm font-semibold">Sessions</h1>
-                        <h1 className="text-sm text-foreground/50">
-                            View your recent sessions
-                        </h1>
-                    </div>
-                    <ChevronRight size={24} />
-                </div>
-                <div className="flex items-center gap-4 py-2">
-                    <ActivityIcon size={24} />
-                    <div className="grow">
-                        <h1 className="text-sm font-semibold">Climbs</h1>
-                        <h1 className="text-sm text-foreground/50">
-                            View your recent climbs
-                        </h1>
-                    </div>
-                    <ChevronRight size={24} />
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@ export function AddFriend({ userId }: FriendAmountProps) {
         >
             <Button
                 className="border-accent-2 text-accent-2 w-full rounded-lg border"
-                variant="link"
+                variant="none"
             >
                 Follow
             </Button>

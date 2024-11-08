@@ -18,7 +18,7 @@ export function RemoveFriend({ userId }: FriendAmountProps) {
             }}
         >
             <Button
-                variant="link"
+                variant="none"
                 className="border-accent-2 text-accent-2 w-full rounded-lg border"
             >
                 Unfollow

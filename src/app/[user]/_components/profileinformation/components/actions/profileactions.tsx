@@ -15,15 +15,19 @@ export async function ProfileActions({ user }: ProfileActionsProps) {
     const isFriends = await getIsFriend(user.id);
 
     return (
-        <div className="flex gap-2">
-            {isCurrectUser ? (
-                <EditProfile />
-            ) : isFriends ? (
-                <RemoveFriend userId={user.id} />
-            ) : (
-                <AddFriend userId={user.id} />
-            )}
-            <ShareProfile username={user.username ?? ""} />
+        <div className="flex w-full gap-2">
+            <div className="w-1/2">
+                {isCurrectUser ? (
+                    <EditProfile />
+                ) : isFriends ? (
+                    <RemoveFriend userId={user.id} />
+                ) : (
+                    <AddFriend userId={user.id} />
+                )}
+            </div>
+            <div className="w-1/2">
+                <ShareProfile username={user.username ?? ""} />
+            </div>
         </div>
     );
 }

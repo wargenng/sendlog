@@ -1,9 +1,7 @@
+import type { User } from "@clerk/nextjs/server";
 import { Suspense } from "react";
-import { UserCharts } from "./charts/usercharts";
-import { ProfileInformation } from "./profileinformation/profileinformation";
-import { User } from "@clerk/nextjs/server";
-import { ChartPie, MountainSnow, UsersRound } from "lucide-react";
 import { ProfileContent } from "./profilecontent/profilecontent";
+import { ProfileInformation } from "./profileinformation/profileinformation";
 
 interface UserProfileProps {
     user: User;

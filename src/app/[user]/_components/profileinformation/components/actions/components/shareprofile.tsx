@@ -12,10 +12,10 @@ export function ShareProfile({ username }: ShareProfileProps) {
     const { toast } = useToast();
 
     return (
-        <div className="">
+        <div className="w-full">
             <Button
-                variant="link"
-                className="border-accent-2 text-accent-2 flex w-full gap-1 rounded-lg border"
+                variant="none"
+                className="border-accent-2 text-accent-2 flex w-full gap-1 rounded-lg border py-1"
                 onClick={async () => {
                     await navigator.clipboard.writeText(
                         `https://sendlog.vercel.app/${username}`,
