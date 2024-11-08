@@ -5,6 +5,7 @@ import { EditProfile } from "./components/editprofile";
 import { AddFriend } from "./components/addfriend";
 import { RemoveFriend } from "./components/removefriend";
 import { ShareProfile } from "./components/shareprofile";
+import { FollowingDrawer } from "./components/followingdrawer";
 
 interface ProfileActionsProps {
     user: User;
@@ -20,7 +21,10 @@ export async function ProfileActions({ user }: ProfileActionsProps) {
                 {isCurrectUser ? (
                     <EditProfile />
                 ) : isFriends ? (
-                    <RemoveFriend userId={user.id} />
+                    <FollowingDrawer
+                        username={user.username ?? ""}
+                        userId={user.id}
+                    />
                 ) : (
                     <AddFriend userId={user.id} />
                 )}
