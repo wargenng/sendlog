@@ -32,7 +32,7 @@ export function FollowingDrawer({ username, userId }: FollowingDrawerProps) {
             <DrawerTrigger asChild>
                 <Button
                     variant="none"
-                    className="border-accent-2 text-accent-2 flex w-full items-center justify-center gap-1 rounded-lg border"
+                    className="border-accent-2 text-accent-2 flex h-auto w-full items-center justify-center gap-1 rounded-lg border py-1"
                 >
                     <h1>Following</h1>
                     <ChevronDown size={20} />

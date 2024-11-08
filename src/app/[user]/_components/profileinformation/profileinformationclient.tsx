@@ -1,14 +1,8 @@
+import { User } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { ProfileActions } from "./components/actions/profileactions";
 import { FollowerAmount } from "./components/friends/followersamount";
 import { FriendAmount } from "./components/friends/friendamount";
-import { User } from "@clerk/nextjs/server";
-import {
-    ActivityIcon,
-    ChartNoAxesCombined,
-    ChevronRight,
-    GroupIcon,
-} from "lucide-react";
 
 interface ProfileInformationProps {
     user: User;
@@ -16,7 +10,7 @@ interface ProfileInformationProps {
 
 export function ProfileInformationClient({ user }: ProfileInformationProps) {
     return (
-        <div className="flex flex-col gap-6 bg-secondary p-6">
+        <div className="flex flex-col gap-6 bg-secondary px-6 pb-2 pt-6">
             <div className="flex items-center gap-4">
                 {user?.imageUrl ? (
                     <Image

@@ -15,7 +15,7 @@ export function ShareProfile({ username }: ShareProfileProps) {
         <div className="w-full">
             <Button
                 variant="none"
-                className="border-accent-2 text-accent-2 flex w-full gap-1 rounded-lg border py-1"
+                className="border-accent-2 text-accent-2 flex h-auto w-full gap-1 rounded-lg border py-1"
                 onClick={async () => {
                     await navigator.clipboard.writeText(
                         `https://sendlog.vercel.app/${username}`,

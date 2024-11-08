@@ -18,7 +18,10 @@ export function AddFriend({ userId }: FriendAmountProps) {
                 router.refresh();
             }}
         >
-            <Button className="bg-accent-2 w-full rounded-lg" variant="none">
+            <Button
+                className="bg-accent-2 h-auto w-full rounded-lg py-1"
+                variant="none"
+            >
                 Follow
             </Button>
         </form>
