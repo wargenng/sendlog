@@ -28,7 +28,7 @@ import type { Climb } from "~/server/db/schema";
 const chartConfig = {
     climbs: {
         label: "Climbs",
-        color: "hsl(var(--accent))",
+        color: "hsl(var(--chart-1))",
     },
 } satisfies ChartConfig;
 

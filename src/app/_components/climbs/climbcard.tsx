@@ -15,7 +15,7 @@ export function ClimbCard({ climb, isProfile }: ClimbCardProps) {
         <div className="relative w-full">
             <ClimbDetails climb={climb}>
                 <div
-                    className={`flex w-full items-center gap-4 overflow-hidden rounded-lg bg-secondary text-left`}
+                    className={`flex w-full items-center gap-4 overflow-hidden bg-secondary text-left`}
                 >
                     <Image
                         className="h-24 w-24 object-cover"

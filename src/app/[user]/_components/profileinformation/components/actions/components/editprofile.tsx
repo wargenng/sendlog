@@ -21,7 +21,7 @@ export function EditProfile() {
         <Sheet>
             <SheetTrigger asChild>
                 <Button
-                    className="flex w-full gap-1 rounded-lg border border-accent text-accent"
+                    className="border-accent-2 text-accent-2 flex w-full gap-1 rounded-lg border"
                     variant="link"
                 >
                     <Edit size={14} />

@@ -26,7 +26,7 @@ interface FilterProps extends UserChartFilterProps {
 const Filter = ({ label, filter, setFilter }: FilterProps) => {
     return (
         <Label
-            className={`rounded-none ${filter === label ? "text-accent underline underline-offset-4" : ""}`}
+            className={`rounded-none ${filter === label ? "text-accent-2 underline underline-offset-4" : ""}`}
             onClick={() => setFilter(label)}
         >
             {label}

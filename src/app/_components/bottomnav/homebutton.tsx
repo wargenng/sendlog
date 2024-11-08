@@ -8,7 +8,7 @@ export function HomeButton() {
     return (
         <Link
             href="/"
-            className={`flex h-full w-1/3 flex-col items-center space-y-1 ${currentPath === "/" ? "text-accent" : "text-foreground"}`}
+            className={`flex h-full w-1/3 flex-col items-center space-y-1 ${currentPath === "/" ? "text-accent-2" : "text-foreground"}`}
         >
             <div className="flex items-center justify-center">
                 <Home size={28} />

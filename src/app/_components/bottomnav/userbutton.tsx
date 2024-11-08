@@ -12,13 +12,13 @@ export function UserButton() {
     return (
         <Link
             href={`/${user?.username}`}
-            className={`flex h-full w-1/3 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "text-accent" : "text-foreground"}`}
+            className={`flex h-full w-1/3 flex-col items-center space-y-1.5 ${currentPath === `/${user?.username}` ? "text-accent-2" : "text-foreground"}`}
         >
             <div className="flex h-7 w-7 items-center justify-center">
                 {user?.imageUrl ? (
                     <Image
                         src={user.imageUrl}
-                        className={`h-7 w-7 rounded-full border-2 object-cover ${currentPath === `/${user?.username}` ? "border-accent" : "border-foreground"}`}
+                        className={`h-7 w-7 rounded-full border-2 object-cover ${currentPath === `/${user?.username}` ? "border-accent-2" : "border-foreground"}`}
                         alt="Profile"
                         width={28}
                         height={28}

@@ -40,6 +40,7 @@ export default {
                 accent: {
                     DEFAULT: "hsl(var(--accent))",
                     foreground: "hsl(var(--accent-foreground))",
+                    "2": "hsl(var(--accent-2))",
                 },
                 destructive: {
                     DEFAULT: "hsl(var(--destructive))",

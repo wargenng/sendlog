@@ -22,7 +22,7 @@ export function SnapshotClient({
             <div className="w-full space-y-6 bg-secondary p-4">
                 <div className="flex items-center justify-between text-sm">
                     <p>Your Weekly Snapshot</p>
-                    <p className="text-accent">See More</p>
+                    <p className="text-accent-2">See More</p>
                 </div>
                 <SnapshotData
                     climbs={climbs}
