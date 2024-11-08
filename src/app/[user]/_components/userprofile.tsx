@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { UserCharts } from "./charts/usercharts";
 import { ProfileInformation } from "./profileinformation/profileinformation";
 import { User } from "@clerk/nextjs/server";
+import { ChartPie, MountainSnow, UsersRound } from "lucide-react";
+import { ProfileContent } from "./profilecontent/profilecontent";
 
 interface UserProfileProps {
     user: User;
@@ -9,10 +11,10 @@ interface UserProfileProps {
 
 export function UserProfile({ user }: UserProfileProps) {
     return (
-        <div className="mt-16 space-y-2 pb-32">
+        <div className="mt-16 pb-32">
             <Suspense fallback={<p className="px-6">Loading...</p>}>
                 <ProfileInformation user={user} />
-                <UserCharts user={user} />
+                <ProfileContent user={user} />
             </Suspense>
         </div>
     );

@@ -18,6 +18,15 @@ export async function getCurrentUsersClimbs() {
     return climbs;
 }
 
+export async function getProfileUsersClimbs(userId: string) {
+    const climbs = await db.query.climbs.findMany({
+        where: (model, { eq }) => eq(model.userId, userId),
+        orderBy: (model, { desc }) => [desc(model.sendDate), desc(model.id)],
+    });
+
+    return climbs;
+}
+
 export async function getLimitedCurrentUsersClimbs() {
     const user = auth();
     if (!user.userId) return [];

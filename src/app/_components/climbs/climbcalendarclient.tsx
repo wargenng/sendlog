@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ClimbCard } from "~/app/_components/climbs/climbcard";
 import { Calendar } from "~/components/ui/calendar";
 import type { Climb } from "~/server/db/schema";
-import "../_styles/calendar.css";
+import "./_styles/calendar.css";
 
 interface ClimbCalendarProps {
     climbs: Climb[];

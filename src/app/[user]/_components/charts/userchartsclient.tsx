@@ -10,7 +10,7 @@ interface UserChartsClientProps {
 
 export function UserChartsClient({ climbs }: UserChartsClientProps) {
     return (
-        <div className="space-y-2">
+        <div className="">
             <UserAreaChart climbs={climbs} />
             <UserPieChart climbs={climbs} />
         </div>

@@ -27,6 +27,19 @@ export async function getCurrentUsersSessions() {
     return sessionWithFields(sessions as Session[], climbs);
 }
 
+export async function getProfileUsersSessions(userId: string) {
+    const sessions = await db.query.sessions.findMany({
+        where: (model, { eq }) => eq(model.userId, userId),
+        orderBy: (model, { desc }) => desc(model.date),
+    });
+
+    const climbs = await db.query.climbs.findMany({
+        where: (model, { eq }) => eq(model.userId, userId),
+    });
+
+    return sessionWithFields(sessions as Session[], climbs);
+}
+
 export async function getCurrentUsersSessionsWithFollowing() {
     const user = auth();
     if (!user.userId) return [];
