@@ -43,7 +43,11 @@ export function ClimbCalendarClient({ climbs }: ClimbCalendarProps) {
                 {filteredClimbs.length ? (
                     <div className="flex flex-col gap-2 rounded-lg">
                         {filteredClimbs.map((climb) => (
-                            <ClimbCard climb={climb} key={climb.id} />
+                            <ClimbCard
+                                climb={climb}
+                                key={climb.id}
+                                isProfile={true}
+                            />
                         ))}
                     </div>
                 ) : (
