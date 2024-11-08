@@ -12,24 +12,24 @@ interface ProfileContentProps {
 export function ProfileContent({ user }: ProfileContentProps) {
     return (
         <Tabs defaultValue="statistics" className="w-full">
-            <TabsList className="h-16 w-full justify-between rounded-none bg-secondary">
+            <TabsList className="h-14 w-full justify-between rounded-none bg-secondary">
                 <TabsTrigger
                     value="statistics"
                     className="flex w-1/3 justify-center"
                 >
-                    <ChartPie size={24} />
+                    <ChartPie size={28} />
                 </TabsTrigger>
                 <TabsTrigger
                     value="sessions"
                     className="flex w-1/3 justify-center"
                 >
-                    <UsersRound size={24} />
+                    <UsersRound size={28} />
                 </TabsTrigger>
                 <TabsTrigger
                     value="climbs"
                     className="flex w-1/3 justify-center"
                 >
-                    <CalendarDays size={24} />
+                    <CalendarDays size={28} />
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="statistics">
