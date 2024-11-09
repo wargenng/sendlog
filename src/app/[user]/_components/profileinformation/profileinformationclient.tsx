@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ProfileActions } from "./components/actions/profileactions";
 import { FollowerAmount } from "./components/friends/followersamount";
 import { FriendAmount } from "./components/friends/friendamount";
+import { ProfileBio } from "./components/profilebio";
 
 interface ProfileInformationProps {
     user: User;
@@ -43,6 +44,7 @@ export function ProfileInformationClient({ user }: ProfileInformationProps) {
                     </div>
                 </div>
             </div>
+            <ProfileBio />
             <div className="flex items-center justify-between">
                 <div className="w-full">
                     <ProfileActions user={user} />

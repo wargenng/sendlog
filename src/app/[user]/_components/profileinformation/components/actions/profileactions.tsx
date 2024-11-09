@@ -1,7 +1,7 @@
 import { clerkClient, User } from "@clerk/nextjs/server";
 import { getIsUserProfile } from "~/app/api/climbActions";
 import { getIsFriend } from "~/app/api/friendActions";
-import { EditProfile } from "./components/editprofile";
+import { EditProfile } from "./components/editprofile/editprofile";
 import { AddFriend } from "./components/addfriend";
 import { RemoveFriend } from "./components/removefriend";
 import { ShareProfile } from "./components/shareprofile";
