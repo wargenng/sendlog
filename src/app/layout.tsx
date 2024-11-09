@@ -39,7 +39,6 @@ export default function RootLayout({
                 </head>
                 <body className="flex flex-col justify-between">
                     <SignedIn>
-                        <TopNav title="sendlog" />
                         {children}
                         <Toaster />
                         <BottomNav />
