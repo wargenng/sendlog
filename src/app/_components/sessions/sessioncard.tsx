@@ -1,7 +1,5 @@
 import type { SessionWithClimbs } from "~/server/queries";
 import { SessionCardClient } from "./sessioncardclient";
-import { clerkClient } from "@clerk/nextjs/server";
-import type { User } from "@clerk/nextjs/server";
 
 interface SessionCardProps {
     session: SessionWithClimbs;

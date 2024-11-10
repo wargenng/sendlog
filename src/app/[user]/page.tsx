@@ -1,4 +1,5 @@
-import { clerkClient, User } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import { UserProfile } from "./_components/userprofile";
 
 export const dynamic = "force-dynamic";

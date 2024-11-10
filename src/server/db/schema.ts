@@ -61,9 +61,6 @@ export const sessions = createTable("session", {
     notes: varchar("notes", { length: 256 }).default(sql`''`),
     groupId: varchar("groupId", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
-    sessionDate: timestamp("sent_on", { withTimezone: true }).default(
-        sql`CURRENT_TIMESTAMP`,
-    ),
     createdAt: timestamp("created_at", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
@@ -80,7 +77,6 @@ export type Session = {
     notes: string;
     groupId: string;
     userId: string;
-    sessionDate: Date;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -151,9 +147,3 @@ export const notifications = createTable("notification", {
         () => new Date(),
     ),
 });
-
-export type Users = {
-    bio: string;
-    height: number;
-    apeindex: number;
-};

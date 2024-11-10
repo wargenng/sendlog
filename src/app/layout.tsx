@@ -1,13 +1,12 @@
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import "~/styles/globals.css";
 
+import { dark } from "@clerk/themes";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { Toaster } from "~/components/ui/toaster";
 import { BottomNav } from "./_components/bottomnav/bottomnav";
 import { SignInCard } from "./_components/signincard";
-import { dark } from "@clerk/themes";
-import { Toaster } from "~/components/ui/toaster";
-import { TopNav } from "./_components/topnav/topnav";
 
 export const metadata: Metadata = {
     title: "sendlog",

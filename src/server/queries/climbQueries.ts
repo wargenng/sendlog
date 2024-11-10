@@ -3,8 +3,7 @@ import "server-only";
 import { grades } from "~/app/utils/grades";
 import { locations } from "~/app/utils/locations";
 import { db } from "../db";
-import { climbs, type Climb } from "../db/schema";
-import { and, desc, eq } from "drizzle-orm";
+import { type Climb } from "../db/schema";
 
 export async function getCurrentUsersClimbs() {
     const user = auth();
