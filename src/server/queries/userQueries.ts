@@ -11,16 +11,6 @@ export async function getUsersClimbs(userId: string) {
     return climbs;
 }
 
-export async function getUsersClimbsLimited(userId: string) {
-    const climbs = await db.query.climbs.findMany({
-        where: (model, { eq }) => eq(model.userId, userId),
-        orderBy: (model, { desc }) => [desc(model.sendDate), desc(model.id)],
-        limit: 3,
-    });
-
-    return climbs;
-}
-
 export async function getUsersHighestGrade(userId: string) {
     const climbs = await db.query.climbs.findMany({
         where: (model, { eq }) => eq(model.userId, userId),

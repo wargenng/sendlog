@@ -1,6 +1,5 @@
-import { clerkClient } from "@clerk/nextjs/server";
 import type { User } from "@clerk/nextjs/server";
-import { SessionCard } from "~/app/_components/sessions/sessioncard";
+import { clerkClient } from "@clerk/nextjs/server";
 import type { SessionWithClimbs } from "~/server/queries";
 import { getProfileUsersSessions } from "~/server/queries";
 import { SessionCardClient } from "./sessioncardclient";

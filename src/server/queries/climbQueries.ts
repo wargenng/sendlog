@@ -27,19 +27,6 @@ export async function getProfileUsersClimbs(userId: string) {
     return climbs;
 }
 
-export async function getLimitedCurrentUsersClimbs() {
-    const user = auth();
-    if (!user.userId) return [];
-
-    const climbs = await db.query.climbs.findMany({
-        where: (model, { eq }) => eq(model.userId, user.userId),
-        orderBy: (model, { desc }) => [desc(model.sendDate), desc(model.id)],
-        limit: 3,
-    });
-
-    return climbs;
-}
-
 export async function getUsersWeeklySnapshot() {
     const user = auth();
     if (!user.userId) return [];
