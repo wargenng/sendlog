@@ -26,17 +26,22 @@
 [x] - Add in friends list screen
 [x] - Add in a preview screen before edit screen
 [x] - Add are you sure message before delete. (w/ preference for if you want to show again)
+[x] - Create Session or add to existing Session (default to any session that is already made that day)
+[x] - Organize homescreen data by (All, Week, Month, Year)
+[x] - Toast when upload is complete
+[ ] - Add in Sport Climbing
+[ ] - Add in non climbing exercises
+[ ] - Add Bar Graph for climb grades in a session card
+[ ] - Redesign the session card
 [ ] - If user swipes down on screen and previous changes were not saved then prompt the user to save changes
 [ ] - Favorites
 [ ] - Plus and minus for attempts
 [ ] - Edit Session edits all climbs
 [ ] - Modify desktop version
 [ ] - Add a way to connect a Climb to a Goal
-[x] - Organize homescreen data by (All, Week, Month, Year)
-[x] - Toast when upload is complete
 [ ] - When creating a session, user will be asked if they want to add any friends to that session
-[x] - Create Session or add to existing Session (default to any session that is already made that day)
 [ ] - Share sessions with friends
+[ ] - Allow user to make their own locations (delete locations, edit locations, etc)
 
 ## DATABASE
 
@@ -56,8 +61,6 @@
 ## WANTS
 
 [ ] - Find better solution for location
-[ ] - Add in Sport Climbing
-[ ] - Add in non climbing exercises
 [ ] - Design charts and cards, etc.
 [ ] - Add in light mode and dark mode colors
 [ ] - Choose better colors
@@ -68,7 +71,6 @@
 [ ] - Arrow pointing to add button when there is no sends added
 [ ] - Create verified users (enter new locations, enter new grade levels, etc.)
 [ ] - Add congrats confetti
-[ ] - Allow user to make their own locations (delete locations, edit locations, etc)
 [ ] - Utilize IsSend
 [ ] - Multiple types of Goals (general, climbs, etc.)
 [ ] - Goals tab
