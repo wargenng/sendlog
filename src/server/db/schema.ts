@@ -27,7 +27,7 @@ export const climbs = createTable("climb", {
     isFavorite: boolean("is_favorite").default(sql`false`),
     type: varchar("type", { length: 256 }),
     userId: varchar("userId", { length: 256 }).notNull(),
-    sessionId: varchar("sessionId", { length: 256 }),
+    sessionId: varchar("sessionId", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
@@ -134,6 +134,19 @@ export type Goal = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export const workouts = createTable("workout", {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    type: varchar("type", { length: 256 }).notNull(),
+    notes: varchar("notes", { length: 256 }).default(sql`''`),
+    createdAt: timestamp("created_at", { withTimezone: true })
+        .default(sql`CURRENT_TIMESTAMP`)
+        .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+        () => new Date(),
+    ),
+});
 
 export const notifications = createTable("notification", {
     id: serial("id").primaryKey(),
