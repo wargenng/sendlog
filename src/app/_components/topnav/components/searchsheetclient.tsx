@@ -46,7 +46,7 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
     return (
         <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger>
-                <Search size={24} />
+                <Search size={22} />
             </SheetTrigger>
             <SheetContent className="w-full">
                 <ScrollArea className="h-full pb-10">
