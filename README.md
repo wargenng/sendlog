@@ -29,6 +29,7 @@
 [x] - Create Session or add to existing Session (default to any session that is already made that day)
 [x] - Organize homescreen data by (All, Week, Month, Year)
 [x] - Toast when upload is complete
+[ ] - New Mock UI
 [ ] - Add in Sport Climbing
 [ ] - Add in non climbing exercises
 [ ] - Add Bar Graph for climb grades in a session card

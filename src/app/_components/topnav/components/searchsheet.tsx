@@ -1,10 +1,11 @@
-import { clerkClient } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import SearchSheetClient from "./searchsheetclient";
 
-export async function SearchSheet() {
-    const response = await clerkClient().users.getUserList();
-    const users = response.data;
+interface SearchSheetProps {
+    users: User[];
+}
 
+export async function SearchSheet({ users }: SearchSheetProps) {
     const plainUsers = users.map((user) => ({
         id: user.id,
         username: user.username,

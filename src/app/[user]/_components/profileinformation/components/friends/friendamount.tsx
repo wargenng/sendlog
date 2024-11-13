@@ -1,9 +1,10 @@
-import { clerkClient, User } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import { getProfileFriends } from "~/app/api/friendActions";
 import { FriendsAmountClient } from "./friendsamountclient";
 
 interface FriendAmountProps {
     user: User;
+    users: User[];
 }
 
 interface UserData {
@@ -13,8 +14,8 @@ interface UserData {
     image: string | null;
 }
 
-export async function FriendAmount({ user }: FriendAmountProps) {
-    const friends = (await getProfileFriends(user.id)) as UserData[];
+export async function FriendAmount({ user, users }: FriendAmountProps) {
+    const friends = (await getProfileFriends(user.id, users)) as UserData[];
 
     if (!friends || friends.length === 0) {
         return (

@@ -1,14 +1,15 @@
 import type { User } from "@clerk/nextjs/server";
-import { clerkClient } from "@clerk/nextjs/server";
 import type { SessionWithClimbs } from "~/server/queries";
 import { getCurrentUsersSessionsWithFollowing } from "~/server/queries";
 import { SessionCardClient } from "./sessioncardclient";
 
-export async function HomeSessions() {
+interface HomeSessionsProps {
+    users: User[];
+}
+
+export async function HomeSessions({ users }: HomeSessionsProps) {
     const sessions =
         (await getCurrentUsersSessionsWithFollowing()) as SessionWithClimbs[];
-    const response = await clerkClient().users.getUserList();
-    const users = response.data;
 
     return (
         <div className="flex flex-col gap-2">

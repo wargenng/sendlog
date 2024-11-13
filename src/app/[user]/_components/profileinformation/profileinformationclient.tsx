@@ -1,4 +1,4 @@
-import { User } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { ProfileActions } from "./components/actions/profileactions";
 import { FollowerAmount } from "./components/friends/followersamount";
@@ -7,9 +7,13 @@ import { ProfileBio } from "./components/profilebio";
 
 interface ProfileInformationProps {
     user: User;
+    users: User[];
 }
 
-export function ProfileInformationClient({ user }: ProfileInformationProps) {
+export function ProfileInformationClient({
+    user,
+    users,
+}: ProfileInformationProps) {
     return (
         <div className="flex flex-col gap-6 bg-secondary px-6 pb-2 pt-6">
             <div className="flex items-center gap-4">
@@ -39,12 +43,17 @@ export function ProfileInformationClient({ user }: ProfileInformationProps) {
                 <div className="flex flex-col space-y-2">
                     <h1 className="text-sm font-semibold">{user.fullName}</h1>
                     <div className="flex gap-8">
-                        <FollowerAmount user={user} />
-                        <FriendAmount user={user} />
+                        <FollowerAmount user={user} users={users} />
+                        <FriendAmount user={user} users={users} />
                     </div>
                 </div>
             </div>
-            <ProfileBio />
+            <ProfileBio
+                bio={
+                    (users.find((userlist) => userlist.id === user.id)
+                        ?.unsafeMetadata?.bio as string) || ""
+                }
+            />
             <div className="flex items-center justify-between">
                 <div className="w-full">
                     <ProfileActions user={user} />

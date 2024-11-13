@@ -1,9 +1,10 @@
-import { User } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import { getProfileFollowers } from "~/app/api/friendActions";
 import { FriendsAmountClient } from "./friendsamountclient";
 
 interface FriendAmountProps {
     user: User;
+    users: User[];
 }
 
 interface UserData {
@@ -13,8 +14,8 @@ interface UserData {
     image: string | null;
 }
 
-export async function FollowerAmount({ user }: FriendAmountProps) {
-    const friends = (await getProfileFollowers(user.id)) as UserData[];
+export async function FollowerAmount({ user, users }: FriendAmountProps) {
+    const friends = (await getProfileFollowers(user.id, users)) as UserData[];
 
     if (!friends || friends.length === 0) {
         return (

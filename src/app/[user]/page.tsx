@@ -19,5 +19,5 @@ export default async function UserPage({ params }: Params) {
         return <p>User not found</p>;
     }
 
-    return <UserProfile user={user} />;
+    return <UserProfile user={user} users={users} />;
 }

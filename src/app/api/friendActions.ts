@@ -1,6 +1,7 @@
 "use server";
 
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
+import type { User } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
@@ -55,10 +56,7 @@ export const getUsersFriends = async () => {
     return friends;
 };
 
-export const getProfileFriends = async (userId: string) => {
-    const response = await clerkClient().users.getUserList();
-    const users = response.data;
-
+export const getProfileFriends = async (userId: string, users: User[]) => {
     const friends = await db
         .select()
         .from(friendships)
@@ -78,10 +76,7 @@ export const getProfileFriends = async (userId: string) => {
     return friendsData;
 };
 
-export const getProfileFollowers = async (userId: string) => {
-    const response = await clerkClient().users.getUserList();
-    const users = response.data;
-
+export const getProfileFollowers = async (userId: string, users: User[]) => {
     const friends = await db
         .select()
         .from(friendships)

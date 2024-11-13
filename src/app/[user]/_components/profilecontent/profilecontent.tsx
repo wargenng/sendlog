@@ -1,15 +1,16 @@
-import { User } from "@clerk/nextjs/server";
-import { CalendarDays, ChartPie, MountainSnow, UsersRound } from "lucide-react";
-import { UserCharts } from "../charts/usercharts";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { ProfileSessions } from "~/app/_components/sessions/profilesessions";
+import type { User } from "@clerk/nextjs/server";
+import { CalendarDays, ChartPie, UsersRound } from "lucide-react";
 import { ClimbCalendar } from "~/app/_components/climbs/climbcalendar";
+import { ProfileSessions } from "~/app/_components/sessions/profilesessions";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { UserCharts } from "../charts/usercharts";
 
 interface ProfileContentProps {
     user: User;
+    users: User[];
 }
 
-export function ProfileContent({ user }: ProfileContentProps) {
+export function ProfileContent({ user, users }: ProfileContentProps) {
     return (
         <Tabs defaultValue="statistics" className="w-full">
             <TabsList className="h-14 w-full justify-between rounded-none bg-secondary">
@@ -36,7 +37,7 @@ export function ProfileContent({ user }: ProfileContentProps) {
                 <UserCharts user={user} />
             </TabsContent>
             <TabsContent value="sessions">
-                <ProfileSessions user={user} />
+                <ProfileSessions user={user} users={users} />
             </TabsContent>
             <TabsContent value="climbs">
                 <ClimbCalendar user={user} />
