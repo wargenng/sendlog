@@ -38,7 +38,6 @@ export function SessionTab({
 }: SessionTabProps) {
     return (
         <div className="space-y-1">
-            <p>Session</p>
             <Tabs
                 defaultValue={sessionTabValue}
                 onValueChange={(value) => {
@@ -48,14 +47,20 @@ export function SessionTab({
                 }}
                 className="w-full"
             >
-                <TabsList>
-                    <TabsTrigger value="existing">Existing Session</TabsTrigger>
-                    <TabsTrigger value="create">Create Session</TabsTrigger>
+                <TabsList className="w-full">
+                    <TabsTrigger value="existing" className="w-1/2">
+                        Existing Session
+                    </TabsTrigger>
+                    <TabsTrigger value="create" className="w-1/2">
+                        Create Session
+                    </TabsTrigger>
                 </TabsList>
                 <TabsContent value="existing">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Existing Session</CardTitle>
+                            <CardTitle className="text-lg">
+                                Existing Session
+                            </CardTitle>
                             <CardDescription>
                                 Add climb to an existing session.
                             </CardDescription>
@@ -75,8 +80,12 @@ export function SessionTab({
                 <TabsContent value="create">
                     <Card>
                         <CardHeader>
-                            <CardTitle>Create Session</CardTitle>
-                            <CardDescription></CardDescription>
+                            <CardTitle className="text-lg">
+                                Create Session
+                            </CardTitle>
+                            <CardDescription>
+                                Create a new session.
+                            </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-2">
                             <div className="space-y-1">

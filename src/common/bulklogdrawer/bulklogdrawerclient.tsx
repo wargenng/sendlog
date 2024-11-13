@@ -57,15 +57,6 @@ export default function BulkLogDrawerClient({
                     </DrawerDescription>
                 </DrawerHeader>
                 <DrawerMainContent isUploading={isUploading}>
-                    <div className="space-y-1">
-                        <p>Grades *</p>
-                        <Textarea
-                            className={`h-32 text-base ${isUploading ? "pointer-events-none brightness-50" : ""}`}
-                            placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
-                            value={bulk}
-                            onChange={(e) => setBulk(e.target.value)}
-                        />
-                    </div>
                     <SessionTab
                         isRejected={isRejected}
                         session={session}
@@ -76,6 +67,15 @@ export default function BulkLogDrawerClient({
                         sessionTabValue={sessionTabValue}
                         setSessionTabValue={setSessionTabValue}
                     />
+                    <div className="space-y-1">
+                        <p>Grades *</p>
+                        <Textarea
+                            className={`h-32 text-base ${isUploading ? "pointer-events-none brightness-50" : ""}`}
+                            placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
+                            value={bulk}
+                            onChange={(e) => setBulk(e.target.value)}
+                        />
+                    </div>
                     <BulkLogSubmit
                         bulk={bulk}
                         setIsUploading={setIsUploading}
