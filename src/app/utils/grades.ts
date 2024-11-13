@@ -1,5 +1,4 @@
 export const grades = [
-    { value: "VB", label: "VB", french: "3", gradeValue: 0, ranking: 0 },
     { value: "V0-", label: "V0-", french: "4-", gradeValue: 0, ranking: 1 },
     { value: "V0", label: "V0", french: "4", gradeValue: 0, ranking: 2 },
     { value: "V0+", label: "V0+", french: "4+", gradeValue: 0, ranking: 3 },

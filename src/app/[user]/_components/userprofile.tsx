@@ -10,7 +10,6 @@ interface UserProfileProps {
 }
 
 export function UserProfile({ user, users }: UserProfileProps) {
-    console.log(users);
     return (
         <main className="">
             <TopNav title={user?.username ?? "404"} users={users} />
