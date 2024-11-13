@@ -1,4 +1,8 @@
 "use client";
+import { useUser } from "@clerk/nextjs";
+import { useState } from "react";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 import {
     Sheet,
     SheetContent,
@@ -9,19 +13,15 @@ import {
     SheetTrigger,
 } from "~/components/ui/sheet";
 import { ProfileButton } from "./profilebutton";
-import { useUser } from "@clerk/nextjs";
-import { Button } from "~/components/ui/button";
-import { useState } from "react";
-import { Textarea } from "~/components/ui/textarea";
-import { Input } from "~/components/ui/input";
 
 export function LastNameSheet() {
     const { user } = useUser();
     const [open, setOpen] = useState(false);
+    const [name, setName] = useState(user?.lastName ?? "");
+
     if (!user) {
         return null;
     }
-    const [name, setName] = useState((user.lastName as string) ?? "");
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
@@ -33,11 +33,11 @@ export function LastNameSheet() {
                     <SheetTitle className="text-base">Last Name</SheetTitle>
                     <SheetDescription></SheetDescription>
                     <form
-                        onSubmit={(e) => {
+                        onSubmit={async (e) => {
                             e.preventDefault();
                             try {
                                 console.log(name);
-                                user.update({
+                                await user.update({
                                     lastName: name,
                                 });
                             } catch (e) {
@@ -48,7 +48,7 @@ export function LastNameSheet() {
                     >
                         <Button
                             variant="none"
-                            className="text-accent-2 fixed right-2 top-4 font-bold"
+                            className="fixed right-2 top-4 font-bold text-accent-2"
                         >
                             Done
                         </Button>
