@@ -9,7 +9,7 @@ export default function DrawerMainContent({
 }: DrawerMainContentProps) {
     return (
         <div
-            className={`flex flex-col gap-2 overflow-y-auto p-4 text-sm ${
+            className={`flex flex-col gap-4 overflow-y-auto p-4 text-sm ${
                 isUploading ? "pointer-events-none brightness-50" : ""
             }`}
         >

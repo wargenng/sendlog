@@ -6,6 +6,7 @@ import {
     DrawerClose,
     DrawerContent,
     DrawerDescription,
+    DrawerFooter,
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
@@ -18,6 +19,7 @@ import { Textarea } from "~/components/ui/textarea";
 import type { Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawermaincontent";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
+import { GradePickerSheet } from "../gradepickersheet";
 
 interface BulkLogClientProps {
     children: ReactNode;
@@ -31,7 +33,7 @@ export default function BulkLogDrawerClient({
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
-    const [bulk, setBulk] = useState("");
+    const [bulk, setBulk] = useState<string[]>([]);
     const [session, setSession] = useState({
         name: `${new Date().toLocaleString("en-US", { weekday: "long" })} ${new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Night"} Session`,
         location: 0,
@@ -42,6 +44,12 @@ export default function BulkLogDrawerClient({
         sessions.at(0)?.id.toString() ?? "",
     );
     const [sessionTabValue, setSessionTabValue] = useState("existing");
+
+    const handleClose = () => {
+        setIsRejected(false);
+        setBulk([]);
+        setOpen(false);
+    };
 
     return (
         <Drawer open={open} onOpenChange={setOpen}>
@@ -69,17 +77,27 @@ export default function BulkLogDrawerClient({
                     />
                     <div className="space-y-1">
                         <p>Grades *</p>
-                        <Textarea
-                            className={`h-32 text-base ${isUploading ? "pointer-events-none brightness-50" : ""}`}
-                            placeholder="Enter the grade and modifier of each climb. separate each climb with a space."
-                            value={bulk}
-                            onChange={(e) => setBulk(e.target.value)}
-                        />
+                        {bulk.join(", ")}
+
+                        <Button
+                            variant="outline"
+                            className="w-full"
+                            onClick={() => setBulk([])}
+                        >
+                            Clear Grades
+                        </Button>
+                        <GradePickerSheet bulk={bulk} setBulk={setBulk}>
+                            <Button variant="outline" className="w-full">
+                                Select Grades
+                            </Button>
+                        </GradePickerSheet>
                     </div>
+                </DrawerMainContent>
+                <DrawerFooter>
                     <BulkLogSubmit
                         bulk={bulk}
                         setIsUploading={setIsUploading}
-                        setOpen={setOpen}
+                        setOpen={handleClose}
                         session={session}
                         setIsRejected={setIsRejected}
                         sessionTabValue={sessionTabValue}
@@ -88,7 +106,7 @@ export default function BulkLogDrawerClient({
                     <DrawerClose asChild>
                         <Button variant="outline">Cancel</Button>
                     </DrawerClose>
-                </DrawerMainContent>
+                </DrawerFooter>
             </DrawerContent>
         </Drawer>
     );

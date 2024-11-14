@@ -89,20 +89,18 @@ export const bulkAddClimbs = async (
 
     await Promise.all(
         bulkClimbs.map(async (climb) => {
-            if (grades.map((grade) => grade.value.slice(1)).includes(climb)) {
-                await db.insert(climbs).values({
-                    userId: user.userId,
-                    name: "",
-                    grade: "V" + climb,
-                    attempts: 0,
-                    rating: 0,
-                    notes: "",
-                    location: session.location,
-                    sendDate: session.date,
-                    type: "Boulder",
-                    sessionId: session.id.toString(),
-                });
-            }
+            await db.insert(climbs).values({
+                userId: user.userId,
+                name: "",
+                grade: climb,
+                attempts: 0,
+                rating: 0,
+                notes: "",
+                location: session.location,
+                sendDate: session.date,
+                type: "Boulder",
+                sessionId: session.id.toString(),
+            });
         }),
     );
 

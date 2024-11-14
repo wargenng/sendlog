@@ -7,7 +7,7 @@ import { useToast } from "~/hooks/use-toast";
 import type { Session } from "~/server/db/schema";
 
 interface BulkLogSubmitProps {
-    bulk: string;
+    bulk: string[];
     setIsUploading: (isUploading: boolean) => void;
     setOpen: (open: boolean) => void;
     session: Session;
@@ -34,7 +34,7 @@ export function BulkLogSubmit({
             onSubmit={async (e) => {
                 e.preventDefault();
 
-                if (bulk === "") {
+                if (bulk.length === 0) {
                     setIsRejected(true);
                     return;
                 }
@@ -43,7 +43,7 @@ export function BulkLogSubmit({
 
                 console.log("submitting form");
 
-                const climbs = bulk.split(" ");
+                const climbs = bulk;
                 console.log(sessionTabValue);
                 if (sessionTabValue === "create") {
                     const newSessionId = (await addSession(
