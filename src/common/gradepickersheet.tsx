@@ -1,10 +1,6 @@
-import {
-    ArrowBigDown,
-    ArrowBigUp,
-    ArrowUp,
-    ArrowUpWideNarrowIcon,
-} from "lucide-react";
-import { ReactNode, useState } from "react";
+import { ArrowDown, ArrowUp, X } from "lucide-react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Label } from "~/components/ui/label";
 import {
@@ -54,9 +50,27 @@ export function GradePickerSheet({
                     <SheetDescription></SheetDescription>
                 </SheetHeader>
                 <div className="flex h-full flex-col justify-between">
-                    <div>
+                    <div className="space-y-2">
                         <h1>added grades</h1>
-                        <div className="h-8">{bulk.join(", ")}</div>
+                        <div className="flex flex-wrap gap-2">
+                            {bulk.map((climb, i) => (
+                                <Button
+                                    key={climb + i}
+                                    className="flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground"
+                                    onClick={() => {
+                                        setBulk(
+                                            bulk.filter(
+                                                (_, index) => index !== i,
+                                            ),
+                                        );
+                                    }}
+                                    variant="none"
+                                >
+                                    <p>{climb}</p>
+                                    <X className="h-4 w-4" />
+                                </Button>
+                            ))}
+                        </div>
                     </div>
                     <div className="flex w-full flex-col items-center justify-center">
                         <div className="flex flex-col items-center justify-center space-y-2">
@@ -73,7 +87,7 @@ export function GradePickerSheet({
                                     setGrade(grade < grades ? grade + 1 : 0);
                                 }}
                             >
-                                <ArrowBigUp className="h-6 w-6" />
+                                <ArrowUp className="h-6 w-6" />
                             </Button>
                             <Button
                                 className="w-full"
@@ -81,7 +95,7 @@ export function GradePickerSheet({
                                     setGrade(grade > 0 ? grade - 1 : grades);
                                 }}
                             >
-                                <ArrowBigDown className="h-6 w-6" />
+                                <ArrowDown className="h-6 w-6" />
                             </Button>
                         </div>
                         <div className="flex w-1/5 flex-col items-center justify-center space-y-1">
@@ -107,7 +121,7 @@ export function GradePickerSheet({
                                     );
                                 }}
                             >
-                                <ArrowBigUp className="h-6 w-6" />
+                                <ArrowUp className="h-6 w-6" />
                             </Button>
                             <Button
                                 className="w-full"
@@ -119,14 +133,14 @@ export function GradePickerSheet({
                                     );
                                 }}
                             >
-                                <ArrowBigDown className="h-6 w-6" />
+                                <ArrowDown className="h-6 w-6" />
                             </Button>
                         </div>
                     </div>
                 </div>
                 <SheetFooter className="flex w-full flex-row items-end justify-center gap-6 pb-6">
                     <SheetClose className="w-full">
-                        <Button className="bg-accent-3 w-full text-accent-foreground">
+                        <Button className="w-full bg-accent-3 text-accent-foreground">
                             Done
                         </Button>
                     </SheetClose>
