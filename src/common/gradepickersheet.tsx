@@ -147,7 +147,7 @@ export function GradePickerSheet({
                     </div>
                 </div>
                 <SheetFooter className="flex w-full flex-row items-end justify-center gap-6 pb-6">
-                    <SheetClose className="w-full">
+                    <SheetClose className="w-full" asChild>
                         <Button className="w-full bg-accent-3 text-accent-foreground">
                             Done
                         </Button>

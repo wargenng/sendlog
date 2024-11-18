@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
@@ -16,8 +14,8 @@ import {
 } from "~/components/ui/dropdown-menu";
 
 interface DatePickerProps {
-    date: Date | null;
-    setDate: any;
+    date: Date;
+    setDate: (date: Date) => void;
 }
 
 export function DatePicker({ date, setDate }: DatePickerProps) {
@@ -40,7 +38,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
                     <Calendar
                         mode="single"
                         selected={date ?? undefined}
-                        onSelect={setDate}
+                        onSelect={(day) => day && setDate(day)}
                         initialFocus
                     />
                 </DropdownMenuContent>
