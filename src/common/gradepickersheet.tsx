@@ -73,9 +73,17 @@ export function GradePickerSheet({
                         </div>
                     </div>
                     <div className="flex w-full flex-col items-center justify-center">
-                        <div className="flex flex-col items-center justify-center space-y-2">
+                        <div className="flex flex-col items-center justify-center space-y-4">
                             <Label>Current Grade</Label>
                             <h1 className="text-8xl font-bold">{fullGrade}</h1>
+                            <div className="flex gap-2">
+                                <Button variant="outline" className="">
+                                    V-scale
+                                </Button>
+                                <Button variant="outline" className="">
+                                    YDS
+                                </Button>
+                            </div>
                         </div>
                     </div>
                     <div className="flex w-full justify-between">
