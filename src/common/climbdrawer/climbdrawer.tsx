@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { DatePicker } from "~/common/datepicker";
 import { Button } from "~/components/ui/button";
 import {
     Drawer,
@@ -15,13 +14,12 @@ import {
 } from "~/components/ui/drawer";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
+import type { Climb } from "~/server/db/schema";
+import DrawerMainContent from "../drawermaincontent";
 import { DeleteClimbForm } from "./components/deletebutton";
 import { GradeCombobox } from "./components/gradecombobox";
-import { LocationsCombobox } from "../locationscombobox";
 import { RatingInput } from "./components/ratinginput";
 import { SubmitButton } from "./components/submitbutton";
-import DrawerMainContent from "../drawermaincontent";
-import type { Climb } from "~/server/db/schema";
 
 interface ClimbDrawerProps {
     children: React.ReactNode;
@@ -125,54 +123,6 @@ export function ClimbDrawer({
                             rating={climb.rating ?? 0}
                             setRating={(rating) => {
                                 setClimb({ ...climb, rating: rating });
-                            }}
-                        />
-                        <div className="w-full space-y-1">
-                            <div className="flex justify-between">
-                                <p
-                                    className={
-                                        isRejected && !climb.sendDate
-                                            ? "text-red-500"
-                                            : ""
-                                    }
-                                >
-                                    Date Sent *
-                                </p>
-                                <div className="italic text-red-500/50">
-                                    {isRejected &&
-                                        !climb.sendDate &&
-                                        "Date is required"}
-                                </div>
-                            </div>
-                            <DatePicker
-                                date={climb.sendDate}
-                                setDate={(date: Date) => {
-                                    setClimb({ ...climb, sendDate: date });
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="space-y-1">
-                        <div className="flex justify-between">
-                            <p
-                                className={
-                                    isRejected && !climb.location
-                                        ? "text-red-500"
-                                        : ""
-                                }
-                            >
-                                Location *
-                            </p>
-                            <div className="italic text-red-500/50">
-                                {isRejected &&
-                                    !climb.location &&
-                                    "Location is required"}
-                            </div>
-                        </div>
-                        <LocationsCombobox
-                            location={climb.location}
-                            setLocation={(location) => {
-                                setClimb({ ...climb, location: location });
                             }}
                         />
                     </div>
