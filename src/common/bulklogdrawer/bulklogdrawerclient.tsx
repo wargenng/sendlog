@@ -21,6 +21,7 @@ import { GradePickerSheet } from "../gradepickersheet/gradepickersheet";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
 import { GradeScrollable } from "../gradescrollable";
 import { Label } from "~/components/ui/label";
+import { Card } from "~/components/ui/card";
 
 interface BulkLogClientProps {
     children: ReactNode;
@@ -76,9 +77,9 @@ export default function BulkLogDrawerClient({
                         sessionTabValue={sessionTabValue}
                         setSessionTabValue={setSessionTabValue}
                     />
-                    <div className="space-y-2">
+                    <Card className="w-full space-y-2 p-6">
                         <div className="flex items-center justify-between">
-                            <p>Climbs *</p>
+                            <h1 className="text-lg font-bold">Climbs</h1>
                             <Label
                                 className={`${bulk.length > 0 ? "brightness-100" : "brightness-50"}`}
                             >
@@ -105,7 +106,7 @@ export default function BulkLogDrawerClient({
                                 <span>Clear All</span>
                             </Button>
                         </div>
-                    </div>
+                    </Card>
                 </DrawerMainContent>
                 <DrawerFooter>
                     <BulkLogSubmit
