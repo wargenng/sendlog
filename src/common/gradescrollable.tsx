@@ -1,0 +1,31 @@
+import { X } from "lucide-react";
+import { Button } from "~/components/ui/button";
+
+interface GradeScrollableProps {
+    climbs: string[];
+    setClimbs: (climbs: string[]) => void;
+}
+
+export function GradeScrollable({ climbs, setClimbs }: GradeScrollableProps) {
+    return climbs.length > 0 ? (
+        <div className="flex gap-2 overflow-x-auto p-2">
+            {climbs.map((climb, i) => (
+                <Button
+                    key={climb + i}
+                    className={`flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground opacity-100 transition-all duration-500`}
+                    onClick={async () => {
+                        setClimbs(climbs.filter((_, index) => index !== i));
+                    }}
+                    variant="none"
+                >
+                    <p>{climb}</p>
+                    <X className="h-4 w-4" />
+                </Button>
+            ))}
+        </div>
+    ) : (
+        <div className="flex w-full items-center text-muted-foreground">
+            no climbs added
+        </div>
+    );
+}

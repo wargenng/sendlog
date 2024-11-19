@@ -19,6 +19,7 @@ import type { Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawermaincontent";
 import { GradePickerSheet } from "../gradepickersheet/gradepickersheet";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
+import { GradeScrollable } from "../gradescrollable";
 
 interface BulkLogClientProps {
     children: ReactNode;
@@ -78,33 +79,9 @@ export default function BulkLogDrawerClient({
                         <div className="flex items-center justify-between">
                             <p>Climbs *</p>
                         </div>
-                        {bulk.length > 0 ? (
-                            <div className="flex gap-2 overflow-x-auto p-2">
-                                {bulk.map((climb, i) => (
-                                    <Button
-                                        key={climb + i}
-                                        className={`flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground opacity-100 transition-all duration-500`}
-                                        onClick={async () => {
-                                            setBulk(
-                                                bulk.filter(
-                                                    (_, index) => index !== i,
-                                                ),
-                                            );
-                                        }}
-                                        variant="none"
-                                    >
-                                        <p>{climb}</p>
-                                        <X className="h-4 w-4" />
-                                    </Button>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="flex w-full items-center text-muted-foreground">
-                                no climbs added
-                            </div>
-                        )}
+                        <GradeScrollable climbs={bulk} setClimbs={setBulk} />
                         <div className="flex gap-4">
-                            <GradePickerSheet bulk={bulk} setBulk={setBulk}>
+                            <GradePickerSheet climbs={bulk} setClimbs={setBulk}>
                                 <Button
                                     variant="none"
                                     className="flex space-x-1 p-0"

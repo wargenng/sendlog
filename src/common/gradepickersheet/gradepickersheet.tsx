@@ -13,11 +13,12 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "~/components/ui/sheet";
+import { GradeScrollable } from "../gradescrollable";
 
 interface GradePickerSheetProps {
     children: ReactNode;
-    bulk: string[];
-    setBulk: (bulk: string[]) => void;
+    climbs: string[];
+    setClimbs: (climbs: string[]) => void;
 }
 
 const modifiers = ["", "/", "+", "-"];
@@ -25,8 +26,8 @@ const grades = 17;
 
 export function GradePickerSheet({
     children,
-    bulk,
-    setBulk,
+    climbs,
+    setClimbs,
 }: GradePickerSheetProps) {
     const [open, setOpen] = useState(false);
     const [grade, setGrade] = useState(0);
@@ -52,31 +53,10 @@ export function GradePickerSheet({
                 <div className="flex h-full flex-col justify-between">
                     <div className="space-y-2">
                         <h1>added grades</h1>
-                        {bulk.length > 0 ? (
-                            <div className="flex gap-2 overflow-x-auto p-2">
-                                {bulk.map((climb, i) => (
-                                    <Button
-                                        key={climb + i}
-                                        className={`flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground opacity-100 transition-all duration-500`}
-                                        onClick={async () => {
-                                            setBulk(
-                                                bulk.filter(
-                                                    (_, index) => index !== i,
-                                                ),
-                                            );
-                                        }}
-                                        variant="none"
-                                    >
-                                        <p>{climb}</p>
-                                        <X className="h-4 w-4" />
-                                    </Button>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="flex w-full items-center text-muted-foreground">
-                                no climbs added
-                            </div>
-                        )}
+                        <GradeScrollable
+                            climbs={climbs}
+                            setClimbs={setClimbs}
+                        />
                     </div>
                     <div className="flex w-full flex-col items-center justify-center">
                         <div className="flex flex-col items-center justify-center space-y-4">
@@ -117,7 +97,7 @@ export function GradePickerSheet({
                                 className="h-20 w-20 rounded-full bg-accent-2 text-foreground"
                                 variant="none"
                                 onClick={() => {
-                                    setBulk([...bulk, fullGrade]);
+                                    setClimbs([fullGrade, ...climbs]);
                                 }}
                             >
                                 <ArrowUp className="h-12 w-12" />
