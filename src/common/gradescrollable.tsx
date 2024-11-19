@@ -8,7 +8,7 @@ interface GradeScrollableProps {
 
 export function GradeScrollable({ climbs, setClimbs }: GradeScrollableProps) {
     return climbs.length > 0 ? (
-        <div className="flex gap-2 overflow-x-auto p-2">
+        <div className="flex gap-2 overflow-x-auto">
             {climbs.map((climb, i) => (
                 <Button
                     key={climb + i}
@@ -24,7 +24,7 @@ export function GradeScrollable({ climbs, setClimbs }: GradeScrollableProps) {
             ))}
         </div>
     ) : (
-        <div className="flex w-full items-center text-muted-foreground">
+        <div className="flex w-full items-center p-2 text-muted-foreground">
             no climbs added
         </div>
     );
