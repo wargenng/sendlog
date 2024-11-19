@@ -12,14 +12,13 @@ import {
     DrawerTrigger,
 } from "~/components/ui/drawer";
 
-import { Info } from "lucide-react";
+import { CircleX, Eraser, Info, Plus, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { SessionTab } from "~/app/_components/climbs/sessiontabs";
-import { Textarea } from "~/components/ui/textarea";
 import type { Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawermaincontent";
+import { GradePickerSheet } from "../gradepickersheet/gradepickersheet";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
-import { GradePickerSheet } from "../gradepickersheet";
 
 interface BulkLogClientProps {
     children: ReactNode;
@@ -75,22 +74,54 @@ export default function BulkLogDrawerClient({
                         sessionTabValue={sessionTabValue}
                         setSessionTabValue={setSessionTabValue}
                     />
-                    <div className="space-y-1">
-                        <p>Grades *</p>
-                        {bulk.join(", ")}
-
-                        <Button
-                            variant="outline"
-                            className="w-full"
-                            onClick={() => setBulk([])}
-                        >
-                            Clear Grades
-                        </Button>
-                        <GradePickerSheet bulk={bulk} setBulk={setBulk}>
-                            <Button variant="outline" className="w-full">
-                                Select Grades
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                            <p>Climbs *</p>
+                        </div>
+                        {bulk.length > 0 ? (
+                            <div className="flex flex-wrap gap-2">
+                                {bulk.map((climb, i) => (
+                                    <Button
+                                        key={climb + i}
+                                        className="flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground"
+                                        onClick={() => {
+                                            setBulk(
+                                                bulk.filter(
+                                                    (_, index) => index !== i,
+                                                ),
+                                            );
+                                        }}
+                                        variant="none"
+                                    >
+                                        <p>{climb}</p>
+                                        <X className="h-4 w-4" />
+                                    </Button>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex w-full items-center text-muted-foreground">
+                                no climbs added
+                            </div>
+                        )}
+                        <div className="flex gap-4">
+                            <GradePickerSheet bulk={bulk} setBulk={setBulk}>
+                                <Button
+                                    variant="none"
+                                    className="flex space-x-1 p-0"
+                                >
+                                    <Plus size={16} />
+                                    <span>Add Climbs</span>{" "}
+                                </Button>
+                            </GradePickerSheet>
+                            <Button
+                                variant="none"
+                                className="flex space-x-1 p-0"
+                                onClick={() => setBulk([])}
+                            >
+                                <CircleX size={16} />
+                                <span>Clear All</span>
                             </Button>
-                        </GradePickerSheet>
+                        </div>
                     </div>
                 </DrawerMainContent>
                 <DrawerFooter>

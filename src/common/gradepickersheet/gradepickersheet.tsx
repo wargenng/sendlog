@@ -41,7 +41,7 @@ export function GradePickerSheet({
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger className="w-full" asChild>
+            <SheetTrigger className="" asChild>
                 {children}
             </SheetTrigger>
             <SheetContent className="flex w-full flex-col">
