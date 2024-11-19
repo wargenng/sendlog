@@ -79,12 +79,12 @@ export default function BulkLogDrawerClient({
                             <p>Climbs *</p>
                         </div>
                         {bulk.length > 0 ? (
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex gap-2 overflow-x-auto p-2">
                                 {bulk.map((climb, i) => (
                                     <Button
                                         key={climb + i}
-                                        className="flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground"
-                                        onClick={() => {
+                                        className={`flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground opacity-100 transition-all duration-500`}
+                                        onClick={async () => {
                                             setBulk(
                                                 bulk.filter(
                                                     (_, index) => index !== i,
