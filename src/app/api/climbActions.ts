@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "~/server/db";
-import type { Session } from "~/server/db/schema";
+import type { Climb, Session } from "~/server/db/schema";
 import { climbs, sessions } from "~/server/db/schema";
 import { getCurrentUsersSessions } from "~/server/queries";
 import { grades } from "../utils/grades";
@@ -70,10 +70,7 @@ export const addClimb = async (
     revalidatePath("/");
 };
 
-export const bulkAddClimbs = async (
-    bulkClimbs: string[],
-    sessionId: string,
-) => {
+export const bulkAddClimbs = async (bulkClimbs: Climb[], sessionId: string) => {
     const user = auth();
     if (!user.userId) return [];
 
@@ -91,14 +88,14 @@ export const bulkAddClimbs = async (
         bulkClimbs.map(async (climb) => {
             await db.insert(climbs).values({
                 userId: user.userId,
-                name: "",
-                grade: climb,
+                name: climb.name,
+                grade: climb.grade,
                 attempts: 0,
                 rating: 0,
-                notes: "",
+                notes: climb.notes,
                 location: session.location,
                 sendDate: session.date,
-                type: "Boulder",
+                type: climb.type,
                 sessionId: session.id.toString(),
             });
         }),

@@ -44,6 +44,7 @@ export type Climb = {
     rating: number | null;
     location: number;
     notes: string | null;
+    type: string | null;
     sendDate: Date;
     isRepeat: boolean | null;
     isSend: boolean | null;

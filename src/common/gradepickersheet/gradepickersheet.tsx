@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp, X } from "lucide-react";
+import { ArrowDown, ArrowUp, Ban, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -14,14 +14,16 @@ import {
     SheetTrigger,
 } from "~/components/ui/sheet";
 import { GradeScrollable } from "../gradescrollable";
+import { Climb } from "~/server/db/schema";
 
 interface GradePickerSheetProps {
     children: ReactNode;
-    climbs: string[];
-    setClimbs: (climbs: string[]) => void;
+    climbs: Climb[];
+    setClimbs: (climbs: Climb[]) => void;
 }
 
-const modifiers = ["", "/", "+", "-"];
+const modifiers = ["-", "", "+", "/"];
+const ydsmodifiers = ["a", "-", "a/b", "b", "", "b/c", "c", "+", "c/d", "d"];
 const grades = 17;
 
 export function GradePickerSheet({
@@ -31,7 +33,7 @@ export function GradePickerSheet({
 }: GradePickerSheetProps) {
     const [open, setOpen] = useState(false);
     const [grade, setGrade] = useState(0);
-    const [modifier, setModifier] = useState(0);
+    const [modifier, setModifier] = useState(1);
     const fullGrade =
         "V" +
         (modifiers[modifier] === ""
@@ -40,8 +42,14 @@ export function GradePickerSheet({
               ? `${grade}/${grade + 1}`
               : `${grade}${modifiers[modifier]}`);
 
+    const handleOpen = (open: boolean) => {
+        setGrade(0);
+        setModifier(1);
+        setOpen(open);
+    };
+
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet open={open} onOpenChange={handleOpen}>
             <SheetTrigger className="" asChild>
                 {children}
             </SheetTrigger>
@@ -62,8 +70,6 @@ export function GradePickerSheet({
                     </div>
                     <div className="flex w-full flex-col items-center justify-center">
                         <div className="flex flex-col items-center justify-center space-y-4">
-                            <Label>Current Grade</Label>
-                            <h1 className="text-8xl font-bold">{fullGrade}</h1>
                             <div className="flex gap-2">
                                 <Button variant="outline" className="">
                                     V-scale
@@ -71,6 +77,31 @@ export function GradePickerSheet({
                                 <Button variant="outline" className="">
                                     YDS
                                 </Button>
+                            </div>
+                            <Button
+                                variant="none"
+                                className="h-max text-8xl font-bold"
+                                onClick={() => {
+                                    setGrade(grade < grades ? grade + 1 : 0);
+                                }}
+                            >
+                                {fullGrade}
+                            </Button>
+                            <div className="flex gap-4">
+                                {modifiers.map((mod, i) => (
+                                    <Button
+                                        key={mod + i}
+                                        variant="none"
+                                        className={`flex space-x-1 rounded-none p-2 text-foreground ${modifier === i ? "border-b border-primary" : ""}`}
+                                        onClick={() => {
+                                            setModifier(i);
+                                        }}
+                                    >
+                                        <p className="text-2xl">
+                                            {mod ? mod : <Ban size={20} />}
+                                        </p>
+                                    </Button>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -99,7 +130,17 @@ export function GradePickerSheet({
                                 className="h-20 w-20 rounded-full bg-accent-2 text-foreground"
                                 variant="none"
                                 onClick={() => {
-                                    setClimbs([fullGrade, ...climbs]);
+                                    setClimbs([
+                                        {
+                                            name: "",
+                                            grade: fullGrade,
+                                            attempts: 1,
+                                            rating: 0,
+                                            type: "Boulder",
+                                            notes: "",
+                                        } as Climb,
+                                        ...climbs,
+                                    ]);
                                 }}
                             >
                                 <ArrowUp className="h-12 w-12" />

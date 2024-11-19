@@ -15,7 +15,7 @@ import {
 import { CircleX, Eraser, Info, Plus, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { SessionTab } from "~/app/_components/climbs/sessiontabs";
-import type { Session } from "~/server/db/schema";
+import type { Climb, Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawermaincontent";
 import { GradePickerSheet } from "../gradepickersheet/gradepickersheet";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
@@ -35,7 +35,7 @@ export default function BulkLogDrawerClient({
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
-    const [climbs, setClimbs] = useState<string[]>([]);
+    const [climbs, setClimbs] = useState([] as Climb[]);
     const [session, setSession] = useState({} as Session);
     const [sessionId, setSessionId] = useState("");
     const [sessionTabValue, setSessionTabValue] = useState("existing");
@@ -47,7 +47,7 @@ export default function BulkLogDrawerClient({
 
     const resetValues = () => {
         setIsRejected(false);
-        setClimbs([]);
+        setClimbs([] as Climb[]);
         setSession({
             name: `${new Date().toLocaleString("en-US", { weekday: "long" })} ${new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Night"} Session`,
             location: 0,

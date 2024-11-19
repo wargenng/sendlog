@@ -4,10 +4,10 @@ import { addSession, bulkAddClimbs } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/hooks/use-toast";
-import type { Session } from "~/server/db/schema";
+import type { Climb, Session } from "~/server/db/schema";
 
 interface BulkLogSubmitProps {
-    bulk: string[];
+    bulk: Climb[];
     setIsUploading: (isUploading: boolean) => void;
     setOpen: (open: boolean) => void;
     session: Session;
