@@ -1,8 +1,7 @@
-import { ArrowDown, ArrowUp, Ban, X } from "lucide-react";
+import { Ban, ChevronDown, ChevronUp } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
-import { Label } from "~/components/ui/label";
 import {
     Sheet,
     SheetClose,
@@ -13,8 +12,8 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "~/components/ui/sheet";
-import { GradeScrollable } from "../gradescrollable";
 import { Climb } from "~/server/db/schema";
+import { GradeScrollable } from "../gradescrollable";
 
 interface GradePickerSheetProps {
     children: ReactNode;
@@ -67,17 +66,29 @@ export function GradePickerSheet({
                             climbs={climbs}
                             setClimbs={setClimbs}
                         />
+                        <div className="flex gap-2">
+                            <Button
+                                variant="none"
+                                className="rounded-none border-b border-primary"
+                            >
+                                Hueco
+                            </Button>
+                            <Button variant="none" className="">
+                                YDS
+                            </Button>
+                        </div>
                     </div>
                     <div className="flex w-full flex-col items-center justify-center">
-                        <div className="flex flex-col items-center justify-center space-y-4">
-                            <div className="flex gap-2">
-                                <Button variant="outline" className="">
-                                    V-scale
-                                </Button>
-                                <Button variant="outline" className="">
-                                    YDS
-                                </Button>
-                            </div>
+                        <div className="flex w-full flex-col items-center justify-center space-y-6">
+                            <Button
+                                className="w-full border"
+                                variant="none"
+                                onClick={() => {
+                                    setGrade(grade < grades ? grade + 1 : 0);
+                                }}
+                            >
+                                <ChevronUp className="h-6 w-6" />
+                            </Button>
                             <Button
                                 variant="none"
                                 className="h-max text-8xl font-bold"
@@ -87,7 +98,7 @@ export function GradePickerSheet({
                             >
                                 {fullGrade}
                             </Button>
-                            <div className="flex gap-4">
+                            <div className="flex items-center gap-4">
                                 {modifiers.map((mod, i) => (
                                     <Button
                                         key={mod + i}
@@ -103,81 +114,41 @@ export function GradePickerSheet({
                                     </Button>
                                 ))}
                             </div>
-                        </div>
-                    </div>
-                    <div className="flex w-full justify-between">
-                        <div className="flex w-1/5 flex-col items-center justify-center space-y-1">
-                            <Label>Grade</Label>
                             <Button
-                                className="w-full"
-                                onClick={() => {
-                                    setGrade(grade < grades ? grade + 1 : 0);
-                                }}
-                            >
-                                <ArrowUp className="h-6 w-6" />
-                            </Button>
-                            <Button
-                                className="w-full"
+                                className="w-full border"
                                 onClick={() => {
                                     setGrade(grade > 0 ? grade - 1 : grades);
                                 }}
-                            >
-                                <ArrowDown className="h-6 w-6" />
-                            </Button>
-                        </div>
-                        <div className="flex w-1/5 flex-col items-center justify-center space-y-1">
-                            <Button
-                                className="h-20 w-20 rounded-full bg-accent-2 text-foreground"
                                 variant="none"
-                                onClick={() => {
-                                    setClimbs([
-                                        {
-                                            name: "",
-                                            grade: fullGrade,
-                                            attempts: 1,
-                                            rating: 0,
-                                            type: "Boulder",
-                                            notes: "",
-                                        } as Climb,
-                                        ...climbs,
-                                    ]);
-                                }}
                             >
-                                <ArrowUp className="h-12 w-12" />
-                            </Button>
-                        </div>
-                        <div className="flex w-1/5 flex-col items-center justify-center space-y-1">
-                            <Label>Modifier</Label>
-                            <Button
-                                className="w-full"
-                                onClick={() => {
-                                    setModifier(
-                                        modifier < modifiers.length - 1
-                                            ? modifier + 1
-                                            : 0,
-                                    );
-                                }}
-                            >
-                                <ArrowUp className="h-6 w-6" />
-                            </Button>
-                            <Button
-                                className="w-full"
-                                onClick={() => {
-                                    setModifier(
-                                        modifier > 0
-                                            ? modifier - 1
-                                            : modifiers.length - 1,
-                                    );
-                                }}
-                            >
-                                <ArrowDown className="h-6 w-6" />
+                                <ChevronDown className="h-6 w-6" />
                             </Button>
                         </div>
                     </div>
+                    <div className="flex w-full justify-between"></div>
                 </div>
-                <SheetFooter className="flex w-full flex-row items-end justify-center gap-6 pb-6">
+                <SheetFooter className="flex w-full flex-col items-end justify-center gap-2 pb-6">
+                    <Button
+                        className="w-full bg-accent-2 text-foreground"
+                        variant="none"
+                        onClick={() => {
+                            setClimbs([
+                                {
+                                    name: "",
+                                    grade: fullGrade,
+                                    attempts: 1,
+                                    rating: 0,
+                                    type: "Boulder",
+                                    notes: "",
+                                } as Climb,
+                                ...climbs,
+                            ]);
+                        }}
+                    >
+                        Add Climb
+                    </Button>
                     <SheetClose className="w-full" asChild>
-                        <Button className="w-full bg-accent-3 text-accent-foreground">
+                        <Button className="w-full bg-primary text-primary-foreground">
                             Done
                         </Button>
                     </SheetClose>

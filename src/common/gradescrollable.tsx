@@ -9,11 +9,11 @@ interface GradeScrollableProps {
 
 export function GradeScrollable({ climbs, setClimbs }: GradeScrollableProps) {
     return climbs.length > 0 ? (
-        <div className="flex gap-2 overflow-x-auto">
+        <div className="flex gap-2 overflow-x-auto py-2">
             {climbs.map((climb, i) => (
                 <Button
                     key={climb.name + climb.grade + i}
-                    className={`flex space-x-1 rounded-lg bg-primary/50 p-2 text-foreground opacity-100 transition-all duration-500`}
+                    className={`flex space-x-1 rounded-lg border p-2 text-foreground opacity-100 transition-all duration-500`}
                     onClick={async () => {
                         setClimbs(climbs.filter((_, index) => index !== i));
                     }}
