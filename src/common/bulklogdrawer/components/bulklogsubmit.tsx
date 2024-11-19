@@ -34,7 +34,11 @@ export function BulkLogSubmit({
             onSubmit={async (e) => {
                 e.preventDefault();
 
-                if (bulk.length === 0) {
+                if (bulk.length === 0 || session.location === 0) {
+                    toast({
+                        title: "Rejected",
+                        description: "Location, Date, and Climbs are required",
+                    });
                     setIsRejected(true);
                     return;
                 }
