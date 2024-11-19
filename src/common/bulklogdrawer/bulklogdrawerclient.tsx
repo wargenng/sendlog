@@ -20,6 +20,7 @@ import DrawerMainContent from "../drawermaincontent";
 import { GradePickerSheet } from "../gradepickersheet/gradepickersheet";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
 import { GradeScrollable } from "../gradescrollable";
+import { Label } from "~/components/ui/label";
 
 interface BulkLogClientProps {
     children: ReactNode;
@@ -78,6 +79,11 @@ export default function BulkLogDrawerClient({
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
                             <p>Climbs *</p>
+                            <Label
+                                className={`${bulk.length > 0 ? "brightness-100" : "brightness-50"}`}
+                            >
+                                {bulk.length}
+                            </Label>
                         </div>
                         <GradeScrollable climbs={bulk} setClimbs={setBulk} />
                         <div className="flex gap-4">

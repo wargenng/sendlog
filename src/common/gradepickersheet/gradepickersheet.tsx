@@ -52,7 +52,9 @@ export function GradePickerSheet({
                 </SheetHeader>
                 <div className="flex h-full flex-col justify-between">
                     <div className="space-y-2">
-                        <h1>added grades</h1>
+                        <div className="flex justify-between">
+                            <h1>Climbs: {climbs.length}</h1>
+                        </div>
                         <GradeScrollable
                             climbs={climbs}
                             setClimbs={setClimbs}
