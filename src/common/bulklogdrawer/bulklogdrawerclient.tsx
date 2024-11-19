@@ -35,31 +35,36 @@ export default function BulkLogDrawerClient({
     const [open, setOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
-    const [bulk, setBulk] = useState<string[]>([]);
-    const [session, setSession] = useState({
-        name: `${new Date().toLocaleString("en-US", { weekday: "long" })} ${new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Night"} Session`,
-        location: 0,
-        date: new Date(),
-        notes: "",
-    } as Session);
-    const [sessionId, setSessionId] = useState(
-        sessions.at(0)?.id.toString() ?? "",
-    );
+    const [climbs, setClimbs] = useState<string[]>([]);
+    const [session, setSession] = useState({} as Session);
+    const [sessionId, setSessionId] = useState("");
     const [sessionTabValue, setSessionTabValue] = useState("existing");
 
-    const handleClose = () => {
+    const handleOpen = (open: boolean) => {
+        resetValues();
+        setOpen(open);
+    };
+
+    const resetValues = () => {
         setIsRejected(false);
-        setBulk([]);
-        setOpen(false);
+        setClimbs([]);
+        setSession({
+            name: `${new Date().toLocaleString("en-US", { weekday: "long" })} ${new Date().getHours() < 12 ? "Morning" : new Date().getHours() < 18 ? "Afternoon" : "Night"} Session`,
+            location: 0,
+            date: new Date(),
+            notes: "",
+        } as Session);
+        setSessionId(sessions.at(0)?.id.toString() ?? "");
+        setSessionTabValue("existing");
     };
 
     return (
-        <Drawer open={open} onOpenChange={setOpen}>
+        <Drawer open={open} onOpenChange={handleOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-[calc(100dvh-1rem)]">
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle className="flex space-x-1">
-                        <p>Bulk Log Climbs</p>
+                        <p>Log a Session</p>
                         <Info className="h-3 w-3" />
                     </DrawerTitle>
                     <DrawerDescription>
@@ -81,17 +86,23 @@ export default function BulkLogDrawerClient({
                         <div className="flex items-center justify-between">
                             <h1 className="text-lg font-bold">Climbs</h1>
                             <Label
-                                className={`${bulk.length > 0 ? "brightness-100" : "brightness-50"}`}
+                                className={`${climbs.length > 0 ? "brightness-100" : "brightness-50"}`}
                             >
-                                {bulk.length}
+                                {climbs.length}
                             </Label>
                         </div>
-                        <GradeScrollable climbs={bulk} setClimbs={setBulk} />
+                        <GradeScrollable
+                            climbs={climbs}
+                            setClimbs={setClimbs}
+                        />
                         <div className="flex gap-4">
-                            <GradePickerSheet climbs={bulk} setClimbs={setBulk}>
+                            <GradePickerSheet
+                                climbs={climbs}
+                                setClimbs={setClimbs}
+                            >
                                 <Button
                                     variant="none"
-                                    className="flex space-x-1 p-0"
+                                    className="flex space-x-1 rounded-md border p-4"
                                 >
                                     <Plus size={16} />
                                     <span>Add Climbs</span>{" "}
@@ -99,8 +110,8 @@ export default function BulkLogDrawerClient({
                             </GradePickerSheet>
                             <Button
                                 variant="none"
-                                className="flex space-x-1 p-0"
-                                onClick={() => setBulk([])}
+                                className="flex space-x-1 rounded-md border p-4"
+                                onClick={() => setClimbs([])}
                             >
                                 <CircleX size={16} />
                                 <span>Clear All</span>
@@ -110,9 +121,9 @@ export default function BulkLogDrawerClient({
                 </DrawerMainContent>
                 <DrawerFooter>
                     <BulkLogSubmit
-                        bulk={bulk}
+                        bulk={climbs}
                         setIsUploading={setIsUploading}
-                        setOpen={handleClose}
+                        setOpen={handleOpen}
                         session={session}
                         setIsRejected={setIsRejected}
                         sessionTabValue={sessionTabValue}
