@@ -1,6 +1,6 @@
 import { Ban, ChevronDown, ChevronUp } from "lucide-react";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
     Sheet,
@@ -15,6 +15,7 @@ import {
 import { Climb } from "~/server/db/schema";
 import { GradeScrollable } from "../gradescrollable";
 import { HuecoEntry } from "./components/huecoentry";
+import { YDSEntry } from "./components/ydsentry";
 
 interface GradePickerSheetProps {
     children: ReactNode;
@@ -22,9 +23,7 @@ interface GradePickerSheetProps {
     setClimbs: (climbs: Climb[]) => void;
 }
 
-const modifiers = ["-", "", "+", "/"];
-const ydsmodifiers = ["a", "-", "a/b", "b", "", "b/c", "c", "+", "c/d", "d"];
-const grades = 17;
+const gradeTypes = ["Hueco", "YDS"];
 
 export function GradePickerSheet({
     children,
@@ -33,6 +32,7 @@ export function GradePickerSheet({
 }: GradePickerSheetProps) {
     const [open, setOpen] = useState(false);
     const [climb, setClimb] = useState({} as Climb);
+    const [gradeType, setGradeType] = useState("Hueco");
 
     const handleOpen = (open: boolean) => {
         setClimb({} as Climb);
@@ -49,29 +49,36 @@ export function GradePickerSheet({
                     <SheetTitle>Enter Climbs</SheetTitle>
                     <SheetDescription></SheetDescription>
                 </SheetHeader>
-                <div className="flex h-full flex-col justify-between">
-                    <div className="space-y-2">
-                        <div className="flex justify-between">
-                            <h1>Climbs: {climbs.length}</h1>
-                        </div>
-                        <GradeScrollable
-                            climbs={climbs}
-                            setClimbs={setClimbs}
-                        />
-                        <div className="flex gap-2">
-                            <Button
-                                variant="none"
-                                className="rounded-none border-b border-primary"
-                            >
-                                Hueco
-                            </Button>
-                            <Button variant="none" className="">
-                                YDS
-                            </Button>
-                        </div>
+                <div className="space-y-2">
+                    <div className="flex justify-between">
+                        <h1>Climbs: {climbs.length}</h1>
                     </div>
-                    <HuecoEntry hueco={climb} setHueco={setClimb} />
-                    <div className="flex w-full justify-between"></div>
+                    <GradeScrollable climbs={climbs} setClimbs={setClimbs} />
+                    <div className="flex w-full justify-center gap-2">
+                        {gradeTypes.map((type) => (
+                            <Button
+                                key={type}
+                                variant="none"
+                                className={`w-full text-center ${
+                                    gradeType === type
+                                        ? "rounded-none border-b border-foreground"
+                                        : ""
+                                }`}
+                                onClick={() => {
+                                    setGradeType(type);
+                                }}
+                            >
+                                {type}
+                            </Button>
+                        ))}
+                    </div>
+                </div>
+                <div className="flex h-full flex-col items-center justify-center">
+                    {gradeType === "Hueco" ? (
+                        <HuecoEntry hueco={climb} setHueco={setClimb} />
+                    ) : (
+                        <YDSEntry climb={climb} setClimb={setClimb} />
+                    )}
                 </div>
                 <SheetFooter className="flex w-full flex-col items-end justify-center gap-2 pb-6">
                     <Button
@@ -84,7 +91,10 @@ export function GradePickerSheet({
                                     grade: climb.grade,
                                     attempts: 1,
                                     rating: 0,
-                                    type: "Boulder",
+                                    type:
+                                        gradeType === "Hueco"
+                                            ? "Boulder"
+                                            : "Sport",
                                     notes: "",
                                 } as Climb,
                                 ...climbs,
