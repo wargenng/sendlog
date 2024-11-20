@@ -82,7 +82,7 @@ export default function BulkLogDrawerClient({
                         sessionTabValue={sessionTabValue}
                         setSessionTabValue={setSessionTabValue}
                     />
-                    <Card className="w-full space-y-6 p-6">
+                    <Card className="w-full space-y-2 p-6">
                         <div className="flex items-center justify-between">
                             <h1 className="text-lg font-bold">Climbs</h1>
                             <Label

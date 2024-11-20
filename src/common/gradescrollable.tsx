@@ -27,7 +27,7 @@ export function GradeScrollable({ climbs, setClimbs }: GradeScrollableProps) {
             ))}
         </div>
     ) : (
-        <div className="flex w-full items-center p-2 text-muted-foreground">
+        <div className="flex w-full items-center py-4 text-muted-foreground">
             no climbs added
         </div>
     );
