@@ -34,7 +34,11 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                         variant="none"
                         className={`flex space-x-1 rounded-none p-2 text-foreground ${modifier === i ? "border-b border-primary" : ""}`}
                         onClick={() => {
-                            setModifier(i);
+                            if (modifier === i) {
+                                setModifier(1);
+                            } else {
+                                setModifier(i);
+                            }
                         }}
                     >
                         <p className="text-2xl">

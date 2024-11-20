@@ -42,9 +42,13 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
                         className={`flex space-x-1 rounded-none p-2 text-foreground ${modifier === i ? "border-b border-primary" : ""} ${grade < 7 && i !== 1 ? "opacity-25" : ""}`}
                         onClick={() => {
                             if (grade < 7) return;
-                            setModifier(i);
                             setDash(false);
                             setYDSModifier(-1);
+                            if (modifier === i) {
+                                setModifier(1);
+                            } else {
+                                setModifier(i);
+                            }
                         }}
                     >
                         <p className="text-2xl">
@@ -80,8 +84,14 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
                         onClick={() => {
                             if (grade < 10) return;
                             if (i === 3) setDash(false);
-                            setYDSModifier(i);
-                            setModifier(-1);
+                            if (ydsmodifier === i) {
+                                setYDSModifier(-1);
+                                setModifier(1);
+                                setDash(false);
+                            } else {
+                                setYDSModifier(i);
+                                setModifier(-1);
+                            }
                         }}
                     >
                         <p className="text-xl">{mod}</p>
