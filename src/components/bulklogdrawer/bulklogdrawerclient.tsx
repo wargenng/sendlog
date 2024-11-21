@@ -18,7 +18,7 @@ import { useState, type ReactNode } from "react";
 import { SessionTab } from "~/components/climbs/sessiontabs";
 import type { Climb, Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawer/drawermaincontent";
-import { GradePickerSheet } from "../gradepickersheet/gradepickersheet";
+import { GradePickerDrawer } from "../gradepickerdrawer/gradepickerdrawer";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
 import { GradeScrollable } from "../gradesscrollable/gradescrollable";
 import { Label } from "~/components/ui/label";
@@ -98,7 +98,7 @@ export default function BulkLogDrawerClient({
                             setClimbs={setClimbs}
                         />
                         <div className="flex gap-4">
-                            <GradePickerSheet
+                            <GradePickerDrawer
                                 climbs={climbs}
                                 setClimbs={setClimbs}
                             >
@@ -109,7 +109,7 @@ export default function BulkLogDrawerClient({
                                     <Plus size={16} />
                                     <span>Add Climbs</span>{" "}
                                 </Button>
-                            </GradePickerSheet>
+                            </GradePickerDrawer>
                             <Button
                                 variant="none"
                                 className="flex space-x-1 rounded-md border p-4"

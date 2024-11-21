@@ -2,21 +2,22 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import {
-    Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import { Climb } from "~/server/db/schema";
 import { GradeScrollable } from "../gradesscrollable/gradescrollable";
 import { HuecoEntry } from "./components/huecoentry";
 import { YDSEntry } from "./components/ydsentry";
+import { DrawerRight } from "../drawer/drawerright";
 
-interface GradePickerSheetProps {
+interface GradePickerDrawerProps {
     children: ReactNode;
     climbs: Climb[];
     setClimbs: (climbs: Climb[]) => void;
@@ -24,11 +25,11 @@ interface GradePickerSheetProps {
 
 const gradeTypes = ["Hueco", "YDS"];
 
-export function GradePickerSheet({
+export function GradePickerDrawer({
     children,
     climbs,
     setClimbs,
-}: GradePickerSheetProps) {
+}: GradePickerDrawerProps) {
     const [open, setOpen] = useState(false);
     const [climb, setClimb] = useState({} as Climb);
     const [gradeType, setGradeType] = useState("Hueco");
@@ -39,16 +40,17 @@ export function GradePickerSheet({
     };
 
     return (
-        <Sheet open={open} onOpenChange={handleOpen}>
-            <SheetTrigger className="" asChild>
+        <Drawer open={open} onOpenChange={handleOpen} direction="right">
+            <DrawerTrigger className="" asChild>
                 {children}
-            </SheetTrigger>
-            <SheetContent className="flex w-full flex-col">
-                <SheetHeader>
-                    <SheetTitle>Enter Climbs</SheetTitle>
-                    <SheetDescription></SheetDescription>
-                </SheetHeader>
-                <div className="space-y-2">
+            </DrawerTrigger>
+            <DrawerContent className="flex h-full flex-col">
+                <DrawerRight />
+                <DrawerHeader className="mt-2">
+                    <DrawerTitle>Enter Climbs</DrawerTitle>
+                    <DrawerDescription></DrawerDescription>
+                </DrawerHeader>
+                <div className="space-y-2 p-4">
                     <div className="flex justify-between">
                         <h1>Climbs: {climbs.length}</h1>
                     </div>
@@ -79,7 +81,7 @@ export function GradePickerSheet({
                         <YDSEntry climb={climb} setClimb={setClimb} />
                     )}
                 </div>
-                <SheetFooter className="flex w-full flex-col items-end justify-center gap-2 pb-6">
+                <DrawerFooter className="flex w-full flex-col items-end justify-center gap-2 pb-6">
                     <Button
                         className="w-full bg-accent-2 text-foreground"
                         variant="none"
@@ -102,13 +104,13 @@ export function GradePickerSheet({
                     >
                         Add Climb
                     </Button>
-                    <SheetClose className="w-full" asChild>
+                    <DrawerClose className="w-full" asChild>
                         <Button className="w-full bg-primary text-primary-foreground">
                             Done
                         </Button>
-                    </SheetClose>
-                </SheetFooter>
-            </SheetContent>
-        </Sheet>
+                    </DrawerClose>
+                </DrawerFooter>
+            </DrawerContent>
+        </Drawer>
     );
 }

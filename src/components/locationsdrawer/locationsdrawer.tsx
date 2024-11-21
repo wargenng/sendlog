@@ -21,6 +21,7 @@ import { locations } from "~/app/utils/locations";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
 import { cn } from "~/lib/utils";
+import { DrawerRight } from "../drawer/drawerright";
 
 interface LocationsDrawerProps {
     location: number;
@@ -60,7 +61,8 @@ export function LocationsDrawer({
                 </Button>
             </DrawerTrigger>
             <DrawerContent className="h-full">
-                <DrawerHeader>
+                <DrawerRight />
+                <DrawerHeader className="mt-2">
                     <DrawerTitle>Search Location</DrawerTitle>
                     <DrawerDescription></DrawerDescription>
                 </DrawerHeader>
