@@ -2,7 +2,7 @@ import type { User } from "@clerk/nextjs/server";
 import { Suspense } from "react";
 import { ProfileContent } from "./profilecontent/profilecontent";
 import { ProfileInformation } from "./profileinformation/profileinformation";
-import { TopNav } from "~/app/_components/topnav/topnavprofile";
+import { TopNav } from "~/components/topnav/topnavprofile";
 
 interface UserProfileProps {
     user: User;

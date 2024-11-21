@@ -11,7 +11,7 @@ import {
     XAxis,
     YAxis,
 } from "recharts";
-import { SnapshotData } from "~/app/_components/snapshot/snapshotdata";
+import { SnapshotData } from "~/components/snapshot/snapshotdata";
 
 import {
     Card,

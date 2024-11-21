@@ -5,8 +5,8 @@ import { dark } from "@clerk/themes";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Toaster } from "~/components/ui/toaster";
-import { BottomNav } from "./_components/bottomnav/bottomnav";
-import { SignInCard } from "./_components/signincard";
+import { BottomNav } from "../components/bottomnav/bottomnav";
+import { SignInCard } from "../components/signin/signincard";
 
 export const metadata: Metadata = {
     title: "sendlog",

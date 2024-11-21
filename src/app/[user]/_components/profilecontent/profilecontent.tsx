@@ -1,7 +1,7 @@
 import type { User } from "@clerk/nextjs/server";
 import { CalendarDays, ChartPie, UsersRound } from "lucide-react";
-import { ClimbCalendar } from "~/app/_components/climbs/climbcalendar";
-import { ProfileSessions } from "~/app/_components/sessions/profilesessions";
+import { ClimbCalendar } from "~/components/climbs/climbcalendar";
+import { ProfileSessions } from "~/components/sessions/profilesessions";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { UserCharts } from "../charts/usercharts";
 

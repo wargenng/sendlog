@@ -1,8 +1,8 @@
 import { SignedIn } from "@clerk/nextjs";
 import { Suspense } from "react";
-import { Snapshot } from "./_components/snapshot/snapshot";
-import { HomeSessions } from "./_components/sessions/homesessions";
-import { TopNav } from "./_components/topnav/topnav";
+import { Snapshot } from "../components/snapshot/snapshot";
+import { HomeSessions } from "../components/sessions/homesessions";
+import { TopNav } from "../components/topnav/topnav";
 import { clerkClient } from "@clerk/nextjs/server";
 export const dynamic = "force-dynamic";
 
