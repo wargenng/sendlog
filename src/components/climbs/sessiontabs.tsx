@@ -1,5 +1,5 @@
 import { DatePicker } from "~/components/datepicker/datepicker";
-import { SessionSheet } from "~/components/sessionssheet/sessionssheet";
+import { SessionDrawer } from "~/components/sessionsdrawer/sessionsdrawer";
 import {
     Card,
     CardContent,
@@ -66,7 +66,7 @@ export function SessionTab({
                         <CardContent className="space-y-2">
                             <div className="space-y-1">
                                 <Label htmlFor="name">Enter Session Name</Label>
-                                <SessionSheet
+                                <SessionDrawer
                                     sessions={sessions}
                                     sessionId={sessionId}
                                     setSessionId={setSessionId}

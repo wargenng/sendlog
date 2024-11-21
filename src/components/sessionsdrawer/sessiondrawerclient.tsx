@@ -11,33 +11,34 @@ import {
     CommandList,
 } from "~/components/ui/command";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import { cn } from "~/lib/utils";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
+import { DrawerRight } from "../drawer/drawerright";
 
-interface SessionSheetClientProps {
+interface SessionDrawerClientProps {
     sessionId: string;
     setSessionId: (sessionId: string) => void;
     sessions: Session[];
 }
 
-export function SessionSheetClient({
+export function SessionDrawerClient({
     sessionId,
     setSessionId,
     sessions,
-}: SessionSheetClientProps) {
+}: SessionDrawerClientProps) {
     const [open, setOpen] = useState(false);
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
+        <Drawer open={open} onOpenChange={setOpen} direction="right">
+            <DrawerTrigger asChild>
                 <Button
                     variant="outline"
                     role="combobox"
@@ -62,12 +63,13 @@ export function SessionSheetClient({
                     </span>
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
-            </SheetTrigger>
-            <SheetContent className="w-full">
-                <SheetHeader>
-                    <SheetTitle>Search Session</SheetTitle>
-                    <SheetDescription></SheetDescription>
-                </SheetHeader>
+            </DrawerTrigger>
+            <DrawerContent className="h-full px-4">
+                <DrawerRight />
+                <DrawerHeader>
+                    <DrawerTitle>Search Session</DrawerTitle>
+                    <DrawerDescription></DrawerDescription>
+                </DrawerHeader>
                 <Command>
                     <CommandInput
                         placeholder="Search session..."
@@ -109,7 +111,7 @@ export function SessionSheetClient({
                         </CommandGroup>
                     </CommandList>
                 </Command>
-            </SheetContent>
-        </Sheet>
+            </DrawerContent>
+        </Drawer>
     );
 }

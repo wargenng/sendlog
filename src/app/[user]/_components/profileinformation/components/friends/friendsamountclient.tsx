@@ -13,13 +13,14 @@ import {
 } from "~/components/ui/command";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
+import { DrawerRight } from "~/components/drawer/drawerright";
 
 interface FriendsAmountClientProps {
     friends: UserData[];
@@ -42,21 +43,22 @@ export function FriendsAmountClient({
     const [open, setOpen] = useState(false);
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
+        <Drawer open={open} onOpenChange={setOpen} direction="right">
+            <DrawerTrigger asChild>
                 <div className="w-12 space-y-1">
                     <p className="text-xs text-foreground/50">
                         {isFollowing ? "Following" : "Followers"}
                     </p>
                     <p className="text-lg">{friends.length}</p>
                 </div>
-            </SheetTrigger>
-            <SheetContent className="w-full">
+            </DrawerTrigger>
+            <DrawerContent className="h-full px-4">
                 <ScrollArea className="h-full pb-10">
-                    <SheetHeader>
-                        <SheetTitle>{username}</SheetTitle>
-                        <SheetDescription></SheetDescription>
-                    </SheetHeader>
+                    <DrawerRight />
+                    <DrawerHeader className="mt-2">
+                        <DrawerTitle>{username}</DrawerTitle>
+                        <DrawerDescription></DrawerDescription>
+                    </DrawerHeader>
                     <Command>
                         <CommandInput placeholder="Search" />
                         <CommandList>
@@ -95,7 +97,7 @@ export function FriendsAmountClient({
                         </CommandList>
                     </Command>
                 </ScrollArea>
-            </SheetContent>
-        </Sheet>
+            </DrawerContent>
+        </Drawer>
     );
 }

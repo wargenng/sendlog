@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 
 import {
     Command,
@@ -22,6 +22,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { DrawerRight } from "~/components/drawer/drawerright";
 
 interface UserData {
     id: string;
@@ -30,11 +31,11 @@ interface UserData {
     image: string | null;
 }
 
-interface SearchSheetClientProps {
+interface SearchDrawerClientProps {
     users: UserData[];
 }
 
-export default function SearchSheetClient({ users }: SearchSheetClientProps) {
+export default function SearchDrawerClient({ users }: SearchDrawerClientProps) {
     const [inputValue, setInputValue] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -44,16 +45,17 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
     });
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger>
+        <Drawer open={open} onOpenChange={setOpen} direction="right">
+            <DrawerTrigger>
                 <Search size={22} />
-            </SheetTrigger>
-            <SheetContent className="w-full">
+            </DrawerTrigger>
+            <DrawerContent className="h-full px-4">
                 <ScrollArea className="h-full pb-10">
-                    <SheetHeader>
-                        <SheetTitle>Search Users</SheetTitle>
-                        <SheetDescription></SheetDescription>
-                    </SheetHeader>
+                    <DrawerRight />
+                    <DrawerHeader className="mt-2">
+                        <DrawerTitle>Search Users</DrawerTitle>
+                        <DrawerDescription></DrawerDescription>
+                    </DrawerHeader>
                     <Command>
                         <CommandInput
                             placeholder="Search users..."
@@ -103,7 +105,7 @@ export default function SearchSheetClient({ users }: SearchSheetClientProps) {
                         </CommandList>
                     </Command>
                 </ScrollArea>
-            </SheetContent>
-        </Sheet>
+            </DrawerContent>
+        </Drawer>
     );
 }

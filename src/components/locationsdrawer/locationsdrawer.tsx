@@ -60,7 +60,7 @@ export function LocationsDrawer({
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </DrawerTrigger>
-            <DrawerContent className="h-full">
+            <DrawerContent className="h-full px-4">
                 <DrawerRight />
                 <DrawerHeader className="mt-2">
                     <DrawerTitle>Search Location</DrawerTitle>

@@ -1,15 +1,16 @@
 import { locations } from "~/app/utils/locations";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import type { Climb } from "~/server/db/schema";
 import Image from "next/image";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { DrawerRight } from "../drawer/drawerright";
 
 interface ClimbDetailsProps {
     children: React.ReactNode;
@@ -21,11 +22,12 @@ export function ClimbDetails({ children, climb }: ClimbDetailsProps) {
     );
 
     return (
-        <Sheet>
-            <SheetTrigger asChild>{children}</SheetTrigger>
-            <SheetContent className="w-full">
+        <Drawer direction="right">
+            <DrawerTrigger asChild>{children}</DrawerTrigger>
+            <DrawerContent className="h-full px-4">
                 <ScrollArea className="h-full pb-10">
-                    <div className="fixed left-0 top-0 h-3/4 w-full overflow-hidden">
+                    <DrawerRight />
+                    <div className="pointer-events-none fixed left-0 top-0 h-3/4 w-full overflow-hidden">
                         <div className="absolute inset-0 opacity-50 blur-md">
                             <Image
                                 src={location?.image ?? "/default-image.jpg"}
@@ -37,10 +39,10 @@ export function ClimbDetails({ children, climb }: ClimbDetailsProps) {
                         </div>
                         <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-background"></div>
                     </div>
-                    <SheetHeader>
-                        <SheetTitle>Climb Details</SheetTitle>
-                        <SheetDescription></SheetDescription>
-                    </SheetHeader>
+                    <DrawerHeader className="mt-2">
+                        <DrawerTitle>Climb Details</DrawerTitle>
+                        <DrawerDescription></DrawerDescription>
+                    </DrawerHeader>
 
                     <div className="relative h-96 overflow-hidden rounded-lg p-4">
                         <div className="relative space-y-1">
@@ -63,7 +65,7 @@ export function ClimbDetails({ children, climb }: ClimbDetailsProps) {
                         </div>
                     </div>
                 </ScrollArea>
-            </SheetContent>
-        </Sheet>
+            </DrawerContent>
+        </Drawer>
     );
 }

@@ -1,17 +1,18 @@
 import { locations } from "~/app/utils/locations";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import Image from "next/image";
 import type { SessionWithClimbs } from "~/server/queries";
 import type { Climb } from "~/server/db/schema";
 import { SessionClimbCard } from "./sessionclimbcard";
 import { ScrollArea } from "~/components/ui/scroll-area";
+import { DrawerRight } from "../drawer/drawerright";
 
 interface SessionDetailsProps {
     children: React.ReactNode;
@@ -24,11 +25,11 @@ export function SessionDetails({ children, session }: SessionDetailsProps) {
     );
 
     return (
-        <Sheet>
-            <SheetTrigger asChild>{children}</SheetTrigger>
-            <SheetContent className="w-full">
+        <Drawer direction="right">
+            <DrawerTrigger asChild>{children}</DrawerTrigger>
+            <DrawerContent className="h-full px-4">
                 <ScrollArea className="h-full pb-10">
-                    <div className="fixed left-0 top-0 h-3/4 w-full overflow-hidden">
+                    <div className="pointer-events-none fixed left-0 top-0 h-3/4 w-full overflow-hidden">
                         <div className="absolute inset-0 opacity-50 blur-md">
                             <Image
                                 src={location?.image ?? "/default-image.jpg"}
@@ -40,10 +41,11 @@ export function SessionDetails({ children, session }: SessionDetailsProps) {
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background"></div>
                     </div>
-                    <SheetHeader className="relative">
-                        <SheetTitle></SheetTitle>
-                        <SheetDescription></SheetDescription>
-                    </SheetHeader>
+                    <DrawerRight />
+                    <DrawerHeader className="relative">
+                        <DrawerTitle></DrawerTitle>
+                        <DrawerDescription></DrawerDescription>
+                    </DrawerHeader>
                     <div className="space-y-4">
                         <div className="relative flex w-full justify-center">
                             <Image
@@ -72,13 +74,14 @@ export function SessionDetails({ children, session }: SessionDetailsProps) {
                             {session.climbs.map((climb: Climb) => (
                                 <SessionClimbCard
                                     climb={climb}
+                                    isEditable={false}
                                     key={climb.id}
                                 />
                             ))}
                         </div>
                     </div>
                 </ScrollArea>
-            </SheetContent>
-        </Sheet>
+            </DrawerContent>
+        </Drawer>
     );
 }

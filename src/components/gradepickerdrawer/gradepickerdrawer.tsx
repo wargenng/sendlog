@@ -44,7 +44,7 @@ export function GradePickerDrawer({
             <DrawerTrigger className="" asChild>
                 {children}
             </DrawerTrigger>
-            <DrawerContent className="flex h-full flex-col">
+            <DrawerContent className="flex h-full flex-col px-4">
                 <DrawerRight />
                 <DrawerHeader className="mt-2">
                     <DrawerTitle>Enter Climbs</DrawerTitle>
