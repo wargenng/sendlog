@@ -1,20 +1,21 @@
 "use client";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import { ProfileButton } from "./profilebutton";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "~/components/ui/button";
 import { useState } from "react";
 import { Textarea } from "~/components/ui/textarea";
+import { DrawerRight } from "~/components/drawer/drawerright";
 
-export function BioSheet() {
+export function BioDrawer() {
     const { user } = useUser();
     const [open, setOpen] = useState(false);
     if (!user) {
@@ -23,17 +24,18 @@ export function BioSheet() {
     const [bio, setBio] = useState((user.unsafeMetadata?.bio as string) ?? "");
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger className="w-full">
+        <Drawer open={open} onOpenChange={setOpen} direction="right">
+            <DrawerTrigger className="w-full">
                 <ProfileButton
                     type="Bio"
                     value={(user.unsafeMetadata?.bio as string) ?? ""}
                 />
-            </SheetTrigger>
-            <SheetContent className="w-full space-y-2">
-                <SheetHeader>
-                    <SheetTitle className="text-base">Bio</SheetTitle>
-                    <SheetDescription></SheetDescription>
+            </DrawerTrigger>
+            <DrawerContent className="h-full space-y-2 px-4">
+                <DrawerRight />
+                <DrawerHeader className="mt-2">
+                    <DrawerTitle className="text-base">Bio</DrawerTitle>
+                    <DrawerDescription></DrawerDescription>
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -51,12 +53,12 @@ export function BioSheet() {
                     >
                         <Button
                             variant="none"
-                            className="text-accent-2 fixed right-2 top-4 font-bold"
+                            className="fixed right-2 top-4 font-bold text-accent-2"
                         >
                             Done
                         </Button>
                     </form>
-                </SheetHeader>
+                </DrawerHeader>
                 <Textarea
                     className="h-60 w-full"
                     value={bio}
@@ -67,10 +69,10 @@ export function BioSheet() {
                     }}
                 />
 
-                <SheetFooter className="flex w-full items-end">
-                    {255 - bio.length}
-                </SheetFooter>
-            </SheetContent>
-        </Sheet>
+                <DrawerFooter className="flex w-full items-end">
+                    {bio.length}/{255 - bio.length}
+                </DrawerFooter>
+            </DrawerContent>
+        </Drawer>
     );
 }

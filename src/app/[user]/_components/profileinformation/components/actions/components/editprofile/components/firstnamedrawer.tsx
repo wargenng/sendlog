@@ -4,17 +4,18 @@ import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "~/components/ui/sheet";
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import { ProfileButton } from "./profilebutton";
+import { DrawerRight } from "~/components/drawer/drawerright";
 
-export function FirstNameSheet() {
+export function FirstNameDrawer() {
     const { user } = useUser();
     const [open, setOpen] = useState(false);
     const [name, setName] = useState(user!.firstName ?? "");
@@ -24,14 +25,15 @@ export function FirstNameSheet() {
     }
 
     return (
-        <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger className="w-full">
+        <Drawer open={open} onOpenChange={setOpen} direction="right">
+            <DrawerTrigger className="w-full">
                 <ProfileButton type="First Name" value={user.firstName ?? ""} />
-            </SheetTrigger>
-            <SheetContent className="w-full space-y-2">
-                <SheetHeader>
-                    <SheetTitle className="text-base">First Name</SheetTitle>
-                    <SheetDescription></SheetDescription>
+            </DrawerTrigger>
+            <DrawerContent className="h-full space-y-2 px-4">
+                <DrawerRight />
+                <DrawerHeader className="mt-2">
+                    <DrawerTitle className="text-base">First Name</DrawerTitle>
+                    <DrawerDescription></DrawerDescription>
                     <form
                         onSubmit={async (e) => {
                             e.preventDefault();
@@ -53,7 +55,7 @@ export function FirstNameSheet() {
                             Done
                         </Button>
                     </form>
-                </SheetHeader>
+                </DrawerHeader>
                 <Input
                     className="w-full"
                     value={name}
@@ -65,10 +67,10 @@ export function FirstNameSheet() {
                     autoFocus
                 />
 
-                <SheetFooter className="flex w-full items-end">
-                    {25 - name.length}
-                </SheetFooter>
-            </SheetContent>
-        </Sheet>
+                <DrawerFooter className="flex w-full items-end">
+                    {name.length}/{25 - name.length}
+                </DrawerFooter>
+            </DrawerContent>
+        </Drawer>
     );
 }
