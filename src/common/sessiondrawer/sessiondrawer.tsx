@@ -10,20 +10,18 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "~/components/ui/drawer";
-
-import { useState, type ReactNode } from "react";
-import { Input } from "~/components/ui/input";
-import DrawerMainContent from "../drawermaincontent";
-import { LocationsCombobox } from "../locationscombobox";
-import { Textarea } from "~/components/ui/textarea";
-import { DatePicker } from "../datepicker";
-import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { useRouter } from "next/navigation";
-import { LoadingAnimation } from "~/components/loadinganimation";
-import { addSession, deleteSession, editSession } from "~/app/api/climbActions";
-import type { Climb, Session } from "~/server/db/schema";
-import { SessionWithClimbs } from "~/server/queries";
+import { useState, type ReactNode } from "react";
 import SessionClimbs from "~/app/_components/climbs/sessionclimbs";
+import { addSession, editSession } from "~/app/api/climbActions";
+import { LoadingAnimation } from "~/components/loadinganimation";
+import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
+import type { Climb, Session } from "~/server/db/schema";
+import { ClimbDrawer } from "../climbdrawer/climbdrawer";
+import { DatePicker } from "../datepicker";
+import DrawerMainContent from "../drawermaincontent";
+import { LocationsSheet } from "../locationssheet";
 import { DeleteSessionForm } from "./components/deletesessionform";
 
 interface SessionDrawerProps {
@@ -126,7 +124,7 @@ export default function SessionDrawer({
                                         "Location is required"}
                                 </div>
                             </div>
-                            <LocationsCombobox
+                            <LocationsSheet
                                 location={session.location}
                                 setLocation={(location) => {
                                     setSession({

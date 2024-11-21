@@ -14,10 +14,10 @@ import {
 
 import { X } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import BulkLogDrawer from "../bulklogdrawer/bulklogdrawer";
-import { ClimbDrawer } from "../climbdrawer/climbdrawer";
-import DrawerMainContent from "../drawermaincontent";
-import SessionDrawer from "../sessiondrawer/sessiondrawer";
+import BulkLogDrawer from "../../../common/bulklogdrawer/bulklogdrawer";
+import { ClimbDrawer } from "../../../common/climbdrawer/climbdrawer";
+import DrawerMainContent from "../../../common/drawermaincontent";
+import SessionDrawer from "../../../common/sessiondrawer/sessiondrawer";
 
 interface LogDrawerProps {
     children: ReactNode;

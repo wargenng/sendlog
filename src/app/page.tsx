@@ -1,6 +1,6 @@
 import { SignedIn } from "@clerk/nextjs";
 import { Suspense } from "react";
-import { Snapshot } from "./_components/data/snapshot/snapshot";
+import { Snapshot } from "./_components/snapshot/snapshot";
 import { HomeSessions } from "./_components/sessions/homesessions";
 import { TopNav } from "./_components/topnav/topnav";
 import { clerkClient } from "@clerk/nextjs/server";
