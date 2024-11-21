@@ -5,8 +5,8 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { removeFriend } from "~/app/api/friendActions";
+import { DrawerTop } from "~/components/drawer/drawertop";
 import { Button } from "~/components/ui/button";
-
 import {
     Drawer,
     DrawerClose,
@@ -32,13 +32,14 @@ export function FollowingDrawer({ username, userId }: FollowingDrawerProps) {
             <DrawerTrigger asChild>
                 <Button
                     variant="none"
-                    className="border-accent-2 text-accent-2 flex h-auto w-full items-center justify-center gap-1 rounded-lg border py-1"
+                    className="flex h-auto w-full items-center justify-center gap-1 rounded-lg border border-accent-2 py-1 text-accent-2"
                 >
                     <h1>Following</h1>
                     <ChevronDown size={20} />
                 </Button>
             </DrawerTrigger>
             <DrawerContent>
+                <DrawerTop />
                 <DrawerHeader>
                     <DrawerTitle>{username}</DrawerTitle>
                     <DrawerDescription></DrawerDescription>

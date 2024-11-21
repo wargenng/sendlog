@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
+import { DrawerTop } from "~/components/drawer/drawertop";
 import {
     Drawer,
     DrawerClose,
@@ -52,6 +53,7 @@ export function ClimbDrawer({
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-[calc(100dvh-1rem)]">
+                <DrawerTop />
                 <DrawerHeader className="flex flex-col items-start justify-start -space-y-2">
                     <DrawerTitle className="text-2xl">
                         {climb.id ? "Edit climb" : "Enter a climb"}

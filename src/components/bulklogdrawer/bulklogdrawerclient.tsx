@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "~/components/ui/button";
+import { DrawerTop } from "~/components/drawer/drawertop";
 import {
     Drawer,
     DrawerClose,
@@ -62,6 +63,7 @@ export default function BulkLogDrawerClient({
         <Drawer open={open} onOpenChange={handleOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-[calc(100dvh-1rem)]">
+                <DrawerTop />
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle className="flex space-x-1">
                         <p>Log a Session</p>

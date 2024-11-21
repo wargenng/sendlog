@@ -1,5 +1,6 @@
 "use client";
 
+import { DrawerTop } from "~/components/drawer/drawertop";
 import { Button } from "~/components/ui/button";
 import {
     Drawer,
@@ -30,6 +31,7 @@ export default function LogDrawer({ children }: LogDrawerProps) {
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="">
+                <DrawerTop />
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle className="text-2xl">
                         Log an activity

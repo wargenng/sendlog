@@ -30,7 +30,7 @@
 [x] - Organize homescreen data by (All, Week, Month, Year)
 [x] - Toast when upload is complete
 [x] - Add in Sport Climbing
-[ ] - New Mock UI
+[x] - New Mock UI
 [ ] - Add in non climbing exercises
 [ ] - Add Bar Graph for climb grades in a session card
 [ ] - Redesign the session card

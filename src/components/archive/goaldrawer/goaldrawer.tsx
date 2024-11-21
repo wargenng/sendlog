@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "~/components/ui/button";
+import { DrawerTop } from "~/components/drawer/drawertop";
 import {
     Drawer,
     DrawerClose,
@@ -12,7 +13,7 @@ import {
 } from "~/components/ui/drawer";
 
 import { useState, type ReactNode } from "react";
-import DrawerMainContent from "../drawermaincontent";
+import DrawerMainContent from "~/components/drawer/drawermaincontent";
 
 interface GoalDrawerProps {
     children: ReactNode;
@@ -26,6 +27,7 @@ export default function GoalDrawer({ children }: GoalDrawerProps) {
         <Drawer open={open} onOpenChange={setOpen}>
             <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="h-[calc(100dvh-1rem)]">
+                <DrawerTop />
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle>Create a new goal</DrawerTitle>
                     <DrawerDescription>

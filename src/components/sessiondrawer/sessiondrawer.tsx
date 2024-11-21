@@ -1,5 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useState, type ReactNode } from "react";
+import { addSession, editSession } from "~/app/api/climbActions";
+import SessionClimbs from "~/components/climbs/sessionclimbs";
+import { DrawerTop } from "~/components/drawer/drawertop";
+import { LoadingAnimation } from "~/components/loadinganimation/loadinganimation";
 import { Button } from "~/components/ui/button";
 import {
     Drawer,
@@ -10,18 +16,13 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "~/components/ui/drawer";
-import { useRouter } from "next/navigation";
-import { useState, type ReactNode } from "react";
-import SessionClimbs from "~/components/climbs/sessionclimbs";
-import { addSession, editSession } from "~/app/api/climbActions";
-import { LoadingAnimation } from "~/components/loadinganimation/loadinganimation";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import type { Climb, Session } from "~/server/db/schema";
 import { ClimbDrawer } from "../climbdrawer/climbdrawer";
 import { DatePicker } from "../datepicker/datepicker";
 import DrawerMainContent from "../drawer/drawermaincontent";
-import { LocationsSheet } from "../locationssheet/locationssheet";
+import { LocationsDrawer } from "../locationsdrawer/locationsdrawer";
 import { DeleteSessionForm } from "./components/deletesessionform";
 
 interface SessionDrawerProps {
@@ -58,6 +59,7 @@ export default function SessionDrawer({
             <DrawerContent
                 className={`h-[calc(100dvh-1rem)] ${isSubmitting ? "pointer-events-none" : ""}`}
             >
+                <DrawerTop />
                 <DrawerHeader className="flex flex-col items-start justify-start">
                     <DrawerTitle>
                         {session.id ? "Edit session" : "Create a new session"}
@@ -124,7 +126,7 @@ export default function SessionDrawer({
                                         "Location is required"}
                                 </div>
                             </div>
-                            <LocationsSheet
+                            <LocationsDrawer
                                 location={session.location}
                                 setLocation={(location) => {
                                     setSession({

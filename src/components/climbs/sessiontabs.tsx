@@ -1,5 +1,4 @@
 import { DatePicker } from "~/components/datepicker/datepicker";
-import { LocationsSheet } from "~/components/locationssheet/locationssheet";
 import { SessionSheet } from "~/components/sessionssheet/sessionssheet";
 import {
     Card,
@@ -12,6 +11,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import type { Session } from "~/server/db/schema";
+import { LocationsDrawer } from "../locationsdrawer/locationsdrawer";
 
 interface SessionTabProps {
     isRejected: boolean;
@@ -121,7 +121,7 @@ export function SessionTab({
                                             "Location is required"}
                                     </div>
                                 </div>
-                                <LocationsSheet
+                                <LocationsDrawer
                                     location={session.location}
                                     setLocation={(location) => {
                                         setSession({
