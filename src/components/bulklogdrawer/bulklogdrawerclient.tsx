@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "~/components/ui/button";
 import { DrawerTop } from "~/components/drawer/drawertop";
+import { Button } from "~/components/ui/button";
 import {
     Drawer,
     DrawerClose,
@@ -13,16 +13,13 @@ import {
     DrawerTrigger,
 } from "~/components/ui/drawer";
 
-import { CircleX, Eraser, Info, Plus, X } from "lucide-react";
+import { Info } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { SessionTab } from "~/components/sessiontabs/sessiontabs";
 import type { Climb, Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawer/drawermaincontent";
-import { GradePickerDrawer } from "../gradepickerdrawer/gradepickerdrawer";
 import { BulkLogSubmit } from "./components/bulklogsubmit";
-import { GradeScrollable } from "../gradesscrollable/gradescrollable";
-import { Label } from "~/components/ui/label";
-import { Card } from "~/components/ui/card";
+import { ClimbEntry } from "./components/climbentry";
 
 interface BulkLogClientProps {
     children: ReactNode;
@@ -84,42 +81,7 @@ export default function BulkLogDrawerClient({
                         sessionTabValue={sessionTabValue}
                         setSessionTabValue={setSessionTabValue}
                     />
-                    <Card className="w-full space-y-2 p-6">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-lg font-bold">Climbs</h1>
-                            <Label
-                                className={`${climbs.length > 0 ? "brightness-100" : "brightness-50"}`}
-                            >
-                                {climbs.length}
-                            </Label>
-                        </div>
-                        <GradeScrollable
-                            climbs={climbs}
-                            setClimbs={setClimbs}
-                        />
-                        <div className="flex gap-4">
-                            <GradePickerDrawer
-                                climbs={climbs}
-                                setClimbs={setClimbs}
-                            >
-                                <Button
-                                    variant="none"
-                                    className="flex space-x-1 rounded-md border p-4"
-                                >
-                                    <Plus size={16} />
-                                    <span>Add Climbs</span>{" "}
-                                </Button>
-                            </GradePickerDrawer>
-                            <Button
-                                variant="none"
-                                className="flex space-x-1 rounded-md border p-4"
-                                onClick={() => setClimbs([])}
-                            >
-                                <CircleX size={16} />
-                                <span>Clear All</span>
-                            </Button>
-                        </div>
-                    </Card>
+                    <ClimbEntry climbs={climbs} setClimbs={setClimbs} />
                 </DrawerMainContent>
                 <DrawerFooter>
                     <BulkLogSubmit
