@@ -7,11 +7,11 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import type { Session } from "~/server/db/schema";
 import { LocationsDrawer } from "../locationsdrawer/locationsdrawer";
+import { Input } from "../input/input";
 
 interface SessionTabProps {
     isRejected: boolean;
@@ -91,16 +91,11 @@ export function SessionTab({
                                     Enter Session Name
                                 </Label>
                                 <Input
-                                    id="current"
-                                    type="text"
-                                    value={session.name}
-                                    onChange={(e) =>
-                                        setSession({
-                                            ...session,
-                                            name: e.target.value,
-                                        })
+                                    title="Enter Session Name"
+                                    text={session.name}
+                                    setText={(text) =>
+                                        setSession({ ...session, name: text })
                                     }
-                                    className="text-base"
                                 />
                             </div>
 
