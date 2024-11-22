@@ -1,7 +1,7 @@
 import { Ban, ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 interface YDSEntryProps {
     climb: Climb;
@@ -30,7 +30,7 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
 
     useEffect(() => {
         setClimb({ ...climb, grade: fullGrade });
-    }, [fullGrade]);
+    }, [fullGrade, climb, setClimb]);
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-4">

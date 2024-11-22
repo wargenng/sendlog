@@ -1,5 +1,4 @@
-import { User } from "@clerk/nextjs/server";
-import { eachWeekOfInterval, startOfWeek, subMonths } from "date-fns";
+import type { User } from "@clerk/nextjs/server";
 import { getUsersClimbs } from "~/server/queries";
 import { UserChartsClient } from "./userchartsclient";
 

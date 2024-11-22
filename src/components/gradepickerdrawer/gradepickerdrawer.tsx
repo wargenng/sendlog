@@ -11,7 +11,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "~/components/ui/drawer";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 import { GradeScrollable } from "../gradesscrollable/gradescrollable";
 import { HuecoEntry } from "./components/huecoentry";
 import { YDSEntry } from "./components/ydsentry";

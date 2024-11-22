@@ -18,7 +18,7 @@ interface LogDrawerProps {
 export function LogDrawer({ children }: LogDrawerProps) {
     return (
         <Drawer>
-            <DrawerTrigger>{children}</DrawerTrigger>
+            <DrawerTrigger asChild>{children}</DrawerTrigger>
             <DrawerContent className="w-full bg-transparent">
                 <DrawerHeader>
                     <DrawerTitle></DrawerTitle>
@@ -28,7 +28,7 @@ export function LogDrawer({ children }: LogDrawerProps) {
                     <BulkLogDrawer>
                         <Button>Log a Session</Button>
                     </BulkLogDrawer>
-                    <DrawerClose className="w-full">
+                    <DrawerClose className="w-full" asChild>
                         <Button variant="outline" className="w-full">
                             Cancel
                         </Button>

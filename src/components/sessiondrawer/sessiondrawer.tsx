@@ -50,7 +50,6 @@ export default function SessionDrawer({
     );
     const [isUploading, setIsUploading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
     const [isRejected, setIsRejected] = useState(false);
 
     return (

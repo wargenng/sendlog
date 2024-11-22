@@ -1,4 +1,4 @@
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 interface SessionClimbsProps {
     climbs: Climb[];

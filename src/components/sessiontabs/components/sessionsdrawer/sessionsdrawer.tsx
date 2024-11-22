@@ -1,6 +1,5 @@
-import { getUsersSessions } from "~/app/api/sessionActions";
-import { SessionDrawerClient } from "./sessiondrawerclient";
 import type { Session } from "~/server/db/schema";
+import { SessionDrawerClient } from "./sessiondrawerclient";
 
 interface SessionsDrawerProps {
     sessionId: string;

@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 
+import { locations } from "~/app/utils/locations";
 import {
     Card,
     CardContent,
@@ -13,14 +13,13 @@ import {
     CardTitle,
 } from "~/components/ui/card";
 import {
-    ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
 } from "~/components/ui/chart";
+import type { ChartConfig } from "~/components/ui/chart";
+import type { Climb } from "~/server/db/schema";
 import { UserChartFilter } from "./userchartfilter";
-import { Climb } from "~/server/db/schema";
-import { locations } from "~/app/utils/locations";
 
 export const description = "A donut chart with text";
 
@@ -179,7 +178,7 @@ export function UserPieChart({ climbs }: UserPieChartProps) {
                                                 </tspan>
                                                 <tspan
                                                     x={viewBox.cx}
-                                                    y={(viewBox.cy || 0) + 24}
+                                                    y={(viewBox.cy ?? 0) + 24}
                                                     className="fill-muted-foreground"
                                                 >
                                                     Climbs

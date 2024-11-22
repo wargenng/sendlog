@@ -1,9 +1,9 @@
-import { locations } from "../../app/utils/locations";
-import { ClimbDrawer } from "~/components/climbdrawer/climbdrawer";
-import { ClimbDetails } from "./climbdetails";
-import { ChevronRight, Ellipsis } from "lucide-react";
-import type { Climb } from "~/server/db/schema";
+import { Ellipsis } from "lucide-react";
 import Image from "next/image";
+import { ClimbDrawer } from "~/components/climbdrawer/climbdrawer";
+import type { Climb } from "~/server/db/schema";
+import { locations } from "../../app/utils/locations";
+import { ClimbDetails } from "./climbdetails";
 
 interface ClimbCardProps {
     climb: Climb;

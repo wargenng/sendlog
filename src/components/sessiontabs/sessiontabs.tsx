@@ -38,7 +38,7 @@ export function SessionTab({
         <div className="space-y-1">
             <Tabs
                 defaultValue={sessionTabValue}
-                onValueChange={(value) => {
+                onValueChange={() => {
                     setSessionTabValue(
                         sessionTabValue === "existing" ? "create" : "existing",
                     );

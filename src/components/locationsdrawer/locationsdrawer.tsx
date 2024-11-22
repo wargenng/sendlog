@@ -1,13 +1,6 @@
-import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from "~/components/ui/drawer";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { useState } from "react";
+import { locations } from "~/app/utils/locations";
 import {
     Command,
     CommandEmpty,
@@ -16,12 +9,17 @@ import {
     CommandItem,
     CommandList,
 } from "~/components/ui/command";
-import { Button } from "../ui/button";
-import { locations } from "~/app/utils/locations";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "~/components/ui/drawer";
 import { cn } from "~/lib/utils";
 import { DrawerRight } from "../drawer/drawerright";
+import { Button } from "../ui/button";
 
 interface LocationsDrawerProps {
     location: number;

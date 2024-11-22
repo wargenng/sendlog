@@ -1,6 +1,6 @@
-import { getCurrentUsersClimbs, getProfileUsersClimbs } from "~/server/queries";
+import type { User } from "@clerk/nextjs/server";
+import { getProfileUsersClimbs } from "~/server/queries";
 import { ClimbCalendarClient } from "./climbcalendarclient";
-import { User } from "@clerk/nextjs/server";
 
 interface ClimbCalendarProps {
     user: User;

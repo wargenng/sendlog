@@ -1,9 +1,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { deleteClimb, deleteSession } from "~/app/api/climbActions";
+import { deleteSession } from "~/app/api/climbActions";
 import { LoadingAnimation } from "~/components/loadinganimation/loadinganimation";
 import { Button } from "~/components/ui/button";
-import { useToast } from "~/hooks/use-toast";
 import {
     Dialog,
     DialogClose,
@@ -14,6 +13,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "~/components/ui/dialog";
+import { useToast } from "~/hooks/use-toast";
 
 interface DeleteButtonProps {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -49,7 +49,7 @@ export function DeleteSessionForm({
                     <DialogTitle>Are you absolutely sure?</DialogTitle>
                     <DialogDescription>
                         This action cannot be undone. This will delete your
-                        session along with all of that session's climbs.
+                        session along with all of that session&apos;s climbs.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="flex gap-2">

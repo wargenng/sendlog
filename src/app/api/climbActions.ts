@@ -7,7 +7,6 @@ import { db } from "~/server/db";
 import type { Climb, Session } from "~/server/db/schema";
 import { climbs, sessions } from "~/server/db/schema";
 import { getCurrentUsersSessions } from "~/server/queries";
-import { grades } from "../utils/grades";
 
 export const addClimb = async (
     name: string,

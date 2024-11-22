@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 import { Button } from "~/components/ui/button";
-import { Climb } from "~/server/db/schema";
+import type { Climb } from "~/server/db/schema";
 
 interface GradeScrollableProps {
     climbs: Climb[];

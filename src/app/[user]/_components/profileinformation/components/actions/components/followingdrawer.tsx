@@ -1,7 +1,6 @@
 "use client";
 
-import { User } from "@clerk/nextjs/server";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { removeFriend } from "~/app/api/friendActions";
@@ -9,7 +8,6 @@ import { DrawerTop } from "~/components/drawer/drawertop";
 import { Button } from "~/components/ui/button";
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
     DrawerDescription,
     DrawerFooter,
