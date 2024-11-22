@@ -1,11 +1,10 @@
 "use client";
 
-import { UserProfile, useUser } from "@clerk/clerk-react";
-import { useClerk } from "@clerk/nextjs";
+import { useUser } from "@clerk/clerk-react";
 import { Edit } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { DrawerRight } from "~/components/drawer/drawerright";
 import { Button } from "~/components/ui/button";
-import { Label } from "~/components/ui/label";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import {
     Drawer,
     DrawerContent,
@@ -14,16 +13,13 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "~/components/ui/drawer";
-import { ProfileButton } from "./components/profilebutton";
 import { BioDrawer } from "./components/biodrawer";
 import { FirstNameDrawer } from "./components/firstnamedrawer";
 import { LastNameDrawer } from "./components/lastnamedrawer";
-import { useRouter } from "next/navigation";
-import { DrawerRight } from "~/components/drawer/drawerright";
+import { ProfileButton } from "./components/profilebutton";
 
 export function EditProfile() {
     const router = useRouter();
-    const { signOut } = useClerk();
     const { user } = useUser();
 
     if (!user) {

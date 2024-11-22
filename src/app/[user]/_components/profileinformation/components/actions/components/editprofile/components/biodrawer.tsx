@@ -18,10 +18,10 @@ import { DrawerRight } from "~/components/drawer/drawerright";
 export function BioDrawer() {
     const { user } = useUser();
     const [open, setOpen] = useState(false);
+    const [bio, setBio] = useState((user?.unsafeMetadata?.bio as string) ?? "");
     if (!user) {
         return null;
     }
-    const [bio, setBio] = useState((user.unsafeMetadata?.bio as string) ?? "");
 
     return (
         <Drawer open={open} onOpenChange={setOpen} direction="right">
@@ -37,10 +37,10 @@ export function BioDrawer() {
                     <DrawerTitle className="text-base">Bio</DrawerTitle>
                     <DrawerDescription></DrawerDescription>
                     <form
-                        onSubmit={(e) => {
+                        onSubmit={async (e) => {
                             e.preventDefault();
                             try {
-                                user.update({
+                                await user.update({
                                     unsafeMetadata: {
                                         bio,
                                     },
@@ -70,7 +70,7 @@ export function BioDrawer() {
                 />
 
                 <DrawerFooter className="flex w-full items-end">
-                    {bio.length}/{255 - bio.length}
+                    {bio.length}/{255}
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>

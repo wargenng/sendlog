@@ -68,7 +68,7 @@ export function FirstNameDrawer() {
                 />
 
                 <DrawerFooter className="flex w-full items-end">
-                    {name.length}/{25 - name.length}
+                    {name.length}/{25}
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
