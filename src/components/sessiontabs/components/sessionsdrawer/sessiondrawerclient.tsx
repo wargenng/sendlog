@@ -1,5 +1,3 @@
-"use client";
-
 import type { Session } from "~/server/db/schema";
 import { Check, ChevronsUpDown } from "lucide-react";
 import {
