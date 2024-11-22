@@ -9,6 +9,7 @@ import {
     DrawerTrigger,
 } from "~/components/ui/drawer";
 import { Button } from "../ui/button";
+import BulkLogDrawer from "../bulklogdrawer/bulklogdrawer";
 
 interface LogDrawerProps {
     children: React.ReactNode;
@@ -24,7 +25,9 @@ export function LogDrawer({ children }: LogDrawerProps) {
                     <DrawerDescription></DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>
-                    <Button>Submit</Button>
+                    <BulkLogDrawer>
+                        <Button>Log a Session</Button>
+                    </BulkLogDrawer>
                     <DrawerClose className="w-full">
                         <Button variant="outline" className="w-full">
                             Cancel
