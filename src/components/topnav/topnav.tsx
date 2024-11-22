@@ -3,6 +3,7 @@ import { Plus } from "lucide-react";
 import BulkLogDrawer from "~/components/bulklogdrawer/bulklogdrawer";
 import { SearchSheet } from "./components/searchsheet/searchsheet";
 import type { User } from "@clerk/nextjs/server";
+import { LogDrawer } from "../logdrawer/logdrawer";
 
 interface TopNavProps {
     title: string;
@@ -20,9 +21,9 @@ export function TopNav({ title, users }: TopNavProps) {
                         </SignedIn>
                     </div>
                     <div className="flex text-lg font-semibold">{title}</div>
-                    <BulkLogDrawer>
+                    <LogDrawer>
                         <Plus size={24} className="cursor-pointer" />
-                    </BulkLogDrawer>
+                    </LogDrawer>
                 </div>
             </div>
         </nav>
