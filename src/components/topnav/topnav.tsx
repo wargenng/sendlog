@@ -1,7 +1,7 @@
 import { SignedIn } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
 import BulkLogDrawer from "~/components/bulklogdrawer/bulklogdrawer";
-import { SearchSheet } from "./components/searchsheet";
+import { SearchSheet } from "./components/searchsheet/searchsheet";
 import type { User } from "@clerk/nextjs/server";
 
 interface TopNavProps {

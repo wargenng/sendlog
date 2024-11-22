@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { getIsUserProfile } from "~/app/api/climbActions";
 import BulkLogDrawer from "~/components/bulklogdrawer/bulklogdrawer";
 import { Skeleton } from "~/components/ui/skeleton";
-import { SearchSheet } from "./components/searchsheet";
+import { SearchSheet } from "./components/searchsheet/searchsheet";
 
 interface TopNavProps {
     title: string;

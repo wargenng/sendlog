@@ -15,7 +15,7 @@ import {
 
 import { CircleX, Eraser, Info, Plus, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { SessionTab } from "~/components/climbs/sessiontabs";
+import { SessionTab } from "~/components/sessiontabs/sessiontabs";
 import type { Climb, Session } from "~/server/db/schema";
 import DrawerMainContent from "../drawer/drawermaincontent";
 import { GradePickerDrawer } from "../gradepickerdrawer/gradepickerdrawer";

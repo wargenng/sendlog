@@ -2,17 +2,17 @@ import { getUsersSessions } from "~/app/api/sessionActions";
 import { SessionDrawerClient } from "./sessiondrawerclient";
 import type { Session } from "~/server/db/schema";
 
-interface SessionDrawerProps {
+interface SessionsDrawerProps {
     sessionId: string;
     setSessionId: (sessionId: string) => void;
     sessions: Session[];
 }
 
-export function SessionDrawer({
+export function SessionsDrawer({
     sessionId,
     setSessionId,
     sessions,
-}: SessionDrawerProps) {
+}: SessionsDrawerProps) {
     return (
         <SessionDrawerClient
             sessionId={sessionId}

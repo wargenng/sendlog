@@ -21,7 +21,7 @@ import {
 import { cn } from "~/lib/utils";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
-import { DrawerRight } from "../drawer/drawerright";
+import { DrawerRight } from "../../../drawer/drawerright";
 
 interface SessionDrawerClientProps {
     sessionId: string;
