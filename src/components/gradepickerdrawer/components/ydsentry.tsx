@@ -30,7 +30,7 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
 
     useEffect(() => {
         setClimb({ ...climb, grade: fullGrade });
-    }, [fullGrade, climb, setClimb]);
+    }, [fullGrade]);
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-4">

@@ -23,7 +23,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
 
     useEffect(() => {
         setHueco({ ...hueco, grade: fullGrade });
-    }, [fullGrade, hueco, setHueco]);
+    }, [fullGrade]);
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-4 pb-12">
