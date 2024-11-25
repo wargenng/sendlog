@@ -42,7 +42,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                 >
                     <ChevronDown className="h-6 w-6" />
                 </Button>
-                <div className="flex h-max items-start justify-between gap-1 font-bold">
+                <div className="flex h-max w-60 items-start justify-center gap-1 font-bold">
                     <p
                         className={`text-center opacity-0 ${modifier < 2 ? "text-4xl" : "text-xl"}`}
                     >

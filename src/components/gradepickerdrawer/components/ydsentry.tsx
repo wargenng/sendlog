@@ -29,11 +29,11 @@ const getModifier = (modifier: number, ydsmodifier: number, dash: boolean) => {
 
 export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
     const grades = 15;
+    const clear = 2;
     const [grade, setGrade] = useState(7);
-    const [modifier, setModifier] = useState(1);
+    const [modifier, setModifier] = useState(clear);
     const [ydsmodifier, setYDSModifier] = useState(-1);
     const [dash, setDash] = useState(false);
-    const clear = 2;
 
     const handleClimbChange = (
         grade: number,
@@ -73,7 +73,7 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
                 >
                     <ChevronDown className="h-6 w-6" />
                 </Button>
-                <div className="flex h-max items-start justify-between gap-1 font-bold">
+                <div className="flex h-max w-60 items-start justify-center gap-1 font-bold">
                     <p
                         className={`text-center opacity-0 ${ydsmodifier < 0 ? "text-4xl" : "text-xl"}`}
                     >
