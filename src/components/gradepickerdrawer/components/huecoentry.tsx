@@ -88,7 +88,11 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                             });
                         }}
                     >
-                        <p className="text-2xl">
+                        <p
+                            className={
+                                modifiers[i] === "/" ? `text-lg` : `text-2xl`
+                            }
+                        >
                             {mod ? mod : <X size={20} />}
                         </p>
                     </Button>
