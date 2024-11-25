@@ -7,22 +7,24 @@ interface HuecoEntryProps {
     hueco: Climb;
     setHueco: (hueco: Climb) => void;
 }
-const modifiers = ["-", "", "+", "/"];
+const modifiers = ["-", "+", "/", ""];
 const getFullGrade = (grade: number, modifier: number) => {
-    return (
-        "V" +
-        (modifiers[modifier] === ""
-            ? grade
-            : modifiers[modifier] === "/"
-              ? `${grade}/${grade + 1}`
-              : `${grade}${modifiers[modifier]}`)
-    );
+    return `V${grade}${
+        modifiers[modifier] === "/" ? `/${grade + 1}` : `${modifiers[modifier]}`
+    }`;
 };
 
 export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
     const grades = 17;
     const [grade, setGrade] = useState(0);
     const [modifier, setModifier] = useState(1);
+    const handleGradeChange = (grade: number) => {
+        setGrade(grade);
+        setHueco({
+            ...hueco,
+            grade: getFullGrade(grade, modifier),
+        });
+    };
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-4 pb-12">
@@ -31,9 +33,9 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     <Button
                         key={mod + i}
                         variant="none"
-                        className={`flex space-x-1 rounded-none p-2 text-foreground ${modifier === i ? "border-b border-primary" : ""}`}
+                        className={`flex h-12 w-12 space-x-1 rounded-full border p-2 text-foreground ${modifier === i ? "bg-primary text-primary-foreground" : ""}`}
                         onClick={() => {
-                            const mod = modifier === i ? 1 : i;
+                            const mod = modifier === i ? 3 : i;
                             setModifier(mod);
                             setHueco({
                                 ...hueco,
@@ -52,12 +54,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     variant="none"
                     className="h-max text-8xl font-bold"
                     onClick={() => {
-                        const grd = grade < grades ? grade + 1 : 0;
-                        setGrade(grd);
-                        setHueco({
-                            ...hueco,
-                            grade: getFullGrade(grd, modifier),
-                        });
+                        handleGradeChange(grade < grades ? grade + 1 : 0);
                     }}
                 >
                     {getFullGrade(grade, modifier)}
@@ -68,12 +65,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     className="flex h-12 w-12 items-center rounded-full border p-0"
                     variant="none"
                     onClick={() => {
-                        const grd = grade < grades ? grade + 1 : 0;
-                        setGrade(grd);
-                        setHueco({
-                            ...hueco,
-                            grade: getFullGrade(grd, modifier),
-                        });
+                        handleGradeChange(grade < grades ? grade + 1 : 0);
                     }}
                 >
                     <ChevronUp className="h-6 w-6" />
@@ -81,12 +73,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                 <Button
                     className="flex h-12 w-12 items-center rounded-full border p-0"
                     onClick={() => {
-                        const grd = grade > 0 ? grade - 1 : grades;
-                        setGrade(grd);
-                        setHueco({
-                            ...hueco,
-                            grade: getFullGrade(grd, modifier),
-                        });
+                        handleGradeChange(grade > 0 ? grade - 1 : grades);
                     }}
                     variant="none"
                 >
