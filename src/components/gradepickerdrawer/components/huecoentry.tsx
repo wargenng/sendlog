@@ -44,7 +44,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                 </Button>
                 <div className="flex h-max items-start justify-between gap-1 font-bold">
                     <p
-                        className={`text-center opacity-0 ${modifier < 2 ? "text-4xl" : "text-2xl"}`}
+                        className={`text-center opacity-0 ${modifier < 2 ? "text-4xl" : "text-xl"}`}
                     >
                         {getModifier(grade, modifier)}
                     </p>
@@ -58,7 +58,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                         <h1 className="text-8xl">{"V" + grade}</h1>
                     </Button>
                     <p
-                        className={`text-center opacity-50 ${modifier < 2 ? "text-4xl" : "text-2xl"}`}
+                        className={`text-center opacity-50 ${modifier < 2 ? "text-4xl" : "text-xl"}`}
                     >
                         {getModifier(grade, modifier)}
                     </p>
@@ -73,7 +73,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     <ChevronUp className="h-6 w-6" />
                 </Button>
             </div>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex h-12 w-full flex-wrap items-center justify-center gap-2">
                 {modifiers.map((mod, i) => (
                     <Button
                         key={mod + i}
