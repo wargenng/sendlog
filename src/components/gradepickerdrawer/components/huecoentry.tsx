@@ -1,5 +1,5 @@
 import { Ban, ChevronDown, ChevronUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import type { Climb } from "~/server/db/schema";
 
@@ -7,23 +7,22 @@ interface HuecoEntryProps {
     hueco: Climb;
     setHueco: (hueco: Climb) => void;
 }
-
-export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
-    const modifiers = ["-", "", "+", "/"];
-    const grades = 17;
-    const [grade, setGrade] = useState(0);
-    const [modifier, setModifier] = useState(1);
-    const fullGrade =
+const modifiers = ["-", "", "+", "/"];
+const getFullGrade = (grade: number, modifier: number) => {
+    return (
         "V" +
         (modifiers[modifier] === ""
             ? grade
             : modifiers[modifier] === "/"
               ? `${grade}/${grade + 1}`
-              : `${grade}${modifiers[modifier]}`);
+              : `${grade}${modifiers[modifier]}`)
+    );
+};
 
-    useEffect(() => {
-        setHueco({ ...hueco, grade: fullGrade });
-    }, [fullGrade]);
+export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
+    const grades = 17;
+    const [grade, setGrade] = useState(0);
+    const [modifier, setModifier] = useState(1);
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-4 pb-12">
@@ -34,11 +33,12 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                         variant="none"
                         className={`flex space-x-1 rounded-none p-2 text-foreground ${modifier === i ? "border-b border-primary" : ""}`}
                         onClick={() => {
-                            if (modifier === i) {
-                                setModifier(1);
-                            } else {
-                                setModifier(i);
-                            }
+                            const mod = modifier === i ? 1 : i;
+                            setModifier(mod);
+                            setHueco({
+                                ...hueco,
+                                grade: getFullGrade(grade, mod),
+                            });
                         }}
                     >
                         <p className="text-2xl">
@@ -52,10 +52,15 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     variant="none"
                     className="h-max text-8xl font-bold"
                     onClick={() => {
-                        setGrade(grade < grades ? grade + 1 : 0);
+                        const grd = grade < grades ? grade + 1 : 0;
+                        setGrade(grd);
+                        setHueco({
+                            ...hueco,
+                            grade: getFullGrade(grd, modifier),
+                        });
                     }}
                 >
-                    {fullGrade}
+                    {getFullGrade(grade, modifier)}
                 </Button>
             </div>
             <div className="flex w-full items-center justify-center gap-4">
@@ -63,7 +68,12 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     className="flex h-12 w-12 items-center rounded-full border p-0"
                     variant="none"
                     onClick={() => {
-                        setGrade(grade < grades ? grade + 1 : 0);
+                        const grd = grade < grades ? grade + 1 : 0;
+                        setGrade(grd);
+                        setHueco({
+                            ...hueco,
+                            grade: getFullGrade(grd, modifier),
+                        });
                     }}
                 >
                     <ChevronUp className="h-6 w-6" />
@@ -71,7 +81,12 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                 <Button
                     className="flex h-12 w-12 items-center rounded-full border p-0"
                     onClick={() => {
-                        setGrade(grade > 0 ? grade - 1 : grades);
+                        const grd = grade > 0 ? grade - 1 : grades;
+                        setGrade(grd);
+                        setHueco({
+                            ...hueco,
+                            grade: getFullGrade(grd, modifier),
+                        });
                     }}
                     variant="none"
                 >
