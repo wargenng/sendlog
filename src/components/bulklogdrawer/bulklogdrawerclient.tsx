@@ -52,8 +52,16 @@ export default function BulkLogDrawerClient({
             date: new Date(),
             notes: "",
         } as Session);
-        setSessionId(sessions.at(0)?.id.toString() ?? "");
-        setSessionTabValue("existing");
+        const today = new Date().toDateString();
+        const firstSessionDate = sessions.at(0)?.date.toDateString();
+
+        if (firstSessionDate === today) {
+            setSessionId(sessions.at(0)?.id.toString() ?? "");
+            setSessionTabValue(sessions.at(0)?.id.toString() ?? "existing");
+        } else {
+            setSessionId("");
+            setSessionTabValue("create");
+        }
     };
 
     return (
