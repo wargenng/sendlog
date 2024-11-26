@@ -38,10 +38,10 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
     }, []);
 
     return (
-        <div className="flex w-full flex-col items-center justify-center space-y-6 pb-12">
+        <div className="flex w-full flex-col items-center justify-center space-y-6 pb-10">
             <div className="flex w-full items-center justify-between">
                 <Button
-                    className="flex h-12 w-12 items-center rounded-full border p-0"
+                    className="flex h-10 w-10 items-center rounded-full border p-0"
                     onClick={() => {
                         handleGradeChange(grade > 0 ? grade - 1 : grades);
                     }}
@@ -71,7 +71,7 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     </p>
                 </div>
                 <Button
-                    className="flex h-12 w-12 items-center rounded-full border p-0"
+                    className="flex h-10 w-10 items-center rounded-full border p-0"
                     variant="none"
                     onClick={() => {
                         handleGradeChange(grade < grades ? grade + 1 : 0);
@@ -80,12 +80,12 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
                     <ChevronUp className="h-6 w-6" />
                 </Button>
             </div>
-            <div className="flex h-12 w-full flex-wrap items-center justify-center gap-2">
+            <div className="flex h-10 w-full flex-wrap items-center justify-center gap-2">
                 {modifiers.map((mod, i) => (
                     <Button
                         key={mod + i}
                         variant="none"
-                        className={`${i !== 3 ? "h-12 w-12 rounded-full border p-2 text-foreground" : "p-0"} ${modifier === i && modifier !== 3 ? "bg-primary text-primary-foreground" : ""}`}
+                        className={`${i !== 3 ? "h-10 w-10 rounded-full border p-2 text-foreground" : "p-0"} ${modifier === i && modifier !== 3 ? "bg-primary text-primary-foreground" : ""}`}
                         onClick={() => {
                             const mod = modifier === i ? 3 : i;
                             setModifier(mod);

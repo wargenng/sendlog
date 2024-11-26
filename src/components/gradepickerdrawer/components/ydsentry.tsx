@@ -59,10 +59,10 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
     }, []);
 
     return (
-        <div className="flex w-full flex-col items-center justify-center space-y-6 pb-12">
+        <div className="flex w-full flex-col items-center justify-center space-y-6 pb-10">
             <div className="flex w-full items-center justify-between">
                 <Button
-                    className="flex h-12 w-12 items-center rounded-full border p-0"
+                    className="flex h-10 w-10 items-center rounded-full border p-0"
                     onClick={() => {
                         const newgrade = grade > 0 ? grade - 1 : grades;
                         const checkreset =
@@ -121,53 +121,71 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
                     <ChevronUp className="h-6 w-6" />
                 </Button>
             </div>
-            <div className="flex h-12 w-full flex-wrap items-center justify-center gap-2">
-                {ydsmodifiers.map((mod, i) => (
-                    <Button
-                        key={mod + i}
-                        variant="none"
-                        className={`h-12 w-12 rounded-full border p-2 text-foreground ${ydsmodifier === i ? "bg-primary text-primary-foreground" : ""} ${grade < 10 ? "pointer-events-none opacity-25" : "pointer-events-auto"}`}
-                        onClick={() => {
-                            if (grade < 10) return;
-                            handleClimbChange(
-                                grade,
-                                ydsmodifier === i ? clear : -1,
-                                ydsmodifier === i ? -1 : i,
-                                i === 3 || ydsmodifier === i ? false : dash,
-                            );
-                        }}
-                    >
-                        <p className="text-xl">{mod}</p>
-                    </Button>
-                ))}
-                <Button
-                    variant="none"
-                    className={`h-12 w-12 rounded-full border p-2 text-foreground ${dash ? "bg-primary text-primary-foreground" : ""} ${ydsmodifier < 0 || ydsmodifier > 2 || grade < 10 ? "pointer-events-none opacity-25" : "pointer-events-auto"}`}
-                    onClick={() => {
-                        handleClimbChange(grade, modifier, ydsmodifier, !dash);
-                    }}
+            <div className="flex h-10 w-full flex-wrap items-center justify-center gap-2">
+                <div
+                    className={`${grade < 10 ? "max-w-0 opacity-0" : "max-w-full opacity-100"} flex items-center gap-2 overflow-hidden transition-all duration-500`}
                 >
-                    <p className="text-xl">/</p>
-                </Button>
-                {modifiers.slice(0, -1).map((mod, i) => (
+                    {ydsmodifiers.map((mod, i) => (
+                        <Button
+                            key={mod + i}
+                            variant="none"
+                            className={`relative h-10 w-10 flex-shrink-0 rounded-full border p-2 text-foreground ${ydsmodifier === i ? "bg-primary text-primary-foreground" : ""} ${grade < 10 ? "pointer-events-none opacity-25" : "pointer-events-auto"}`}
+                            onClick={() => {
+                                if (grade < 10) return;
+                                handleClimbChange(
+                                    grade,
+                                    ydsmodifier === i ? clear : -1,
+                                    ydsmodifier === i ? -1 : i,
+                                    i === 3 || ydsmodifier === i ? false : dash,
+                                );
+                            }}
+                        >
+                            <p className="text-xl">{mod}</p>
+                        </Button>
+                    ))}
+                </div>
+                <div
+                    className={`${ydsmodifier < 0 || ydsmodifier > 2 || grade < 10 ? "max-w-0 opacity-0" : "max-w-full opacity-100"} flex items-center overflow-hidden transition-all duration-500`}
+                >
                     <Button
-                        key={mod + i}
                         variant="none"
-                        className={`h-12 w-12 rounded-full border p-2 text-foreground ${modifier === i && i !== clear ? "bg-primary text-primary-foreground" : ""} ${grade < 7 && i !== clear ? "pointer-events-none opacity-25" : "pointer-events-auto"}`}
+                        className={`h-10 w-10 rounded-full border p-2 text-foreground ${dash ? "bg-primary text-primary-foreground" : ""} ${ydsmodifier < 0 || ydsmodifier > 2 || grade < 10 ? "pointer-events-none opacity-25" : "pointer-events-auto"}`}
                         onClick={() => {
                             handleClimbChange(
                                 grade,
-                                modifier === i ? clear : i,
-                                -1,
-                                false,
+                                modifier,
+                                ydsmodifier,
+                                !dash,
                             );
                         }}
                     >
-                        <p className="text-2xl">
-                            {mod ? mod : <X size={20} />}
-                        </p>
+                        <p className="text-xl">/</p>
                     </Button>
-                ))}
+                </div>
+                <div
+                    className={`${grade < 7 ? "max-w-0 opacity-0" : "max-w-full opacity-100"} flex items-center gap-2 overflow-hidden transition-all duration-500`}
+                >
+                    {modifiers.slice(0, -1).map((mod, i) => (
+                        <Button
+                            key={mod + i}
+                            variant="none"
+                            className={`h-10 w-10 rounded-full border p-2 text-foreground ${modifier === i && i !== clear ? "bg-primary text-primary-foreground" : ""} ${grade < 7 && i !== clear ? "pointer-events-none opacity-25" : "pointer-events-auto"}`}
+                            onClick={() => {
+                                handleClimbChange(
+                                    grade,
+                                    modifier === i ? clear : i,
+                                    -1,
+                                    false,
+                                );
+                            }}
+                        >
+                            <p className="text-2xl">
+                                {mod ? mod : <X size={20} />}
+                            </p>
+                        </Button>
+                    ))}
+                </div>
+
                 <Button
                     variant="none"
                     className={`p-0`}
