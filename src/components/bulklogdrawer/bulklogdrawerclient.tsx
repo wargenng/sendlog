@@ -57,7 +57,7 @@ export default function BulkLogDrawerClient({
 
         if (firstSessionDate === today) {
             setSessionId(sessions.at(0)?.id.toString() ?? "");
-            setSessionTabValue(sessions.at(0)?.id.toString() ?? "existing");
+            setSessionTabValue("existing");
         } else {
             setSessionId("");
             setSessionTabValue("create");
