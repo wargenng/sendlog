@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import type { Climb } from "~/server/db/schema";
 
@@ -50,6 +50,13 @@ export function YDSEntry({ climb, setClimb }: YDSEntryProps) {
             grade: getFullGrade(grade, modifier, ydsmodifier, dash),
         });
     };
+
+    useEffect(() => {
+        setClimb({
+            ...climb,
+            grade: getFullGrade(grade, modifier, ydsmodifier, dash),
+        });
+    }, []);
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-6 pb-12">

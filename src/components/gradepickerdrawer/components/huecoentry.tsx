@@ -1,6 +1,6 @@
 import { get } from "http";
 import { Ban, ChevronDown, ChevronUp, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import type { Climb } from "~/server/db/schema";
 
@@ -29,6 +29,13 @@ export function HuecoEntry({ hueco, setHueco }: HuecoEntryProps) {
             grade: getFullGrade(grade, modifier),
         });
     };
+
+    useEffect(() => {
+        setHueco({
+            ...hueco,
+            grade: getFullGrade(grade, modifier),
+        });
+    }, []);
 
     return (
         <div className="flex w-full flex-col items-center justify-center space-y-6 pb-12">
