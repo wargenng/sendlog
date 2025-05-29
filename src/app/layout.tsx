@@ -36,7 +36,7 @@ export default function RootLayout({
                     <meta name="apple-mobile-web-app-title" content="sendlog" />
                     <link rel="manifest" href="/site.webmanifest" />
                 </head>
-                <body className="flex flex-col items-center justify-between">
+                <body className="flex flex-col justify-between">
                     <SignedIn>
                         {children}
                         <Toaster />
